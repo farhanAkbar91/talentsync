@@ -1,0 +1,45 @@
+{
+  "id": "JOB-022",
+  "synthetic": true,
+  "role": "devops-engineer",
+  "level": "junior",
+  "title": "DevOps Engineer (Junior)",
+  "perusahaan": "PT Kreasi Aplikasi",
+  "lokasi": "Bandung",
+  "deskripsi": "Kami mencari DevOps Engineer level junior dengan pengalaman ±1 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 1+ tahun pada bidang insinyur DevOps",
+    "Menguasai Docker, CI/CD, GitHub Actions"
+  ],
+  "skills": [
+    {
+      "name": "Docker",
+      "required": true
+    },
+    {
+      "name": "CI/CD",
+      "required": true
+    },
+    {
+      "name": "GitHub Actions",
+      "required": true
+    },
+    {
+      "name": "Linux",
+      "required": true
+    },
+    {
+      "name": "Kubernetes",
+      "required": false
+    },
+    {
+      "name": "AWS",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan insinyur DevOps sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: DevOps Engineer (Junior) — PT Kreasi Aplikasi (Bandung)\nKami mencari DevOps Engineer level junior dengan pengalaman ±1 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 1+ tahun pada bidang insinyur DevOps\n- Menguasai Docker, CI/CD, GitHub Actions\nKEAHLIAN WAJIB: Docker, CI/CD, GitHub Actions, Linux, Kubernetes, AWS\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan insinyur DevOps sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}

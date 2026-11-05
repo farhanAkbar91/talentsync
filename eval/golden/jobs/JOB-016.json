@@ -1,0 +1,45 @@
+{
+  "id": "JOB-016",
+  "synthetic": true,
+  "role": "qa-engineer",
+  "level": "junior",
+  "title": "QA Engineer (Junior)",
+  "perusahaan": "PT Kreasi Aplikasi",
+  "lokasi": "Surabaya",
+  "deskripsi": "Kami mencari QA Engineer level junior dengan pengalaman ±1 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 1+ tahun pada bidang insinyur QA",
+    "Menguasai manual testing, Playwright, API testing"
+  ],
+  "skills": [
+    {
+      "name": "manual testing",
+      "required": true
+    },
+    {
+      "name": "Playwright",
+      "required": true
+    },
+    {
+      "name": "API testing",
+      "required": true
+    },
+    {
+      "name": "Postman",
+      "required": true
+    },
+    {
+      "name": "Selenium",
+      "required": false
+    },
+    {
+      "name": "Python",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan insinyur QA sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: QA Engineer (Junior) — PT Kreasi Aplikasi (Surabaya)\nKami mencari QA Engineer level junior dengan pengalaman ±1 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 1+ tahun pada bidang insinyur QA\n- Menguasai manual testing, Playwright, API testing\nKEAHLIAN WAJIB: manual testing, Playwright, API testing, Postman, Selenium, Python\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan insinyur QA sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}

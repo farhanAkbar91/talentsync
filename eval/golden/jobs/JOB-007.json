@@ -1,0 +1,49 @@
+{
+  "id": "JOB-007",
+  "synthetic": true,
+  "role": "frontend-developer",
+  "level": "junior",
+  "title": "Frontend Developer (Junior)",
+  "perusahaan": "PT Teknologi Cerdas",
+  "lokasi": "Bandung",
+  "deskripsi": "Kami mencari Frontend Developer level junior dengan pengalaman ±1 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 1+ tahun pada bidang pengembang frontend",
+    "Menguasai JavaScript, React, TypeScript"
+  ],
+  "skills": [
+    {
+      "name": "JavaScript",
+      "required": true
+    },
+    {
+      "name": "React",
+      "required": true
+    },
+    {
+      "name": "TypeScript",
+      "required": true
+    },
+    {
+      "name": "HTML",
+      "required": true
+    },
+    {
+      "name": "Next.js",
+      "required": false
+    },
+    {
+      "name": "Tailwind CSS",
+      "required": false
+    },
+    {
+      "name": "testing",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan pengembang frontend sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: Frontend Developer (Junior) — PT Teknologi Cerdas (Bandung)\nKami mencari Frontend Developer level junior dengan pengalaman ±1 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 1+ tahun pada bidang pengembang frontend\n- Menguasai JavaScript, React, TypeScript\nKEAHLIAN WAJIB: JavaScript, React, TypeScript, HTML, Next.js, Tailwind CSS, testing\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan pengembang frontend sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}

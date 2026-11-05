@@ -1,0 +1,45 @@
+{
+  "id": "JOB-028",
+  "synthetic": true,
+  "role": "product-manager",
+  "level": "junior",
+  "title": "Product Manager (Junior)",
+  "perusahaan": "PT Kreasi Aplikasi",
+  "lokasi": "Yogyakarta",
+  "deskripsi": "Kami mencari Product Manager level junior dengan pengalaman ±1 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 1+ tahun pada bidang manajer produk",
+    "Menguasai product roadmap, agile, analisis bisnis"
+  ],
+  "skills": [
+    {
+      "name": "product roadmap",
+      "required": true
+    },
+    {
+      "name": "agile",
+      "required": true
+    },
+    {
+      "name": "analisis bisnis",
+      "required": true
+    },
+    {
+      "name": "stakeholder management",
+      "required": true
+    },
+    {
+      "name": "Figma",
+      "required": false
+    },
+    {
+      "name": "SQL",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan manajer produk sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: Product Manager (Junior) — PT Kreasi Aplikasi (Yogyakarta)\nKami mencari Product Manager level junior dengan pengalaman ±1 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 1+ tahun pada bidang manajer produk\n- Menguasai product roadmap, agile, analisis bisnis\nKEAHLIAN WAJIB: product roadmap, agile, analisis bisnis, stakeholder management, Figma, SQL\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan manajer produk sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}

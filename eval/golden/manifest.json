@@ -1,0 +1,16 @@
+{
+  "generated_by": "scripts/generate_golden_synthetic.py",
+  "seed": 20261106,
+  "date": "2026-11-06",
+  "synthetic": true,
+  "n_cvs": 12,
+  "n_jobs": 30,
+  "n_pairs": 84,
+  "label_distribution": {
+    "0": 36,
+    "1": 12,
+    "2": 24,
+    "3": 12
+  },
+  "catatan": "CV sintetis berlabel (12 pertama dari komposisi docs/03 §4.4); tanpa PII; label dari konstruksi."
+}

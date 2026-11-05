@@ -10,8 +10,9 @@ from app.core.config import get_settings
 
 def build_engine(database_url: str) -> Engine:
     # connect_timeout hanya berlaku untuk psycopg (PostgreSQL); sqlite (test/E2E)
-    # akan menolak opsi asing.
-    connect_args = {"connect_timeout": 5} if database_url.startswith("postgresql") else {}
+    # akan menolak opsi asing. 10 dtk: koneksi cloud (Supabase pooler) bisa lebih
+    # lambat dari localhost — lihat ADR 0005.
+    connect_args = {"connect_timeout": 10} if database_url.startswith("postgresql") else {}
     return create_engine(
         database_url,
         pool_pre_ping=True,

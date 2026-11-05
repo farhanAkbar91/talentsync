@@ -1,0 +1,45 @@
+{
+  "id": "JOB-018",
+  "synthetic": true,
+  "role": "qa-engineer",
+  "level": "senior",
+  "title": "QA Engineer (Senior)",
+  "perusahaan": "PT Nusantara Digital",
+  "lokasi": "Yogyakarta",
+  "deskripsi": "Kami mencari QA Engineer level senior dengan pengalaman ±6 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 6+ tahun pada bidang insinyur QA",
+    "Menguasai manual testing, Playwright, API testing"
+  ],
+  "skills": [
+    {
+      "name": "manual testing",
+      "required": true
+    },
+    {
+      "name": "Playwright",
+      "required": true
+    },
+    {
+      "name": "API testing",
+      "required": true
+    },
+    {
+      "name": "Postman",
+      "required": true
+    },
+    {
+      "name": "Selenium",
+      "required": false
+    },
+    {
+      "name": "Python",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan insinyur QA sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: QA Engineer (Senior) — PT Nusantara Digital (Yogyakarta)\nKami mencari QA Engineer level senior dengan pengalaman ±6 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 6+ tahun pada bidang insinyur QA\n- Menguasai manual testing, Playwright, API testing\nKEAHLIAN WAJIB: manual testing, Playwright, API testing, Postman, Selenium, Python\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan insinyur QA sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}

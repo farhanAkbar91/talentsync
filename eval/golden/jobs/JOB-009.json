@@ -1,0 +1,49 @@
+{
+  "id": "JOB-009",
+  "synthetic": true,
+  "role": "frontend-developer",
+  "level": "senior",
+  "title": "Frontend Developer (Senior)",
+  "perusahaan": "PT Solusi Data Indonesia",
+  "lokasi": "Remote",
+  "deskripsi": "Kami mencari Frontend Developer level senior dengan pengalaman ±6 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 6+ tahun pada bidang pengembang frontend",
+    "Menguasai JavaScript, React, TypeScript"
+  ],
+  "skills": [
+    {
+      "name": "JavaScript",
+      "required": true
+    },
+    {
+      "name": "React",
+      "required": true
+    },
+    {
+      "name": "TypeScript",
+      "required": true
+    },
+    {
+      "name": "HTML",
+      "required": true
+    },
+    {
+      "name": "Next.js",
+      "required": false
+    },
+    {
+      "name": "Tailwind CSS",
+      "required": false
+    },
+    {
+      "name": "testing",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan pengembang frontend sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: Frontend Developer (Senior) — PT Solusi Data Indonesia (Remote)\nKami mencari Frontend Developer level senior dengan pengalaman ±6 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 6+ tahun pada bidang pengembang frontend\n- Menguasai JavaScript, React, TypeScript\nKEAHLIAN WAJIB: JavaScript, React, TypeScript, HTML, Next.js, Tailwind CSS, testing\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan pengembang frontend sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}

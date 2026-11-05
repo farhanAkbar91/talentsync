@@ -1,0 +1,49 @@
+{
+  "id": "JOB-010",
+  "synthetic": true,
+  "role": "backend-developer",
+  "level": "junior",
+  "title": "Backend Developer (Junior)",
+  "perusahaan": "PT Kreasi Aplikasi",
+  "lokasi": "Jakarta",
+  "deskripsi": "Kami mencari Backend Developer level junior dengan pengalaman ±1 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 1+ tahun pada bidang pengembang backend",
+    "Menguasai Python, FastAPI, PostgreSQL"
+  ],
+  "skills": [
+    {
+      "name": "Python",
+      "required": true
+    },
+    {
+      "name": "FastAPI",
+      "required": true
+    },
+    {
+      "name": "PostgreSQL",
+      "required": true
+    },
+    {
+      "name": "REST API",
+      "required": true
+    },
+    {
+      "name": "Redis",
+      "required": false
+    },
+    {
+      "name": "SQLAlchemy",
+      "required": false
+    },
+    {
+      "name": "Kubernetes",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan pengembang backend sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: Backend Developer (Junior) — PT Kreasi Aplikasi (Jakarta)\nKami mencari Backend Developer level junior dengan pengalaman ±1 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 1+ tahun pada bidang pengembang backend\n- Menguasai Python, FastAPI, PostgreSQL\nKEAHLIAN WAJIB: Python, FastAPI, PostgreSQL, REST API, Redis, SQLAlchemy, Kubernetes\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan pengembang backend sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}

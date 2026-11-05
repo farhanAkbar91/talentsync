@@ -1,0 +1,55 @@
+{
+  "corpus": {
+    "cvs": 12,
+    "jobs": 30,
+    "pairs": 84
+  },
+  "results": {
+    "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2": {
+      "dim": 384,
+      "cos_pos_mean": 0.7589,
+      "cos_pos_std": 0.0014,
+      "cos_neg_mean": 0.4525,
+      "cos_neg_std": 0.0735,
+      "gap": 0.3064,
+      "accuracy_midpoint": 1.0,
+      "threshold_anchor": 0.6057,
+      "n_pos": 3,
+      "n_neg": 6,
+      "subset_en": {
+        "n_pos": 33,
+        "n_neg": 42,
+        "gap": 0.2633
+      },
+      "latency_ms_per_text": {
+        "cv": 57.8,
+        "job": 55.0
+      },
+      "cos_pos_min": 0.7574,
+      "cos_neg_max": 0.5609
+    },
+    "intfloat/multilingual-e5-small": {
+      "dim": 384,
+      "cos_pos_mean": 0.9156,
+      "cos_pos_std": 0.0118,
+      "cos_neg_mean": 0.8536,
+      "cos_neg_std": 0.0151,
+      "gap": 0.0619,
+      "accuracy_midpoint": 1.0,
+      "threshold_anchor": 0.8846,
+      "n_pos": 3,
+      "n_neg": 6,
+      "subset_en": {
+        "n_pos": 33,
+        "n_neg": 42,
+        "gap": 0.0558
+      },
+      "latency_ms_per_text": {
+        "cv": 97.7,
+        "job": 60.4
+      },
+      "cos_pos_min": 0.9021,
+      "cos_neg_max": 0.874
+    }
+  }
+}

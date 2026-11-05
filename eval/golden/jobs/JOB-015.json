@@ -1,0 +1,45 @@
+{
+  "id": "JOB-015",
+  "synthetic": true,
+  "role": "fullstack-developer",
+  "level": "senior",
+  "title": "Fullstack Developer (Senior)",
+  "perusahaan": "PT Solusi Data Indonesia",
+  "lokasi": "Jakarta",
+  "deskripsi": "Kami mencari Fullstack Developer level senior dengan pengalaman ±6 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 6+ tahun pada bidang pengembang fullstack",
+    "Menguasai JavaScript, React, Node.js"
+  ],
+  "skills": [
+    {
+      "name": "JavaScript",
+      "required": true
+    },
+    {
+      "name": "React",
+      "required": true
+    },
+    {
+      "name": "Node.js",
+      "required": true
+    },
+    {
+      "name": "PostgreSQL",
+      "required": true
+    },
+    {
+      "name": "TypeScript",
+      "required": false
+    },
+    {
+      "name": "Docker",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan pengembang fullstack sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: Fullstack Developer (Senior) — PT Solusi Data Indonesia (Jakarta)\nKami mencari Fullstack Developer level senior dengan pengalaman ±6 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 6+ tahun pada bidang pengembang fullstack\n- Menguasai JavaScript, React, Node.js\nKEAHLIAN WAJIB: JavaScript, React, Node.js, PostgreSQL, TypeScript, Docker\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan pengembang fullstack sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}

@@ -1,0 +1,45 @@
+{
+  "id": "JOB-024",
+  "synthetic": true,
+  "role": "devops-engineer",
+  "level": "senior",
+  "title": "DevOps Engineer (Senior)",
+  "perusahaan": "PT Nusantara Digital",
+  "lokasi": "Remote",
+  "deskripsi": "Kami mencari DevOps Engineer level senior dengan pengalaman ±6 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 6+ tahun pada bidang insinyur DevOps",
+    "Menguasai Docker, CI/CD, GitHub Actions"
+  ],
+  "skills": [
+    {
+      "name": "Docker",
+      "required": true
+    },
+    {
+      "name": "CI/CD",
+      "required": true
+    },
+    {
+      "name": "GitHub Actions",
+      "required": true
+    },
+    {
+      "name": "Linux",
+      "required": true
+    },
+    {
+      "name": "Kubernetes",
+      "required": false
+    },
+    {
+      "name": "AWS",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan insinyur DevOps sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: DevOps Engineer (Senior) — PT Nusantara Digital (Remote)\nKami mencari DevOps Engineer level senior dengan pengalaman ±6 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 6+ tahun pada bidang insinyur DevOps\n- Menguasai Docker, CI/CD, GitHub Actions\nKEAHLIAN WAJIB: Docker, CI/CD, GitHub Actions, Linux, Kubernetes, AWS\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan insinyur DevOps sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}

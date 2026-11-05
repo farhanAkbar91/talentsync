@@ -1,0 +1,45 @@
+{
+  "id": "JOB-005",
+  "synthetic": true,
+  "role": "business-analyst",
+  "level": "mid",
+  "title": "Business Analyst (Menengah)",
+  "perusahaan": "PT Sistem Andalan",
+  "lokasi": "Jakarta",
+  "deskripsi": "Kami mencari Business Analyst level menengah dengan pengalaman ±3 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 3+ tahun pada bidang analis bisnis",
+    "Menguasai analisis bisnis, SQL, Excel"
+  ],
+  "skills": [
+    {
+      "name": "analisis bisnis",
+      "required": true
+    },
+    {
+      "name": "SQL",
+      "required": true
+    },
+    {
+      "name": "Excel",
+      "required": true
+    },
+    {
+      "name": "documentasi proses",
+      "required": true
+    },
+    {
+      "name": "BPMN",
+      "required": false
+    },
+    {
+      "name": "Tableau",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan analis bisnis sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: Business Analyst (Menengah) — PT Sistem Andalan (Jakarta)\nKami mencari Business Analyst level menengah dengan pengalaman ±3 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 3+ tahun pada bidang analis bisnis\n- Menguasai analisis bisnis, SQL, Excel\nKEAHLIAN WAJIB: analisis bisnis, SQL, Excel, documentasi proses, BPMN, Tableau\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan analis bisnis sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}

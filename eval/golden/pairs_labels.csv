@@ -1,0 +1,85 @@
+cv_id,job_id,label,rubrik
+CV-001,JOB-001,3,akan masuk shortlist
+CV-001,JOB-002,2,"relevan, layak dipertimbangkan"
+CV-001,JOB-003,2,"relevan, layak dipertimbangkan"
+CV-001,JOB-004,1,relevan lemah/sebagian
+CV-001,JOB-019,0,tidak relevan
+CV-001,JOB-008,0,tidak relevan
+CV-001,JOB-009,0,tidak relevan
+CV-002,JOB-002,3,akan masuk shortlist
+CV-002,JOB-001,2,"relevan, layak dipertimbangkan"
+CV-002,JOB-003,2,"relevan, layak dipertimbangkan"
+CV-002,JOB-005,1,relevan lemah/sebagian
+CV-002,JOB-021,0,tidak relevan
+CV-002,JOB-026,0,tidak relevan
+CV-002,JOB-007,0,tidak relevan
+CV-003,JOB-007,3,akan masuk shortlist
+CV-003,JOB-008,2,"relevan, layak dipertimbangkan"
+CV-003,JOB-009,2,"relevan, layak dipertimbangkan"
+CV-003,JOB-013,1,relevan lemah/sebagian
+CV-003,JOB-003,0,tidak relevan
+CV-003,JOB-026,0,tidak relevan
+CV-003,JOB-022,0,tidak relevan
+CV-004,JOB-009,3,akan masuk shortlist
+CV-004,JOB-007,2,"relevan, layak dipertimbangkan"
+CV-004,JOB-008,2,"relevan, layak dipertimbangkan"
+CV-004,JOB-013,1,relevan lemah/sebagian
+CV-004,JOB-016,0,tidak relevan
+CV-004,JOB-001,0,tidak relevan
+CV-004,JOB-022,0,tidak relevan
+CV-005,JOB-011,3,akan masuk shortlist
+CV-005,JOB-010,2,"relevan, layak dipertimbangkan"
+CV-005,JOB-012,2,"relevan, layak dipertimbangkan"
+CV-005,JOB-015,1,relevan lemah/sebagian
+CV-005,JOB-009,0,tidak relevan
+CV-005,JOB-030,0,tidak relevan
+CV-005,JOB-018,0,tidak relevan
+CV-006,JOB-012,3,akan masuk shortlist
+CV-006,JOB-010,2,"relevan, layak dipertimbangkan"
+CV-006,JOB-011,2,"relevan, layak dipertimbangkan"
+CV-006,JOB-015,1,relevan lemah/sebagian
+CV-006,JOB-018,0,tidak relevan
+CV-006,JOB-016,0,tidak relevan
+CV-006,JOB-024,0,tidak relevan
+CV-007,JOB-005,3,akan masuk shortlist
+CV-007,JOB-004,2,"relevan, layak dipertimbangkan"
+CV-007,JOB-006,2,"relevan, layak dipertimbangkan"
+CV-007,JOB-001,1,relevan lemah/sebagian
+CV-007,JOB-019,0,tidak relevan
+CV-007,JOB-021,0,tidak relevan
+CV-007,JOB-013,0,tidak relevan
+CV-008,JOB-014,3,akan masuk shortlist
+CV-008,JOB-013,2,"relevan, layak dipertimbangkan"
+CV-008,JOB-015,2,"relevan, layak dipertimbangkan"
+CV-008,JOB-010,1,relevan lemah/sebagian
+CV-008,JOB-023,0,tidak relevan
+CV-008,JOB-026,0,tidak relevan
+CV-008,JOB-009,0,tidak relevan
+CV-009,JOB-016,3,akan masuk shortlist
+CV-009,JOB-017,2,"relevan, layak dipertimbangkan"
+CV-009,JOB-018,2,"relevan, layak dipertimbangkan"
+CV-009,JOB-011,1,relevan lemah/sebagian
+CV-009,JOB-030,0,tidak relevan
+CV-009,JOB-022,0,tidak relevan
+CV-009,JOB-015,0,tidak relevan
+CV-010,JOB-020,3,akan masuk shortlist
+CV-010,JOB-019,2,"relevan, layak dipertimbangkan"
+CV-010,JOB-021,2,"relevan, layak dipertimbangkan"
+CV-010,JOB-009,1,relevan lemah/sebagian
+CV-010,JOB-022,0,tidak relevan
+CV-010,JOB-015,0,tidak relevan
+CV-010,JOB-001,0,tidak relevan
+CV-011,JOB-024,3,akan masuk shortlist
+CV-011,JOB-022,2,"relevan, layak dipertimbangkan"
+CV-011,JOB-023,2,"relevan, layak dipertimbangkan"
+CV-011,JOB-012,1,relevan lemah/sebagian
+CV-011,JOB-018,0,tidak relevan
+CV-011,JOB-016,0,tidak relevan
+CV-011,JOB-020,0,tidak relevan
+CV-012,JOB-029,3,akan masuk shortlist
+CV-012,JOB-028,2,"relevan, layak dipertimbangkan"
+CV-012,JOB-030,2,"relevan, layak dipertimbangkan"
+CV-012,JOB-005,1,relevan lemah/sebagian
+CV-012,JOB-007,0,tidak relevan
+CV-012,JOB-026,0,tidak relevan
+CV-012,JOB-024,0,tidak relevan

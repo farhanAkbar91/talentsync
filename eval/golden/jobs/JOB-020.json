@@ -1,0 +1,45 @@
+{
+  "id": "JOB-020",
+  "synthetic": true,
+  "role": "ui-ux-designer",
+  "level": "mid",
+  "title": "UI/UX Designer (Menengah)",
+  "perusahaan": "CV Maju Bersama",
+  "lokasi": "Jakarta",
+  "deskripsi": "Kami mencari UI/UX Designer level menengah dengan pengalaman ±3 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 3+ tahun pada bidang desainer UI/UX",
+    "Menguasai Figma, prototyping, design system"
+  ],
+  "skills": [
+    {
+      "name": "Figma",
+      "required": true
+    },
+    {
+      "name": "prototyping",
+      "required": true
+    },
+    {
+      "name": "design system",
+      "required": true
+    },
+    {
+      "name": "user research",
+      "required": true
+    },
+    {
+      "name": "usability testing",
+      "required": false
+    },
+    {
+      "name": "HTML",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan desainer UI/UX sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: UI/UX Designer (Menengah) — CV Maju Bersama (Jakarta)\nKami mencari UI/UX Designer level menengah dengan pengalaman ±3 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 3+ tahun pada bidang desainer UI/UX\n- Menguasai Figma, prototyping, design system\nKEAHLIAN WAJIB: Figma, prototyping, design system, user research, usability testing, HTML\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan desainer UI/UX sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}

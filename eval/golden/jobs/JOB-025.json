@@ -1,0 +1,45 @@
+{
+  "id": "JOB-025",
+  "synthetic": true,
+  "role": "mobile-developer",
+  "level": "junior",
+  "title": "Mobile Developer (Junior)",
+  "perusahaan": "PT Teknologi Cerdas",
+  "lokasi": "Jakarta",
+  "deskripsi": "Kami mencari Mobile Developer level junior dengan pengalaman ±1 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 1+ tahun pada bidang pengembang mobile",
+    "Menguasai Flutter, Dart, REST API"
+  ],
+  "skills": [
+    {
+      "name": "Flutter",
+      "required": true
+    },
+    {
+      "name": "Dart",
+      "required": true
+    },
+    {
+      "name": "REST API",
+      "required": true
+    },
+    {
+      "name": "SQLite",
+      "required": true
+    },
+    {
+      "name": "Kotlin",
+      "required": false
+    },
+    {
+      "name": "Firebase",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan pengembang mobile sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: Mobile Developer (Junior) — PT Teknologi Cerdas (Jakarta)\nKami mencari Mobile Developer level junior dengan pengalaman ±1 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 1+ tahun pada bidang pengembang mobile\n- Menguasai Flutter, Dart, REST API\nKEAHLIAN WAJIB: Flutter, Dart, REST API, SQLite, Kotlin, Firebase\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan pengembang mobile sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}

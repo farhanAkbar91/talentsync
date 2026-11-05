@@ -1,0 +1,45 @@
+{
+  "id": "JOB-017",
+  "synthetic": true,
+  "role": "qa-engineer",
+  "level": "mid",
+  "title": "QA Engineer (Menengah)",
+  "perusahaan": "PT Sistem Andalan",
+  "lokasi": "Bandung",
+  "deskripsi": "Kami mencari QA Engineer level menengah dengan pengalaman ±3 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 3+ tahun pada bidang insinyur QA",
+    "Menguasai manual testing, Playwright, API testing"
+  ],
+  "skills": [
+    {
+      "name": "manual testing",
+      "required": true
+    },
+    {
+      "name": "Playwright",
+      "required": true
+    },
+    {
+      "name": "API testing",
+      "required": true
+    },
+    {
+      "name": "Postman",
+      "required": true
+    },
+    {
+      "name": "Selenium",
+      "required": false
+    },
+    {
+      "name": "Python",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan insinyur QA sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: QA Engineer (Menengah) — PT Sistem Andalan (Bandung)\nKami mencari QA Engineer level menengah dengan pengalaman ±3 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 3+ tahun pada bidang insinyur QA\n- Menguasai manual testing, Playwright, API testing\nKEAHLIAN WAJIB: manual testing, Playwright, API testing, Postman, Selenium, Python\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan insinyur QA sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}

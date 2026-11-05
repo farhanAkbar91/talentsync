@@ -1,0 +1,45 @@
+{
+  "id": "JOB-013",
+  "synthetic": true,
+  "role": "fullstack-developer",
+  "level": "junior",
+  "title": "Fullstack Developer (Junior)",
+  "perusahaan": "PT Teknologi Cerdas",
+  "lokasi": "Yogyakarta",
+  "deskripsi": "Kami mencari Fullstack Developer level junior dengan pengalaman ±1 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 1+ tahun pada bidang pengembang fullstack",
+    "Menguasai JavaScript, React, Node.js"
+  ],
+  "skills": [
+    {
+      "name": "JavaScript",
+      "required": true
+    },
+    {
+      "name": "React",
+      "required": true
+    },
+    {
+      "name": "Node.js",
+      "required": true
+    },
+    {
+      "name": "PostgreSQL",
+      "required": true
+    },
+    {
+      "name": "TypeScript",
+      "required": false
+    },
+    {
+      "name": "Docker",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan pengembang fullstack sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: Fullstack Developer (Junior) — PT Teknologi Cerdas (Yogyakarta)\nKami mencari Fullstack Developer level junior dengan pengalaman ±1 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 1+ tahun pada bidang pengembang fullstack\n- Menguasai JavaScript, React, Node.js\nKEAHLIAN WAJIB: JavaScript, React, Node.js, PostgreSQL, TypeScript, Docker\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan pengembang fullstack sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}

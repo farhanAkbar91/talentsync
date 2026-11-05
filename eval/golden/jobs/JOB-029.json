@@ -1,0 +1,45 @@
+{
+  "id": "JOB-029",
+  "synthetic": true,
+  "role": "product-manager",
+  "level": "mid",
+  "title": "Product Manager (Menengah)",
+  "perusahaan": "PT Sistem Andalan",
+  "lokasi": "Remote",
+  "deskripsi": "Kami mencari Product Manager level menengah dengan pengalaman ±3 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 3+ tahun pada bidang manajer produk",
+    "Menguasai product roadmap, agile, analisis bisnis"
+  ],
+  "skills": [
+    {
+      "name": "product roadmap",
+      "required": true
+    },
+    {
+      "name": "agile",
+      "required": true
+    },
+    {
+      "name": "analisis bisnis",
+      "required": true
+    },
+    {
+      "name": "stakeholder management",
+      "required": true
+    },
+    {
+      "name": "Figma",
+      "required": false
+    },
+    {
+      "name": "SQL",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan manajer produk sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: Product Manager (Menengah) — PT Sistem Andalan (Remote)\nKami mencari Product Manager level menengah dengan pengalaman ±3 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 3+ tahun pada bidang manajer produk\n- Menguasai product roadmap, agile, analisis bisnis\nKEAHLIAN WAJIB: product roadmap, agile, analisis bisnis, stakeholder management, Figma, SQL\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan manajer produk sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}

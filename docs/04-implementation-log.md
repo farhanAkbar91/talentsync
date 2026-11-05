@@ -171,3 +171,72 @@ bukan `127.0.0.1`.
 - Tidak ada commit/push (menunggu persetujuan).
 
 **Catatan untuk sesi baru:** baca docs/07 §D–§H lebih dulu; jalankan `pytest -q` dan `npx playwright test` untuk membuktikan baseline sebelum menyentuh kode; jangan mulai P3 sebelum checklist prasyarat docs/08 §0 disetujui.
+
+## P3.0 — Infrastruktur AI Engine (6 November 2026)
+
+**Status:** ✅ Selesai dan terverifikasi penuh — gate lokal hijau + migrasi
+0006–0009 diterapkan ke Supabase + RLS aktif + integrasi end-to-end lulus.
+
+### Keputusan pemilik proyek (pra-P3.0)
+1. Supabase Project A (`postgres.llvyurqazuhhrevpfikm`, ap-southeast-1) = database utama.
+2. Rotasi password DB sebelum kredensial dipakai lanjut (**ternyata tidak bisa via
+   SQL** — role postgres tanpa hak ALTER USER; wajib via Dashboard Supabase).
+3. LLM: `openai/gpt-oss-120b` utama + `openai/gpt-oss-20b` fallback (benchmark live).
+4. Model via environment variables (fleksibel per F2).
+5. Benchmark embedding e5-small vs MiniLM sebelum model final dibekukan.
+6. SQLite utk unit test; Supabase utk integration test **non-destruktif**.
+7. Perbaikan konfigurasi + security hardening disetujui.
+
+### Temuan audit lingkungan (teratasi / berjalan)
+- Duplikat `DATABASE_URL` (baris kedua = project mati) + `backend/.env` tidak ada →
+  strategi `.env` dua peran baru (ADR 0005 §2.3).
+- Crash pydantic-settings pada `cors_origins` comma-format → `NoDecode` + validator.
+- Crash Alembic pada password berisi `%` → engine langsung dari Settings (env.py baru).
+- `GROQ_API_KEY` sebelumnya tidak ada di `.env` → kini ada & tervalidasi (200 /models).
+
+### Benchmark model (live, kunci akun)
+- LLM: gpt-oss-120b terbaik (json_schema penuh, 0 fabrikasi, 2,3 dtk);
+  qwen3.8-27b lemah (skills=0, 429); allam-2-7b **fabrikasi** → diskualifikasi;
+  Llama tidak tersedia di akun. Detail: `backend/scripts/benchmark_results.json` + ADR 0006.
+- Embedding: e5-small vs MiniLM pada golden set sintetis 84 pasangan —
+  **MiniLM menang**: gap separasi 0,306 vs 0,062 (margin ±5×), acc 1,00 keduanya,
+  latensi 55–58 vs 60–98 ms/teks → `EMBEDDING_MODEL=paraphrase-multilingual-MiniLM-L12-v2`
+  dibekukan (ADR 0006 §3); e5 boleh diuji ulang saat kalibrasi dgn CV volunteer.
+
+### Artefak P3.0
+- Kode: `config.py` (field P3 + NoDecode + env_file anchor) · `session.py`
+  (timeout 10) · `alembic/env.py` · **model `app/models/ai.py`** (4 tabel) +
+  kolom `payload/confirmed_*` di `cv_extractions` · **migrasi 0006–0009** ·
+  `pyproject` (+pgvector, +reportlab, extra `ai`: sentence-transformers) ·
+  compose (`env_file` backend/.env, required false).
+- Evaluasi: `eval/golden/` (12 CV + 30 job + 84 pasangan berlabel rubrik 0–3,
+  sintetis, tanpa PII) · skrip `generate_golden_synthetic.py`,
+  `benchmark_embedding_models.py`, `benchmark_groq_models.py`,
+  `verify_supabase_integration.py` (non-destruktif, self-cleaning).
+- Dokumen: ADR 0004 (vector dialect-aware) · ADR 0005 (Supabase & hardening) ·
+  ADR 0006 (model AI) · docs/05 diperbarui (skema P3.0).
+- Dependensi terpasang: torch 2.15.0+cpu, sentence-transformers 6.2.0,
+  pgvector, reportlab.
+
+### Gate lokal (Tahap 4 — bagian yang tidak butuh DB)
+pytest **51/51** ✅ · ruff check+format bersih (69 file) ✅ · frontend tsc+build
+hijau ✅ · secret scan file baru bersih, kedua `.env` ter-gitignore ✅.
+
+### Finalisasi database (setelah rotasi password oleh pemilik proyek)
+- `backend/.env` final dibuat pemilik proyek (port 5432 session pooler, password
+  baru tanpa karakter khusus, semua var P3) — verifikasi Settings & koneksi ✅.
+- **Migrasi 0006→0009 diterapkan bertahap** ke Supabase (verifikasi tiap langkah;
+  head = `0009`, 13 tabel) ✅.
+- **RLS ENABLE pada 13 tabel** (12 aplikasi + alembic_version) tanpa policy —
+  PostgREST anon ditolak, akses owner backend tetap ✅ (ADR 0005 §2.5).
+- **Integrasi end-to-end lulus** (`scripts/verify_supabase_integration.py`,
+  non-destruktif): health/ready 200 · alur HR register→perusahaan→job→publish ·
+  alur kandidat register→katalog→upload CV→ekstraksi ready · cleanup bersih
+  (semua baris uji terhapus, termasuk residu percobaan awal) ✅.
+- Perbaikan skrip selama verifikasi: `GET /cvs` mengembalikan list langsung (bukan
+  envelope pagination); FK `companies.created_by_user_id` & `jobs.company_id`
+  tidak CASCADE (desain soft-delete) → urutan cleanup jobs→companies→users.
+
+### Catatan penutup P3.0
+Tidak ada commit/push — menunggu persetujuan pemilik proyek. P3.0 selesai;
+langkah berikutnya: M1 — Advanced CV Parsing (docs/08 Wave 1).

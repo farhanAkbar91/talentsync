@@ -1,0 +1,49 @@
+{
+  "id": "JOB-003",
+  "synthetic": true,
+  "role": "data-analyst",
+  "level": "senior",
+  "title": "Data Analyst (Senior)",
+  "perusahaan": "PT Solusi Data Indonesia",
+  "lokasi": "Yogyakarta",
+  "deskripsi": "Kami mencari Data Analyst level senior dengan pengalaman ±6 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 6+ tahun pada bidang analis data",
+    "Menguasai SQL, Python, pandas"
+  ],
+  "skills": [
+    {
+      "name": "SQL",
+      "required": true
+    },
+    {
+      "name": "Python",
+      "required": true
+    },
+    {
+      "name": "pandas",
+      "required": true
+    },
+    {
+      "name": "Excel",
+      "required": true
+    },
+    {
+      "name": "Power BI",
+      "required": false
+    },
+    {
+      "name": "Tableau",
+      "required": false
+    },
+    {
+      "name": "A/B testing",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan analis data sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: Data Analyst (Senior) — PT Solusi Data Indonesia (Yogyakarta)\nKami mencari Data Analyst level senior dengan pengalaman ±6 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 6+ tahun pada bidang analis data\n- Menguasai SQL, Python, pandas\nKEAHLIAN WAJIB: SQL, Python, pandas, Excel, Power BI, Tableau, A/B testing\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan analis data sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}

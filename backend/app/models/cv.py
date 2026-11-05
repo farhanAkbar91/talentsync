@@ -8,6 +8,7 @@
 
 import uuid
 from datetime import datetime
+from typing import Any
 
 from sqlalchemy import (
     CheckConstraint,
@@ -23,6 +24,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
+from app.models.profile import JSONVariant
 
 CV_STATUSES = ("pending", "processing", "ready", "failed")
 
@@ -80,6 +82,13 @@ class CvExtraction(Base):
     page_count: Mapped[int | None] = mapped_column(Integer)
     parser_version: Mapped[str] = mapped_column(String(50))
     error_message: Mapped[str | None] = mapped_column(Text)
+    # Kolom fase AI (P3.0): payload terstruktur hasil ekstraksi LLM + jejak review
+    # HR (kapan dan oleh siapa hasil ekstraksi dikonfirmasi).
+    payload: Mapped[dict[str, Any] | None] = mapped_column(JSONVariant)
+    confirmed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    confirmed_by: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("users.id", ondelete="SET NULL")
+    )
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()

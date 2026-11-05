@@ -1,0 +1,45 @@
+{
+  "id": "CV-006",
+  "synthetic": true,
+  "role": "backend-developer",
+  "level": "senior",
+  "nama": "Maya Kusuma",
+  "headline": "pengembang backend senior",
+  "email": "maya.kusuma@example.dev",
+  "lokasi": "Yogyakarta",
+  "telepon": "+62 8176-4800-4294",
+  "ringkasan": "Backend Developer dengan 6 tahun pengalaman pada bidang pengembang backend, terbiasa bekerja dengan Python/FastAPI/PostgreSQL dan berkolaborasi dalam tim produk.",
+  "skills": [
+    "Python",
+    "FastAPI",
+    "PostgreSQL",
+    "REST API",
+    "Docker",
+    "Redis",
+    "SQLAlchemy"
+  ],
+  "pengalaman": [
+    {
+      "judul": "Backend Developer",
+      "perusahaan": "PT Nusantara Digital",
+      "periode": "2020-01 - sekarang",
+      "bullet": [
+        "Menangani pekerjaan pengembang backend menggunakan Python dan FastAPI.",
+        "Berkolaborasi dengan tim lintas fungsi untuk menghasilkan PostgreSQL yang terukur."
+      ]
+    }
+  ],
+  "pendidikan": [
+    {
+      "jenjang": "S2",
+      "jurusan": "Backend Developer",
+      "institusi": "Universitas Airlangga",
+      "tahun": "2016-2020",
+      "ipk": 3.85
+    }
+  ],
+  "sertifikasi": [
+    "Sertifikasi Profesional Backend Developer (2020)"
+  ],
+  "_text": "Maya Kusuma — pengembang backend senior\nmaya.kusuma@example.dev | Yogyakarta\nRINGKASAN\nBackend Developer dengan 6 tahun pengalaman pada bidang pengembang backend, terbiasa bekerja dengan Python/FastAPI/PostgreSQL dan berkolaborasi dalam tim produk.\nPENGALAMAN\nBackend Developer — PT Nusantara Digital (2020-01 - sekarang)\n- Menangani pekerjaan pengembang backend menggunakan Python dan FastAPI.\n- Berkolaborasi dengan tim lintas fungsi untuk menghasilkan PostgreSQL yang terukur.\nPENDIDIKAN\nS2 Backend Developer, Universitas Airlangga (2016-2020), IPK 3.85\nKEAHLIAN\nPython, FastAPI, PostgreSQL, REST API, Docker, Redis, SQLAlchemy\nSERTIFIKASI\n- Sertifikasi Profesional Backend Developer (2020)"
+}

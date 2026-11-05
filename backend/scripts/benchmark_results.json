@@ -1,0 +1,139 @@
+{
+  "openai/gpt-oss-120b": {
+    "T1": {
+      "usage": {
+        "queue_time": 0.322762061,
+        "prompt_tokens": 545,
+        "prompt_time": 0.035443304,
+        "completion_tokens": 712,
+        "completion_time": 1.497152424,
+        "total_tokens": 1257,
+        "total_time": 1.532595728,
+        "completion_tokens_details": {
+          "reasoning_tokens": 560
+        }
+      },
+      "elapsed": 2.26,
+      "json_valid": true,
+      "nama_ok": true,
+      "skills_count": 5,
+      "pengalaman_count": 2
+    },
+    "T2": {
+      "usage": {
+        "queue_time": 0.158246562,
+        "prompt_tokens": 569,
+        "prompt_time": 0.025404799,
+        "completion_tokens": 783,
+        "completion_time": 1.64762981,
+        "total_tokens": 1352,
+        "total_time": 1.6730346090000001,
+        "completion_tokens_details": {
+          "reasoning_tokens": 537
+        }
+      },
+      "elapsed": 2.09,
+      "edits_count": 2,
+      "fabrications": "tidak ada",
+      "json_valid": true
+    }
+  },
+  "qwen/qwen3.8-27b": {
+    "T1": {
+      "usage": {
+        "queue_time": 0.27955442,
+        "prompt_tokens": 316,
+        "prompt_time": 0.023893272,
+        "completion_tokens": 484,
+        "completion_time": 1.065568484,
+        "total_tokens": 800,
+        "total_time": 1.089461756
+      },
+      "elapsed": 1.58,
+      "fallback_json_object": true,
+      "json_valid": true,
+      "nama_ok": true,
+      "skills_count": 0,
+      "pengalaman_count": 2
+    },
+    "T2": {
+      "error": "429 rate limit",
+      "elapsed": 0.226606999989599
+    }
+  },
+  "openai/gpt-oss-20b": {
+    "T1": {
+      "usage": {
+        "queue_time": 0.366848639,
+        "prompt_tokens": 545,
+        "prompt_time": 0.031067984,
+        "completion_tokens": 517,
+        "completion_time": 0.554983361,
+        "total_tokens": 1062,
+        "total_time": 0.586051345,
+        "completion_tokens_details": {
+          "reasoning_tokens": 374
+        }
+      },
+      "elapsed": 1.21,
+      "json_valid": true,
+      "nama_ok": true,
+      "skills_count": 5,
+      "pengalaman_count": 2
+    },
+    "T2": {
+      "usage": {
+        "queue_time": 0.28564909,
+        "prompt_tokens": 569,
+        "prompt_time": 0.028642862,
+        "completion_tokens": 698,
+        "completion_time": 0.768026558,
+        "total_tokens": 1267,
+        "total_time": 0.79666942,
+        "completion_tokens_details": {
+          "reasoning_tokens": 506
+        }
+      },
+      "elapsed": 1.79,
+      "edits_count": 2,
+      "fabrications": "tidak ada",
+      "json_valid": true
+    }
+  },
+  "allam-2-7b": {
+    "T1": {
+      "usage": {
+        "queue_time": 0.046880453,
+        "prompt_tokens": 429,
+        "prompt_time": 0.012072397,
+        "completion_tokens": 830,
+        "completion_time": 0.604462496,
+        "total_tokens": 1259,
+        "total_time": 0.616534893
+      },
+      "elapsed": 0.9,
+      "fallback_json_object": true,
+      "json_valid": true,
+      "nama_ok": true,
+      "skills_count": 0,
+      "pengalaman_count": 3
+    },
+    "T2": {
+      "usage": {
+        "queue_time": 0.047892085,
+        "prompt_tokens": 705,
+        "prompt_time": 0.019464755,
+        "completion_tokens": 510,
+        "completion_time": 0.383950446,
+        "total_tokens": 1215,
+        "total_time": 0.403415201
+      },
+      "elapsed": 1.19,
+      "edits_count": 2,
+      "fabrications": [
+        "PENGALAMAN Data Analyst - CV Maju Bersama (2021-07 - 2022-12) menambah 'tableau'"
+      ],
+      "json_valid": true
+    }
+  }
+}

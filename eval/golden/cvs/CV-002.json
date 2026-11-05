@@ -1,0 +1,46 @@
+{
+  "id": "CV-002",
+  "synthetic": true,
+  "role": "data-analyst",
+  "level": "mid",
+  "nama": "Siti Rahmawati",
+  "headline": "analis data menengah",
+  "email": "siti.rahmawati@example.dev",
+  "lokasi": "Bandung",
+  "telepon": "+62 8161-5563-1190",
+  "ringkasan": "Data Analyst dengan 3 tahun pengalaman pada bidang analis data, terbiasa bekerja dengan SQL/Python/pandas dan berkolaborasi dalam tim produk.",
+  "skills": [
+    "SQL",
+    "Python",
+    "pandas",
+    "Excel",
+    "visualisasi data",
+    "statistika",
+    "Power BI",
+    "Tableau"
+  ],
+  "pengalaman": [
+    {
+      "judul": "Data Analyst",
+      "perusahaan": "CV Maju Bersama",
+      "periode": "2023-01 - sekarang",
+      "bullet": [
+        "Menangani pekerjaan analis data menggunakan SQL dan Python.",
+        "Berkolaborasi dengan tim lintas fungsi untuk menghasilkan pandas yang terukur."
+      ]
+    }
+  ],
+  "pendidikan": [
+    {
+      "jenjang": "S1",
+      "jurusan": "Data Analyst",
+      "institusi": "Universitas Airlangga",
+      "tahun": "2019-2023",
+      "ipk": 3.58
+    }
+  ],
+  "sertifikasi": [
+    "Sertifikasi Profesional Data Analyst (2023)"
+  ],
+  "_text": "Siti Rahmawati — analis data menengah\nsiti.rahmawati@example.dev | Bandung\nRINGKASAN\nData Analyst dengan 3 tahun pengalaman pada bidang analis data, terbiasa bekerja dengan SQL/Python/pandas dan berkolaborasi dalam tim produk.\nPENGALAMAN\nData Analyst — CV Maju Bersama (2023-01 - sekarang)\n- Menangani pekerjaan analis data menggunakan SQL dan Python.\n- Berkolaborasi dengan tim lintas fungsi untuk menghasilkan pandas yang terukur.\nPENDIDIKAN\nS1 Data Analyst, Universitas Airlangga (2019-2023), IPK 3.58\nKEAHLIAN\nSQL, Python, pandas, Excel, visualisasi data, statistika, Power BI, Tableau\nSERTIFIKASI\n- Sertifikasi Profesional Data Analyst (2023)"
+}

@@ -1,0 +1,45 @@
+{
+  "id": "CV-010",
+  "synthetic": true,
+  "role": "ui-ux-designer",
+  "level": "mid",
+  "nama": "Lina Marlina",
+  "headline": "desainer UI/UX menengah",
+  "email": "lina.marlina@example.dev",
+  "lokasi": "Jakarta",
+  "telepon": "+62 8137-1523-8388",
+  "ringkasan": "UI/UX Designer dengan 3 tahun pengalaman pada bidang desainer UI/UX, terbiasa bekerja dengan Figma/prototyping/design system dan berkolaborasi dalam tim produk.",
+  "skills": [
+    "Figma",
+    "prototyping",
+    "design system",
+    "user research",
+    "wireframe",
+    "usability testing",
+    "HTML"
+  ],
+  "pengalaman": [
+    {
+      "judul": "UI/UX Designer",
+      "perusahaan": "PT Kreasi Aplikasi",
+      "periode": "2023-01 - sekarang",
+      "bullet": [
+        "Menangani pekerjaan desainer UI/UX menggunakan Figma dan prototyping.",
+        "Berkolaborasi dengan tim lintas fungsi untuk menghasilkan design system yang terukur."
+      ]
+    }
+  ],
+  "pendidikan": [
+    {
+      "jenjang": "S1",
+      "jurusan": "UI/UX Designer",
+      "institusi": "Universitas Airlangga",
+      "tahun": "2019-2023",
+      "ipk": 3.64
+    }
+  ],
+  "sertifikasi": [
+    "Sertifikasi Profesional UI/UX Designer (2023)"
+  ],
+  "_text": "Lina Marlina — desainer UI/UX menengah\nlina.marlina@example.dev | Jakarta\nRINGKASAN\nUI/UX Designer dengan 3 tahun pengalaman pada bidang desainer UI/UX, terbiasa bekerja dengan Figma/prototyping/design system dan berkolaborasi dalam tim produk.\nPENGALAMAN\nUI/UX Designer — PT Kreasi Aplikasi (2023-01 - sekarang)\n- Menangani pekerjaan desainer UI/UX menggunakan Figma dan prototyping.\n- Berkolaborasi dengan tim lintas fungsi untuk menghasilkan design system yang terukur.\nPENDIDIKAN\nS1 UI/UX Designer, Universitas Airlangga (2019-2023), IPK 3.64\nKEAHLIAN\nFigma, prototyping, design system, user research, wireframe, usability testing, HTML\nSERTIFIKASI\n- Sertifikasi Profesional UI/UX Designer (2023)"
+}

@@ -1,7 +1,8 @@
-# Database & API — Status Setelah P1+P2
+# Database & API — Status Setelah P1+P2 + P3.0 (infra AI Engine)
 
 > Dokumen teknis hidup. Perubahan schema WAJIB lewat migrasi Alembic — dilarang
-> mengubah database secara manual di luar migrasi.
+> mengubah database secara manual di luar migrasi. Database dev/prod kini
+> Supabase PostgreSQL 17 (ADR 0005); unit test lokal tetap SQLite.
 
 ## 1. Skema Database (migrasi 0001–0005) — **8 tabel**
 
@@ -71,7 +72,31 @@ statis) · `original_filename` · `mime_type` · `file_size_bytes` · `content_s
 dedupe per pemilik) · `is_primary` · `version` · `parent_cv_id` FK self (use_alter,
 rantai versi optimasi fase AI) · `deleted_at` (soft delete) · timestamps.
 cv_extractions: `id` · `cv_id` FK CASCADE UNIQUE · `status` (pending/done/failed) ·
-`raw_text` · `page_count` · `parser_version` (`pymupdf-basic-v1`) · `error_message` · timestamps.
+`raw_text` · `page_count` · `parser_version` (`pymupdf-basic-v1`) · `error_message` ·
+**payload JSONB nullable (P3.0, 0006)** · **confirmed_at / confirmed_by FK users
+SET NULL (P3.0, 0006)** · timestamps.
+
+### Tabel P3.0 — AI Engine (migrasi 0006–0009, ADR 0004)
+
+```
+cvs (1) ──< cv_embeddings     UNIQUE(cv_id, model, text_kind)   CASCADE
+jobs (1) ──< job_embeddings   UNIQUE(job_id, model, text_kind)  CASCADE
+cvs (1) ──< match_results     UNIQUE(cv_id, job_id, model_version) CASCADE
+jobs (1) ──< match_results    (index job_id utk ranking M9)
+cvs (1) ──< cv_optimizations  (job_id CASCADE; applied_cv_id SET NULL)
+```
+
+- **cv_embeddings / job_embeddings** (0007): `embedding VECTOR(384)` pgvector
+  (varian JSON di SQLite — ADR 0004) · `model` String(120) · `text_kind`
+  String(30) · timestamps. Tanpa index vektor (sequential scan disengaja, MVP).
+- **match_results** (0008): `overall Float` · `factors/matched_skills/missing_skills`
+  JSONB NOT NULL · `evidence/top_experiences` JSONB nullable · `explanation Text`
+  nullable · `model_version` String(60) — upsert per versi model.
+- **cv_optimizations** (0009): `status` CHECK `('generating','completed','failed',
+  'applied')` default generating · `suggestions/decisions/grounding_report` JSONB
+  nullable · `llm_provider/llm_model/prompt_version` nullable · `error_message`
+  nullable · `applied_cv_id` FK cvs SET NULL · timestamps.
+- RLS: seluruh tabel `ENABLE ROW LEVEL SECURITY` tanpa policy (ADR 0005 §2.5).
 
 ## 2. Daftar Endpoint API v1 — **30 endpoint** (termasuk 2 health)
 

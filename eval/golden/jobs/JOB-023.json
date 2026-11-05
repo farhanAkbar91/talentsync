@@ -1,0 +1,45 @@
+{
+  "id": "JOB-023",
+  "synthetic": true,
+  "role": "devops-engineer",
+  "level": "mid",
+  "title": "DevOps Engineer (Menengah)",
+  "perusahaan": "PT Sistem Andalan",
+  "lokasi": "Yogyakarta",
+  "deskripsi": "Kami mencari DevOps Engineer level menengah dengan pengalaman ±3 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 3+ tahun pada bidang insinyur DevOps",
+    "Menguasai Docker, CI/CD, GitHub Actions"
+  ],
+  "skills": [
+    {
+      "name": "Docker",
+      "required": true
+    },
+    {
+      "name": "CI/CD",
+      "required": true
+    },
+    {
+      "name": "GitHub Actions",
+      "required": true
+    },
+    {
+      "name": "Linux",
+      "required": true
+    },
+    {
+      "name": "Kubernetes",
+      "required": false
+    },
+    {
+      "name": "AWS",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan insinyur DevOps sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: DevOps Engineer (Menengah) — PT Sistem Andalan (Yogyakarta)\nKami mencari DevOps Engineer level menengah dengan pengalaman ±3 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 3+ tahun pada bidang insinyur DevOps\n- Menguasai Docker, CI/CD, GitHub Actions\nKEAHLIAN WAJIB: Docker, CI/CD, GitHub Actions, Linux, Kubernetes, AWS\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan insinyur DevOps sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}

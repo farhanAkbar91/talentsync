@@ -16,6 +16,9 @@ dependencies = [
     "email-validator>=2.2",
     "python-multipart>=0.0.12",
     "pymupdf>=1.24",
+    # P3 — AI Engine
+    "pgvector>=0.3",     # tipe Vector(384) utk kolom embedding (PostgreSQL)
+    "reportlab>=4.2",    # ekspor PDF CV hasil optimasi (M8)
 ]
 
 [project.optional-dependencies]
@@ -23,6 +26,12 @@ dev = [
     "pytest>=8.3",
     "httpx>=0.28",
     "ruff>=0.8",
+]
+# Ekstra AI: model embedding lokal (M3). torch di Windows: PyPI = CPU-only;
+# di Linux/CI gunakan index CPU pytorch agar install ringan:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+ai = [
+    "sentence-transformers>=3.0",
 ]
 
 [build-system]

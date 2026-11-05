@@ -1,0 +1,45 @@
+{
+  "id": "JOB-021",
+  "synthetic": true,
+  "role": "ui-ux-designer",
+  "level": "senior",
+  "title": "UI/UX Designer (Senior)",
+  "perusahaan": "PT Solusi Data Indonesia",
+  "lokasi": "Surabaya",
+  "deskripsi": "Kami mencari UI/UX Designer level senior dengan pengalaman ±6 tahun untuk bergabung dengan tim produk kami.",
+  "requirements": [
+    "Pengalaman 6+ tahun pada bidang desainer UI/UX",
+    "Menguasai Figma, prototyping, design system"
+  ],
+  "skills": [
+    {
+      "name": "Figma",
+      "required": true
+    },
+    {
+      "name": "prototyping",
+      "required": true
+    },
+    {
+      "name": "design system",
+      "required": true
+    },
+    {
+      "name": "user research",
+      "required": true
+    },
+    {
+      "name": "usability testing",
+      "required": false
+    },
+    {
+      "name": "HTML",
+      "required": false
+    }
+  ],
+  "responsibilities": [
+    "Melaksanakan pekerjaan desainer UI/UX sehari-hari",
+    "Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+  ],
+  "_text": "POSISI: UI/UX Designer (Senior) — PT Solusi Data Indonesia (Surabaya)\nKami mencari UI/UX Designer level senior dengan pengalaman ±6 tahun untuk bergabung dengan tim produk kami.\nKUALIFIKASI\n- Pengalaman 6+ tahun pada bidang desainer UI/UX\n- Menguasai Figma, prototyping, design system\nKEAHLIAN WAJIB: Figma, prototyping, design system, user research, usability testing, HTML\nTANGGUNG JAWAB\n- Melaksanakan pekerjaan desainer UI/UX sehari-hari\n- Berkolaborasi dengan tim produk dan menyampaikan hasil secara terukur"
+}
