@@ -1,0 +1,36 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# --- Node ---
+node_modules/
+frontend/dist/
+
+# --- Environment & secrets ---
+.env
+.env.local
+.env.*.local
+
+# --- Runtime data ---
+uploads/
+test_uploads*/
+dbg_uploads/
+*.log
+*.db
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# --- E2E (Playwright) ---
+frontend/test-results/
+frontend/playwright-report/
