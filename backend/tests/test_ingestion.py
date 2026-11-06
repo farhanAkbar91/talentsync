@@ -346,7 +346,12 @@ class TestIngestService:
         assert job.work_mode == "remote"
         assert job.employment_type == "full_time"  # fallback kolom NOT NULL (lihat docstring)
         assert job.location_text == "Remote Worldwide"
-        assert job.posted_at == datetime(2026, 11, 5, 10, 0)
+        # PG TIMESTAMPTZ mengembalikan datetime aware; SQLite naive.
+        # Normalisasi ke UTC sebelum membandingkan (sumber naive = UTC).
+        posted = job.posted_at
+        if posted.tzinfo is not None:
+            posted = posted.astimezone(UTC).replace(tzinfo=None)
+        assert posted == datetime(2026, 11, 5, 10, 0)
         assert job.deleted_at is None
         assert job.last_seen_at is not None
 
