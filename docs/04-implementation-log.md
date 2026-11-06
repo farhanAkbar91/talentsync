@@ -482,6 +482,31 @@ CI LULUS. **AI ENGINE (M1–M9) LENGKAP.**
   teruji nyata; M8 sengaja tanpa E2E (butuh Groq live) — diverifikasi
   mock-intercept (2 pass, bug param route ketemu & diperbaiki).
 
+### Fase Data Engineering — Job Ingestion Pipeline (7 November 2026)
+
+**Status:** ✅ Selesai & lolos gate — AI Engine + Data Engineering LENGKAP.
+
+- Migrasi **0013**: `jobs.external_id` + `source_url` + unique index parsial
+  `(source_type, external_id) WHERE external_id IS NOT NULL AND deleted_at IS
+  NULL` — dedupe tingkat database; diterapkan ke Supabase.
+- `app/ingestion/`: 3 konektor API publik (**RemoteOK** — skip legal-notice +
+  atribusi url wajib; **Remotive**; **Arbeitnow**) — timeout 20s, UA akademik,
+  sanity <5MB, tanpa auth/scraping, error jaringan → [] + warning;
+  `normalizer.py` TOTAL (strip HTML, cap title 200/desc 20k, tags→skills
+  max 10); `ingest_service.ingest` — dedupe (source_type, external_id),
+  last_seen_at update, status 'active', closing_at +30 hari, skills lewat
+  jalur normalisasi yang sama dengan form HR, user sistem
+  system@ingestion.talentsync.dev + perusahaan wadah "TalentSync External
+  Jobs" (idempoten), embed guarded, **dry-run**.
+- CLI `scripts/ingest_jobs.py --source {remoteok|remotive|arbeitnow|all}
+  --limit N --dry-run` (jeda 2 dtk antar sumber).
+- Live smoke (sekali, RemoteOK limit 5, temp sqlite): inserted=5 → run-2
+  inserted=0/skipped=5 (idempoten pada data live).
+- Gate: pytest **381/381** (+27) · ruff bersih · build hijau · Playwright 3/3.
+
+### Penutup Proyek AI Engine + Data Engineering
+Seluruh rencana (P3.0 → M1–M9 → Final Integration → Data Engineering) tuntas
+dan terverifikasi. Commit history per wave; CI GitHub lulus di setiap push.
 ### Gate akhir Wave 5 + Final AI Integration
 pytest **354/354** (+63) · ruff bersih · build hijau · **Playwright 3/3** ·
 migrasi 0012 + RLS di Supabase · **CI LULUS** (`d219867`) · live groundedness

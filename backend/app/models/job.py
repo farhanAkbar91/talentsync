@@ -3,8 +3,9 @@
 Struktur skills: [{"name": str, "required": bool}] — pembobotan 60% required /
 40% preferred (desain Figma "Buat Lowongan Baru") diterapkan oleh matching engine
 di fase AI; flag `required` sudah membedakan kedua kelompok sejak sekarang.
-Kolom eksternal ingestion (source_name, external_id, dst.) ditambahkan pada fase
-pipeline; `source_type` sudah disiapkan agar migrasi belakangan kecil.
+Provenance ingestion (0013): `source_type` membedakan 'hr' vs sumber eksternal
+(remoteok/remotive/arbeitnow); `external_id` + `source_url` mengidentifikasi
+lowongan asli (dedupe & atribusi wajib, docs/03 §3).
 """
 
 import uuid
@@ -56,12 +57,25 @@ class Job(Base):
             "closing_at",
             postgresql_where=text("status = 'active' AND deleted_at IS NULL"),
         ),
+        # Dedupe ingestion (0013): unik parsial — hanya baris eksternal (external_id
+        # terisi & belum soft-delete) yang dijaga; lowongan HR (NULL) tidak terjangkut.
+        Index(
+            "uq_jobs_source_external",
+            "source_type",
+            "external_id",
+            unique=True,
+            postgresql_where=text("external_id IS NOT NULL AND deleted_at IS NULL"),
+        ),
     )
 
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True, default=uuid.uuid4)
     company_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("companies.id"), index=True)
     posted_by_user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"))
     source_type: Mapped[str] = mapped_column(String(10), default="hr")
+    # Provenance ingestion (0013): ID asli di sumber (dedupe) + tautan asli
+    # (atribusi wajib utk sumber eksternal — docs/03 §3).
+    external_id: Mapped[str | None] = mapped_column(String(160))
+    source_url: Mapped[str | None] = mapped_column(String(500))
 
     title: Mapped[str] = mapped_column(String(255), index=True)
     description: Mapped[str] = mapped_column(Text)
