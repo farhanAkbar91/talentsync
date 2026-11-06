@@ -67,3 +67,71 @@ class DiagnosisOut(BaseModel):
     strengths: list[DiagnosisStrengthOut]
     improvements: list[DiagnosisImprovementOut]
     computed_at: datetime
+
+
+# --- Optimasi CV by LLM (M8 Wave 5) ---
+
+
+class OptimizationStartIn(BaseModel):
+    """Body POST /cvs/{id}/optimizations — lowongan tujuan + opsi regenerate."""
+
+    job_id: uuid.UUID
+    regenerate: bool = False
+
+
+class OptimizationStartOut(BaseModel):
+    """Respons mulai generasi: baris 'generating' baru atau hasil cache kuota.
+
+    `cached=True` berarti baris hasil completed lama dikembalikan apa adanya
+    (tanpa panggilan LLM)."""
+
+    model_config = {"from_attributes": True}
+
+    id: uuid.UUID
+    cv_id: uuid.UUID
+    job_id: uuid.UUID
+    status: str
+    cached: bool
+    model_version: str | None = None
+    created_at: datetime
+
+
+class OptimizationOut(BaseModel):
+    """Detail satu baris optimasi: saran + laporan grounding + keputusan."""
+
+    model_config = {"from_attributes": True}
+
+    id: uuid.UUID
+    cv_id: uuid.UUID
+    job_id: uuid.UUID
+    status: str  # generating | completed | failed | applied
+    suggestions: list[dict] | None = None
+    grounding_report: dict | None = None
+    decisions: dict | None = None
+    llm_provider: str | None = None
+    llm_model: str | None = None
+    prompt_version: str | None = None
+    error_message: str | None = None
+    applied_cv_id: uuid.UUID | None = None
+    created_at: datetime
+    updated_at: datetime
+
+
+class OptimizationListOut(BaseModel):
+    """Respons daftar riwayat optimasi CV (terbaru lebih dulu)."""
+
+    items: list[OptimizationOut]
+    total: int
+
+
+class OptimizationApplyIn(BaseModel):
+    """Body POST .../apply — keputusan per suggestion_id (True = diterima)."""
+
+    decisions: dict[str, bool]
+
+
+class OptimizationApplyOut(BaseModel):
+    """Respons penerapan: CV versi baru + jumlah saran yang diterapkan."""
+
+    new_cv_id: uuid.UUID
+    applied: int

@@ -141,10 +141,19 @@ export default function MyCvPage() {
               {cvs.map((cv) => (
                 <tr key={cv.id} className="border-b border-slate-100 last:border-0">
                   <td className="px-4 py-3">
-                    <span className="font-medium text-slate-700">{cv.original_filename}</span>
-                    {cv.is_primary && (
-                      <Badge value="active" label="CV Utama" />
-                    )}
+                    <span className="flex flex-wrap items-center gap-1.5">
+                      <span className="font-medium text-slate-700">{cv.original_filename}</span>
+                      {/* Versi hasil optimasi (M8): v2+ berarti turunan dari CV asli. */}
+                      {cv.version > 1 && (
+                        <span
+                          title={`Versi ${cv.version} — dihasilkan dari optimasi CV`}
+                          className="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-semibold text-blue-700 ring-1 ring-blue-200"
+                        >
+                          v{cv.version}
+                        </span>
+                      )}
+                      {cv.is_primary && <Badge value="active" label="CV Utama" />}
+                    </span>
                   </td>
                   <td className="px-4 py-3 text-slate-500">{formatFileSize(cv.file_size_bytes)}</td>
                   <td className="px-4 py-3 text-slate-500">{cv.page_count ?? "—"}</td>

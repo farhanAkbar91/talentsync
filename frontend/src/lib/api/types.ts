@@ -475,3 +475,160 @@ export interface GapResult {
   learning_suggestions: LearningSuggestion[];
   explanation: string;
 }
+
+// --- Optimasi CV via LLM (M8) ---
+
+export type OptimizationStatus = "generating" | "completed" | "failed" | "applied";
+
+export type OptimizationChangeType = string;
+
+/** Satu saran perubahan CV dari LLM (sudah divalidasi aturan grounding). */
+export interface OptimizationSuggestion {
+  suggestion_id: string;
+  source_ref: string;
+  section: string;
+  original_text: string;
+  suggested_text: string;
+  rationale: string;
+  change_type: OptimizationChangeType;
+}
+
+/** Laporan validasi grounding atas saran LLM. */
+export interface GroundingReport {
+  passed: boolean;
+  violations: { suggestion_id: string; rule: string; detail: string }[];
+  checked: number;
+}
+
+/** Satu baris hasil optimasi CV (list maupun detail — bentuk sama). */
+export interface OptimizationRow {
+  id: string;
+  cv_id: string;
+  job_id: string;
+  status: OptimizationStatus;
+  /** null saat masih generating / gagal. */
+  suggestions: OptimizationSuggestion[] | null;
+  /** Peta suggestion_id → true (diterima) dari keputusan apply terakhir. */
+  decisions: Record<string, boolean> | null;
+  grounding_report: GroundingReport | null;
+  llm_model: string | null;
+  prompt_version: string | null;
+  error_message: string | null;
+  /** CV versi baru hasil apply (status "applied"). */
+  applied_cv_id: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+/** Respons 201 POST /cvs/{cv_id}/optimizations — proses berjalan async.
+ *  status "completed" berarti hasil cache dikembalikan langsung (cached=true). */
+export interface OptimizationStart {
+  id: string;
+  cv_id: string;
+  job_id: string;
+  status: "generating" | "completed";
+  /** true bila hasil cache dipakai (tidak memanggil LLM lagi). */
+  cached?: boolean;
+}
+
+/** Respons 200 POST /cvs/{cv_id}/optimizations/{opt_id}/apply. */
+export interface OptimizationApplyResult {
+  new_cv_id: string;
+  applied: number;
+}
+
+// --- Lamaran (Applications) ---
+
+export type ApplicationStatus =
+  | "submitted"
+  | "reviewed"
+  | "shortlisted"
+  | "hired"
+  | "rejected";
+
+/** Respons 201 POST /jobs/{job_id}/apply. */
+export interface ApplicationCreated {
+  id: string;
+  job_id: string;
+  status: "submitted";
+  cover_letter: string | null;
+}
+
+/** Baris lamaran milik kandidat (GET /applications/mine). */
+export interface MyApplicationRow {
+  id: string;
+  job_id: string;
+  job_title: string;
+  company: string;
+  status: ApplicationStatus;
+  cover_letter: string | null;
+  applied_at: string;
+  updated_at: string;
+}
+
+export interface MyApplicationList {
+  items: MyApplicationRow[];
+  total: number;
+}
+
+/** Baris pelamar untuk HR (GET /hr/jobs/{job_id}/applications). */
+export interface HrApplicationRow {
+  id: string;
+  job_id: string;
+  candidate_name: string;
+  cv_id: string | null;
+  status: ApplicationStatus;
+  cover_letter: string | null;
+  applied_at: string;
+  updated_at: string;
+}
+
+export interface HrApplicationList {
+  items: HrApplicationRow[];
+  total: number;
+}
+
+// --- Ranking kandidat (M9 — HR) ---
+
+export type MatchFactorRecord = Partial<Record<MatchFactorKey, number>> | null;
+
+/** Satu baris ranking kandidat untuk sebuah lowongan (HR owner). */
+export interface RankingRow {
+  application_id: string;
+  candidate_user_id: string;
+  candidate_name: string;
+  cv_id: string | null;
+  status: ApplicationStatus;
+  /** null = CV belum terkonfirmasi (baris diurutkan paling akhir). */
+  overall: number | null;
+  label: string | null;
+  factors: MatchFactorRecord;
+  matched_required: number;
+  total_required: number;
+  matched_skills: string[];
+  missing_critical: number;
+  model_version: string | null;
+}
+
+/** Respons 200 GET /hr/jobs/{job_id}/ranking. */
+export interface RankingList {
+  items: RankingRow[];
+  total: number;
+  model_version: string;
+}
+
+/** Sisi perbandingan kandidat (GET /hr/jobs/{job_id}/compare?ids=a,b).
+ *  matched_skills bisa string[] (ringkas) atau objek skill detail (backend). */
+export interface RankingCompareSide {
+  candidate_name: string;
+  overall: number | null;
+  factors: MatchFactorRecord;
+  matched_skills: (string | { display?: string | null; name?: string | null })[];
+  missing_critical: number;
+  status: ApplicationStatus;
+}
+
+export interface RankingCompareResult {
+  a: RankingCompareSide;
+  b: RankingCompareSide;
+}

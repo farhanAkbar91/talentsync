@@ -251,3 +251,66 @@ class RecommendationOut(BaseModel):
     computed_at: datetime
     total: int  # jumlah lowongan AKTIF yang berhasil dinilai
     items: list[RecommendationItemOut]  # urut overall DESC, maks `limit`
+
+
+# --- Ranking pelamar & perbandingan (M9, HR) ---
+
+
+class ApplicantRankingItemOut(BaseModel):
+    """Satu pelamar pada ranking GET /hr/jobs/{job_id}/ranking.
+
+    overall None (factors None, label None) = CV lamaran belum terkonfirmasi —
+    selalu urut paling akhir; `reason` menjelaskan mengapa tidak berskor."""
+
+    application_id: uuid.UUID
+    candidate_user_id: uuid.UUID
+    candidate_name: str
+    cv_id: uuid.UUID | None
+    status: str  # status lamaran saat ranking dihitung
+    overall: float | None
+    label: str | None
+    factors: dict[str, float] | None
+    matched_required: int
+    total_required: int
+    matched_skills: list[str]  # nama tampilan: wajib dulu lalu diutamakan, maks 5
+    missing_critical: int
+    model_version: str
+    reason: str | None  # None untuk pelamar berskor
+
+
+class JobRankingOut(BaseModel):
+    """Respons GET /hr/jobs/{job_id}/ranking — urut overall DESC (None terakhir)."""
+
+    job_id: uuid.UUID
+    model_version: str
+    computed_at: datetime
+    total: int  # jumlah pelamar (berskor + tak berskor)
+    items: list[ApplicantRankingItemOut]
+
+
+class ApplicantCompareSideOut(BaseModel):
+    """Sisi perbandingan GET /hr/jobs/{job_id}/compare — detail skor penuh."""
+
+    application_id: uuid.UUID
+    candidate_user_id: uuid.UUID
+    candidate_name: str
+    cv_id: uuid.UUID | None
+    status: str
+    overall: float | None
+    label: str | None
+    factors: dict[str, float] | None
+    matched_required: int
+    total_required: int
+    matched_skills: list[MatchedSkillOut]  # detail penuh (bukan dipangkas 5)
+    missing_skills: list[MissingSkillOut]
+    missing_critical: int
+    top_experiences: list[TopExperienceOut]
+    explanation: str | None
+    reason: str | None
+
+
+class ApplicantCompareOut(BaseModel):
+    """Respons compare — hanya {a, b} sesuai kontrak (id query `ids=a,b`)."""
+
+    a: ApplicantCompareSideOut
+    b: ApplicantCompareSideOut

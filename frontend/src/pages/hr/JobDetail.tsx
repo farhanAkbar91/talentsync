@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { archiveJob, extractErrorMessage, fetchHrJob, transitionJob, type Job } from "../../lib/api";
+import {
+  archiveJob,
+  extractErrorMessage,
+  fetchHrJob,
+  fetchHrJobApplications,
+  transitionJob,
+  type Job,
+} from "../../lib/api";
 import { employmentTypeLabels, formatDate, formatSalary, jobStatusLabels, toConfidencePercent, workModeLabels } from "../../lib/format";
 import { Alert, Badge, Button, Card, Spinner, cn } from "../../components/ui";
 
@@ -23,6 +30,8 @@ export default function HrJobDetailPage() {
   const [job, setJob] = useState<Job | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  // Jumlah pelamar untuk tombol "Pelamar (N)" — best-effort (gagal → tanpa angka).
+  const [applicantCount, setApplicantCount] = useState<number | null>(null);
 
   async function load() {
     if (!id) return;
@@ -35,6 +44,18 @@ export default function HrJobDetailPage() {
 
   useEffect(() => {
     void load();
+    if (!id) return;
+    let cancelled = false;
+    fetchHrJobApplications(id)
+      .then((res) => {
+        if (!cancelled) setApplicantCount(res.total ?? res.items?.length ?? 0);
+      })
+      .catch(() => {
+        // Tanpa angka — tombol tetap tampil.
+      });
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -124,6 +145,17 @@ export default function HrJobDetailPage() {
               </Button>
             </Link>
           )}
+          {/* M9 — Pelamar & ranking kandidat */}
+          <Link to={`/hr/jobs/${job.id}/applications`} state={{ jobTitle: job.title }}>
+            <Button variant="secondary" data-testid="hr-applicants-button">
+              Pelamar{applicantCount !== null ? ` (${applicantCount})` : ""}
+            </Button>
+          </Link>
+          <Link to={`/hr/jobs/${job.id}/ranking`} state={{ jobTitle: job.title }}>
+            <Button variant="secondary" data-testid="hr-ranking-button">
+              Ranking Kandidat
+            </Button>
+          </Link>
           <Button variant="danger" disabled={busy} onClick={doArchive}>
             Arsipkan
           </Button>

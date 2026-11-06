@@ -8,6 +8,8 @@ import { expect, test } from "@playwright/test";
 
 const HR = { name: "Dewi Lestari", email: "hr-e2e@demo.talentsync.dev", password: "E2eTest2026!" };
 const CAND = { name: "Sarah Wijaya", email: "cand-e2e@demo.talentsync.dev", password: "E2eTest2026!" };
+const HR_LOOP = { name: "Ratna Pratiwi", email: "hr-loop-e2e@demo.talentsync.dev", password: "E2eTest2026!" };
+const CAND_LOOP = { name: "Budi Santoso", email: "cand-loop-e2e@demo.talentsync.dev", password: "E2eTest2026!" };
 
 test("HR flow: register → company → create job → publish → edit → close second job", async ({
   page,
@@ -142,7 +144,8 @@ test("Candidate flow: register → profile → browse → detail → upload CV �
   await jobLink.click();
   await expect(page.getByRole("heading", { name: "Lead Full-Stack Engineer E2E" })).toBeVisible();
   await expect(page.getByText("React.js", { exact: true })).toBeVisible();
-  await expect(page.getByRole("button", { name: /Lamar \(segera hadir\)/ })).toBeDisabled();
+  // M8 — tombol lamar nyata menggantikan placeholder "Lamar (segera hadir)".
+  await expect(page.getByRole("button", { name: "Lamar dengan CV Utama" })).toBeVisible();
 
   // Upload CV
   await page.getByRole("link", { name: "CV Saya", exact: true }).click();
@@ -198,6 +201,14 @@ test("Candidate flow: register → profile → browse → detail → upload CV �
   await compatJobLink.click();
   await expect(page.getByRole("heading", { name: "Lead Full-Stack Engineer E2E" })).toBeVisible();
 
+  // M8 — Lamar lowongan dengan CV utama yang sudah dikonfirmasi (cover letter opsional)
+  await page.getByRole("button", { name: "Lamar dengan CV Utama" }).click();
+  await page
+    .getByLabel("Cover letter (opsional)")
+    .fill("Saya memiliki pengalaman full-stack yang relevan untuk posisi ini.");
+  await page.getByRole("button", { name: "Kirim Lamaran" }).click();
+  await expect(page.getByTestId("apply-success-chip")).toBeVisible();
+
   await page.getByRole("link", { name: "Cek Kompatibilitas" }).click();
   await expect(page).toHaveURL(/\/app\/jobs\/[^/]+\/compatibility/);
 
@@ -233,4 +244,116 @@ test("Candidate flow: register → profile → browse → detail → upload CV �
   const diagnosisScore = page.getByTestId("diagnosis-score");
   await expect(diagnosisScore).toBeVisible();
   await expect(diagnosisScore).not.toHaveText("");
+
+  // M8 — Lamaran Saya: lamaran yang dikirim di atas tampil dengan status Terkirim
+  await page.getByRole("link", { name: "Lamaran", exact: true }).click();
+  await expect(page).toHaveURL(/\/app\/applications/);
+  await expect(page.getByRole("heading", { name: "Lamaran Saya" })).toBeVisible();
+  await expect(page.getByTestId("application-list")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Lead Full-Stack Engineer E2E" })).toBeVisible();
+  await expect(page.getByTestId("application-status").first()).toHaveText("Terkirim");
+});
+
+test("Applications loop: candidate applies → HR reviews → ranking", async ({ page }) => {
+  // --- HR segar: perusahaan + lowongan aktif (tes ini mandiri dari dua alur lain) ---
+  await page.goto("/register");
+  await page.getByRole("button", { name: /Rekruter \/ HR/ }).click();
+  await page.getByLabel("Nama Lengkap").fill(HR_LOOP.name);
+  await page.getByLabel("Email").fill(HR_LOOP.email);
+  await page.locator('input[type="password"]').first().fill(HR_LOOP.password);
+  await page.locator('input[type="password"]').nth(1).fill(HR_LOOP.password);
+  await page.getByRole("checkbox").check();
+  await page.getByRole("button", { name: "Daftar Akun Sekarang" }).click();
+  await expect(page).toHaveURL(/\/hr\/company/);
+  await page.getByLabel("Nama Perusahaan").fill("PT Loop E2E");
+  await page.getByLabel("Industri").fill("Teknologi");
+  await page.getByRole("button", { name: "Buat Perusahaan" }).click();
+  await expect(page.getByText("Profil perusahaan tersimpan.")).toBeVisible();
+
+  await page.getByRole("link", { name: "Kelola Lowongan" }).click();
+  await page.getByRole("link", { name: "+ Buat Lowongan Baru" }).click();
+  await page.getByLabel("Nama Posisi Pekerjaan").fill("Loop Flow Engineer E2E");
+  await page
+    .getByLabel("Deskripsi Pekerjaan")
+    .fill("Memvalidasi alur lamaran kandidat hingga ranking kandidat untuk HR.");
+  const loopSkillInput = page.getByPlaceholder("Ketik minimal 2 huruf, mis. python…");
+  await loopSkillInput.fill("pyt");
+  const loopPythonOption = page.getByRole("option", { name: "Python" }).first();
+  await expect(loopPythonOption).toBeVisible();
+  await loopPythonOption.click();
+  await page.getByLabel("Lokasi").fill("Bandung");
+  await page.getByRole("button", { name: "Terbitkan Lowongan" }).click();
+
+  // Simpan id lowongan dari URL detail (dipakai ulang untuk halaman pelamar & ranking).
+  // Regex UUID agar tidak cocok dengan /hr/jobs/new sebelum navigasi selesai.
+  await expect(page).toHaveURL(/\/hr\/jobs\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/);
+  const loopJobId = page.url().split("/").pop() as string;
+  await expect(page.getByText("Aktif", { exact: true })).toBeVisible();
+
+  // --- Kandidat segar: daftar → CV terkonfirmasi → lamar via UI ---
+  await page.getByRole("button", { name: "Keluar" }).click();
+  await expect(page).toHaveURL(/\/login/);
+
+  await page.goto("/register");
+  await page.getByRole("button", { name: "Pencari Kerja" }).click();
+  await page.getByLabel("Nama Lengkap").fill(CAND_LOOP.name);
+  await page.getByLabel("Email").fill(CAND_LOOP.email);
+  await page.locator('input[type="password"]').first().fill(CAND_LOOP.password);
+  await page.locator('input[type="password"]').nth(1).fill(CAND_LOOP.password);
+  await page.getByRole("checkbox").check();
+  await page.getByRole("button", { name: "Daftar Akun Sekarang" }).click();
+  await expect(page).toHaveURL(/\/app/);
+
+  // CV utama terkonfirmasi adalah prasyarat apply
+  await page.getByRole("link", { name: "CV Saya", exact: true }).click();
+  await page.locator("input[type=file]").setInputFiles("e2e/fixtures/sample-cv.pdf");
+  await page.getByRole("button", { name: "Unggah CV" }).click();
+  const loopReviewLink = page.getByRole("link", { name: "Review ekstraksi" });
+  await expect(loopReviewLink).toBeVisible({ timeout: 30_000 });
+  await loopReviewLink.click();
+  await page.getByPlaceholder("mis. Sarah Wijaya").fill(CAND_LOOP.name);
+  await page.getByRole("button", { name: "Simpan & Konfirmasi" }).click();
+  await expect(page).toHaveURL(/\/app\/cv$/);
+  await expect(page.getByText("Terkonfirmasi", { exact: true })).toBeVisible();
+
+  await page.getByRole("link", { name: "Cari Lowongan" }).click();
+  const loopJobLink = page.getByRole("link", { name: "Loop Flow Engineer E2E" });
+  await expect(loopJobLink).toBeVisible();
+  await loopJobLink.click();
+  await expect(page.getByRole("heading", { name: "Loop Flow Engineer E2E" })).toBeVisible();
+
+  await page.getByRole("button", { name: "Lamar dengan CV Utama" }).click();
+  await page
+    .getByLabel("Cover letter (opsional)")
+    .fill("Saya berminat pada posisi ini dan siap bergabung segera.");
+  await page.getByRole("button", { name: "Kirim Lamaran" }).click();
+  await expect(page.getByTestId("apply-success-chip")).toBeVisible();
+
+  // --- HR: login ulang → pelamar → ubah status → ranking kandidat ---
+  await page.getByRole("button", { name: "Keluar" }).click();
+  await expect(page).toHaveURL(/\/login/);
+  await page.getByRole("button", { name: /Rekruter \/ HR/ }).click();
+  await page.getByLabel("Email").fill(HR_LOOP.email);
+  await page.getByLabel("Kata Sandi").fill(HR_LOOP.password);
+  await page.getByRole("button", { name: "Masuk ke Akun →" }).click();
+  await expect(page).toHaveURL(/\/hr/);
+
+  await page.goto(`/hr/jobs/${loopJobId}/applications`);
+  await expect(page.getByRole("heading", { name: "Pelamar" })).toBeVisible();
+  const applicantRow = page.locator("tr", { hasText: CAND_LOOP.name });
+  await expect(applicantRow).toBeVisible();
+  await expect(applicantRow.getByTestId("application-status-chip")).toHaveText("Terkirim");
+  await expect(applicantRow.getByText(/siap bergabung segera/)).toBeVisible();
+
+  // PATCH status via select → optimistic update → chip berubah menjadi Ditinjau
+  await applicantRow.getByRole("combobox").selectOption("reviewed");
+  await expect(applicantRow.getByTestId("application-status-chip")).toHaveText("Ditinjau");
+
+  await page.goto(`/hr/jobs/${loopJobId}/ranking`);
+  await expect(page.getByRole("heading", { name: "Ranking Kandidat" })).toBeVisible();
+  // Skor komputasi embedding bisa lambat — timeout longgar.
+  const rankingScore = page.getByTestId("ranking-score").first();
+  await expect(rankingScore).toBeVisible({ timeout: 60_000 });
+  await expect(rankingScore).not.toHaveText("—");
+  await expect(page.getByTestId("ranking-row").first()).toContainText(CAND_LOOP.name);
 });

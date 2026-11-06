@@ -1,18 +1,31 @@
-"""Endpoint HR: kelola lowongan milik perusahaannya (RBAC: role 'hr')."""
+"""Endpoint HR: kelola lowongan milik perusahaannya (RBAC: role 'hr').
+
+M9: ranking pelamar & perbandingan dua pelamar (skor dibangun dari blok yang
+sama dengan match_service, dipersist ke match_results)."""
 
 import uuid
+from datetime import UTC, datetime
 
 from fastapi import APIRouter, Depends, Query, Request, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.core.deps import require_roles
+from app.core.exceptions import BadRequestError
 from app.db.session import get_db
 from app.models.skill import CanonicalSkill, JobSkill
 from app.models.user import User
 from app.schemas.common import Page
-from app.schemas.job import JobHrOut, JobIn, NormalizedJobSkill, NormalizedJobSkillCanonical
-from app.services import job_service, skill_service
+from app.schemas.job import (
+    ApplicantCompareOut,
+    ApplicantRankingItemOut,
+    JobHrOut,
+    JobIn,
+    JobRankingOut,
+    NormalizedJobSkill,
+    NormalizedJobSkillCanonical,
+)
+from app.services import application_service, job_service, match_service, skill_service
 
 router = APIRouter(prefix="/hr/jobs", tags=["hr-jobs"])
 hr_dependency = require_roles("hr")
@@ -168,3 +181,55 @@ def archive_job(
     job_id: uuid.UUID, user: User = Depends(hr_dependency), db: Session = Depends(get_db)
 ) -> None:
     job_service.archive_job(db, user, job_id)
+
+
+# --- Ranking & perbandingan pelamar (M9) ---
+
+
+@router.get("/{job_id}/ranking", response_model=JobRankingOut)
+def job_ranking(
+    job_id: uuid.UUID,
+    request: Request,
+    user: User = Depends(hr_dependency),
+    db: Session = Depends(get_db),
+) -> JobRankingOut:
+    """Ranking pelamar lowongan milik perusahaan HR (404 bila bukan).
+
+    Item urut overall DESC; pelamar dengan CV lamaran belum terkonfirmasi
+    (overall None + reason) selalu paling akhir. Skor dipersist ke match_results
+    per (cv_id, job_id, model_version) — konsumen M9 dari match_results."""
+    settings = request.app.state.settings
+    items = application_service.rank_job_applicants(db, user, job_id, settings)
+    return JobRankingOut(
+        job_id=job_id,
+        model_version=match_service.build_model_version(settings),
+        computed_at=datetime.now(UTC),
+        total=len(items),
+        items=[ApplicantRankingItemOut(**item) for item in items],
+    )
+
+
+@router.get("/{job_id}/compare", response_model=ApplicantCompareOut)
+def compare_job_applicants(
+    job_id: uuid.UUID,
+    request: Request,
+    ids: str = Query(..., description="Dua id lamaran dipisah koma: ids=<a>,<b>"),
+    user: User = Depends(hr_dependency),
+    db: Session = Depends(get_db),
+) -> ApplicantCompareOut:
+    """Bandingkan dua pelamar lowongan milik perusahaan HR (side-by-side).
+
+    `ids` wajib tepat 2 UUID berbeda yang keduanya lamaran lowongan ini —
+    selain itu 400; lamaran tak ada / bukan milik lowongan ini → 404."""
+    parts = [part.strip() for part in ids.split(",") if part.strip()]
+    if len(parts) != 2:
+        raise BadRequestError("Sertakan tepat dua id lamaran: ids=<a>,<b>.")
+    try:
+        id_a, id_b = (uuid.UUID(part) for part in parts)
+    except ValueError as exc:
+        raise BadRequestError("Parameter ids harus berisi dua UUID valid.") from exc
+
+    result = application_service.compare_applicants(
+        db, user, job_id, id_a, id_b, request.app.state.settings
+    )
+    return ApplicantCompareOut(**result)

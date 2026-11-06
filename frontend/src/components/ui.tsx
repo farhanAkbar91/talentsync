@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode, SelectHTMLAttributes, TextareaHTMLAttributes } from "react";
+import type { ButtonHTMLAttributes, HTMLAttributes, InputHTMLAttributes, ReactNode, SelectHTMLAttributes, TextareaHTMLAttributes } from "react";
 
 export function cn(...classes: (string | false | null | undefined)[]): string {
   return classes.filter(Boolean).join(" ");
@@ -95,11 +95,25 @@ export function Textarea({ className, ...props }: TextareaHTMLAttributes<HTMLTex
   );
 }
 
+export function Checkbox({ className, ...props }: InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <input
+      type="checkbox"
+      className={cn("h-4 w-4 shrink-0 cursor-pointer accent-primary-600", className)}
+      {...props}
+    />
+  );
+}
+
 // --- Layout primitives ---
 
-export function Card({ className, children }: { className?: string; children: ReactNode }) {
+export function Card({
+  className,
+  children,
+  ...rest
+}: { className?: string; children: ReactNode } & HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn("rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200", className)}>
+    <div className={cn("rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200", className)} {...rest}>
       {children}
     </div>
   );
@@ -153,11 +167,20 @@ export function Spinner({ label = "Memuat…" }: { label?: string }) {
   );
 }
 
-export function EmptyState({ title, description }: { title: string; description?: string }) {
+export function EmptyState({
+  title,
+  description,
+  children,
+}: {
+  title: string;
+  description?: string;
+  children?: ReactNode;
+}) {
   return (
     <div className="rounded-xl border border-dashed border-slate-300 bg-white/60 px-6 py-10 text-center">
       <p className="text-sm font-medium text-slate-600">{title}</p>
       {description && <p className="mt-1 text-xs text-slate-400">{description}</p>}
+      {children}
     </div>
   );
 }

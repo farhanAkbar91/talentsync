@@ -12,11 +12,15 @@ import RecommendationsPage from "./pages/candidate/Recommendations";
 import MyCvPage from "./pages/candidate/MyCV";
 import ReviewExtractionPage from "./pages/candidate/ReviewExtraction";
 import CvSkillsPage from "./pages/candidate/CvSkills";
+import CvOptimizeReviewPage from "./pages/candidate/CvOptimizeReview";
+import MyApplicationsPage from "./pages/candidate/MyApplications";
 import HrDashboard from "./pages/hr/Dashboard";
 import CompanyPage from "./pages/hr/Company";
 import HrJobsPage from "./pages/hr/Jobs";
 import JobForm from "./pages/hr/JobForm";
 import HrJobDetailPage from "./pages/hr/JobDetail";
+import HrJobApplicationsPage from "./pages/hr/JobApplications";
+import HrJobRankingPage from "./pages/hr/JobRanking";
 
 function RootRedirect() {
   const { user, initializing } = useAuth();
@@ -56,9 +60,11 @@ export default function App() {
           <Route path="jobs/:id" element={<JobDetailPage />} />
           <Route path="jobs/:id/compatibility" element={<JobCompatibilityPage />} />
           <Route path="recommendations" element={<RecommendationsPage />} />
+          <Route path="applications" element={<MyApplicationsPage />} />
           <Route path="cv" element={<MyCvPage />} />
           <Route path="cv/:id/review" element={<ReviewExtractionPage />} />
           <Route path="cv/:id/skills" element={<CvSkillsPage />} />
+          <Route path="cv/:id/optimize/:optId" element={<CvOptimizeReviewPage />} />
         </Route>
 
         <Route
@@ -75,6 +81,8 @@ export default function App() {
           <Route path="jobs/new" element={<JobForm />} />
           <Route path="jobs/:id" element={<HrJobDetailPage />} />
           <Route path="jobs/:id/edit" element={<JobForm />} />
+          <Route path="jobs/:id/applications" element={<HrJobApplicationsPage />} />
+          <Route path="jobs/:id/ranking" element={<HrJobRankingPage />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

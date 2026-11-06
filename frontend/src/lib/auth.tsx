@@ -36,6 +36,38 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
+// Pemulihan sesi sekali per muat halaman (single-flight). React StrictMode
+// menjalankan effect mount dua kali di dev — tanpa dedupe, dua POST /auth/refresh
+// berlomba memakai refresh token sekali pakai (satu 200, satu 401) dan sesi
+// bisa terbuang acak saat hard reload.
+interface RestoredSession {
+  access_token: string;
+  refresh_token: string;
+  user: User;
+}
+
+let restoreInFlight: Promise<RestoredSession | null> | null = null;
+
+function restoreSession(): Promise<RestoredSession | null> {
+  if (!restoreInFlight) {
+    restoreInFlight = (async () => {
+      if (!readRefreshToken()) return null;
+      try {
+        // Panggilan langsung via axios (bukan wrapper) agar tidak memicu loop 401.
+        const { default: axios } = await import("axios");
+        const { data } = await axios.post<RestoredSession>("/api/v1/auth/refresh", {
+          refresh_token: readRefreshToken(),
+        });
+        return data;
+      } catch {
+        clearRefreshToken();
+        return null;
+      }
+    })();
+  }
+  return restoreInFlight;
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [initializing, setInitializing] = useState(true);
@@ -43,28 +75,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Sesi pulih saat halaman dimuat: refresh token disimpan, access token diperbarui.
   useEffect(() => {
     let cancelled = false;
-    async function restore() {
-      if (!readRefreshToken()) {
-        setInitializing(false);
-        return;
-      }
-      try {
-        // Panggilan langsung via axios (bukan wrapper) agar tidak memicu loop 401.
-        const { default: axios } = await import("axios");
-        const { data } = await axios.post("/api/v1/auth/refresh", {
-          refresh_token: readRefreshToken(),
-        });
-        if (cancelled) return;
+    restoreSession().then((data) => {
+      if (cancelled) return;
+      if (data) {
         setAccessToken(data.access_token);
         storeRefreshToken(data.refresh_token);
         setUser(data.user);
-      } catch {
-        if (!cancelled) clearRefreshToken();
-      } finally {
-        if (!cancelled) setInitializing(false);
       }
-    }
-    void restore();
+      setInitializing(false);
+    });
     return () => {
       cancelled = true;
     };

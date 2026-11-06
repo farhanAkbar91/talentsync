@@ -75,3 +75,12 @@ export const cvStatusLabels: Record<string, string> = {
   ready: "Siap",
   failed: "Gagal",
 };
+
+/** Label status lamaran (M9) — dipakai halaman kandidat & HR. */
+export const applicationStatusLabels: Record<string, string> = {
+  submitted: "Terkirim",
+  reviewed: "Ditinjau",
+  shortlisted: "Shortlist",
+  hired: "Diterima",
+  rejected: "Ditolak",
+};
