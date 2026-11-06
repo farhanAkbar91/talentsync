@@ -40,6 +40,12 @@ export function formatFileSize(bytes: number): string {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
+/** Keyakinan dari backend bisa 0–1 atau 0–100 — rapikan ke persen bulat (M2). */
+export function toConfidencePercent(value: number): number {
+  if (!Number.isFinite(value)) return 0;
+  return value <= 1 ? Math.round(value * 100) : Math.round(value);
+}
+
 export const employmentTypeLabels: Record<string, string> = {
   full_time: "Full-time",
   part_time: "Part-time",

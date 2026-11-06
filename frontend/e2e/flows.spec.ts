@@ -35,19 +35,39 @@ test("HR flow: register → company → create job → publish → edit → clos
   await page
     .getByLabel("Deskripsi Pekerjaan")
     .fill("Membangun aplikasi web end-to-end bersama tim produk untuk pengujian E2E.");
-  const reqSkills = page.getByPlaceholder("mis. React.js, Node.js…");
-  await reqSkills.fill("React.js");
-  await reqSkills.press("Enter");
-  await reqSkills.fill("Python");
-  await reqSkills.press("Enter");
-  const prefSkills = page.getByPlaceholder("mis. Docker, Kubernetes…");
-  await prefSkills.fill("Docker");
-  await prefSkills.press("Enter");
+
+  // M2 — input skill berupa combobox autocomplete ke kamus standar.
+  const skillInput = page.getByPlaceholder("Ketik minimal 2 huruf, mis. python…");
+  await skillInput.fill("React.js");
+  await skillInput.press("Enter"); // fallback teks bebas → chip "tidak dikenal"
+  await expect(page.locator("li", { hasText: "React.js" })).toBeVisible();
+
+  // Autocomplete kamus: ketik "pyt" → pilih "Python" dari dropdown.
+  await skillInput.fill("pyt");
+  const pythonOption = page.getByRole("option", { name: "Python" }).first();
+  await expect(pythonOption).toBeVisible();
+  await pythonOption.click();
+  const pythonChip = page.locator("li", { hasText: "Python" });
+  await expect(pythonChip).toBeVisible();
+  await expect(pythonChip.getByRole("button", { name: "Wajib" })).toBeVisible(); // default Wajib
+
+  await skillInput.fill("Docker");
+  await skillInput.press("Enter");
+  const dockerChip = page.locator("li", { hasText: "Docker" });
+  await dockerChip.getByRole("button", { name: "Wajib" }).click();
+  await expect(dockerChip.getByRole("button", { name: "Disarankan" })).toBeVisible();
+
   await page.getByLabel("Lokasi").fill("Jakarta Selatan");
   await page.getByRole("button", { name: "Terbitkan Lowongan" }).click();
 
   await expect(page).toHaveURL(/\/hr\/jobs\//);
   await expect(page.getByText("Aktif", { exact: true })).toBeVisible();
+
+  // M2 — kartu pemetaan skill ke kamus standar pada detail lowongan HR
+  await expect(
+    page.getByRole("heading", { name: "Pemetaan skill (kamus standar)" }),
+  ).toBeVisible();
+  await expect(page.getByText("Python", { exact: true }).first()).toBeVisible();
 
   // Edit lowongan aktif
   await page.getByRole("link", { name: "Edit" }).click();
@@ -62,7 +82,7 @@ test("HR flow: register → company → create job → publish → edit → clos
   await page
     .getByLabel("Deskripsi Pekerjaan")
     .fill("Menjamin kualitas rilis melalui otomasi pengujian end-to-end.");
-  const req2 = page.getByPlaceholder("mis. React.js, Node.js…");
+  const req2 = page.getByPlaceholder("Ketik minimal 2 huruf, mis. python…");
   await req2.fill("Playwright");
   await req2.press("Enter");
   await page.getByRole("button", { name: "Terbitkan Lowongan" }).click();
@@ -79,7 +99,9 @@ test("HR flow: register → company → create job → publish → edit → clos
   expect(titles).not.toContain("QA Automation Lead E2E");
 });
 
-test("Candidate flow: register → profile → browse → detail → upload CV", async ({ page }) => {
+test("Candidate flow: register → profile → browse → detail → upload CV → review ekstraksi", async ({
+  page,
+}) => {
   await page.goto("/register");
   await page.getByRole("button", { name: "Pencari Kerja" }).click();
   await page.getByLabel("Nama Lengkap").fill(CAND.name);
@@ -119,4 +141,42 @@ test("Candidate flow: register → profile → browse → detail → upload CV",
   await expect(page.getByText("CV Utama")).toBeVisible();
   await expect(page.getByText("sample-cv.pdf")).toBeVisible();
   await expect(page.getByText("Siap", { exact: true })).toBeVisible({ timeout: 20_000 });
+
+  // M1 — Review ekstraksi: buka halaman review untuk CV yang sudah selesai diekstraksi
+  const reviewLink = page.getByRole("link", { name: "Review ekstraksi" });
+  await expect(reviewLink).toBeVisible({ timeout: 20_000 });
+  await reviewLink.click();
+  await expect(page).toHaveURL(/\/app\/cv\/[^/]+\/review/);
+  await expect(page.getByRole("heading", { name: "Kontak" })).toBeVisible();
+
+  // Parser heuristik belum tentu mengekstrak nama — nama wajib sebelum konfirmasi.
+  await page.getByPlaceholder("mis. Sarah Wijaya").fill("Sarah Wijaya");
+  await page.getByRole("button", { name: "Simpan & Konfirmasi" }).click();
+
+  // Kembali ke daftar CV dan chip status berubah menjadi terkonfirmasi
+  await expect(page).toHaveURL(/\/app\/cv$/);
+  await expect(page.getByText("Terkonfirmasi", { exact: true })).toBeVisible();
+
+  // M2 — Skills terstandardisasi: buka halaman skill hasil pemetaan kamus
+  const skillsLink = page.getByRole("link", { name: "Skills terstandardisasi" });
+  await expect(skillsLink).toBeVisible();
+  await skillsLink.click();
+  await expect(page).toHaveURL(/\/app\/cv\/[^/]+\/skills/);
+  await expect(page.getByRole("heading", { name: "Skills terstandardisasi" })).toBeVisible();
+
+  const firstSkillName = page.locator("[data-skill-name]").first();
+  await expect(firstSkillName).toBeVisible({ timeout: 20_000 });
+  const skillName = (await firstSkillName.innerText()).trim();
+
+  // Pastikan minimal satu skill terpilih sebelum menerapkan
+  if ((await page.locator("input[type=checkbox]:checked").count()) === 0) {
+    await page.locator("input[type=checkbox]:not([disabled])").first().check();
+  }
+  await page.getByRole("button", { name: "Terapkan ke Profil" }).click();
+  await expect(page.getByText(/skill diterapkan ke profil/)).toBeVisible({ timeout: 20_000 });
+
+  await page.getByRole("link", { name: "Lihat profil" }).click();
+  await expect(page).toHaveURL(/\/app\/profile/);
+  await expect(page.getByText("Skill terstandardisasi (dari CV)")).toBeVisible();
+  await expect(page.getByText(skillName, { exact: true }).first()).toBeVisible();
 });

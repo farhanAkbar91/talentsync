@@ -98,7 +98,7 @@ cvs (1) ──< cv_optimizations  (job_id CASCADE; applied_cv_id SET NULL)
   nullable · `applied_cv_id` FK cvs SET NULL · timestamps.
 - RLS: seluruh tabel `ENABLE ROW LEVEL SECURITY` tanpa policy (ADR 0005 §2.5).
 
-## 2. Daftar Endpoint API v1 — **30 endpoint** (termasuk 2 health)
+## 2. Daftar Endpoint API v1 — **39 endpoint** (termasuk 2 health)
 
 ### Auth
 | Method | Path | Auth | Fungsi |
@@ -143,12 +143,43 @@ cvs (1) ──< cv_optimizations  (job_id CASCADE; applied_cv_id SET NULL)
 | Method | Path | Auth | Fungsi |
 |---|---|---|---|
 | POST | /cvs | candidate | Upload PDF (≤10 MB, ≤20 hal., magic bytes, dedupe sha256) → ekstraksi async |
-| GET | /cvs | candidate | Daftar CV aktif milik sendiri |
+| GET | /cvs | candidate | Daftar CV aktif milik sendiri (item kini memuat `extraction_status`/`extraction_confirmed`) |
 | PATCH | /cvs/{id}/primary | candidate | Jadikan CV utama |
 | GET | /cvs/{id}/file | candidate | Unduh file (pemilik saja; non-pemilik → 404) |
 | DELETE | /cvs/{id} | candidate | Soft delete; primary dipromosikan otomatis |
+| GET | /cvs/{id}/extraction | candidate | Payload ekstraksi terstruktur M1 (pemilik saja → 404) |
+| PUT | /cvs/{id}/extraction/confirm | candidate | Konfirmasi hasil review + simpan payload hasil suntingan (belum done → 409; payload tidak valid → 400); **M2: memicu normalisasi skill → baris `candidate_skills` (suggested)** |
+| GET | /cvs/{id}/skills | candidate | Skill terstandardisasi dari CV (eksplisit + inferred + yang sudah accepted dari CV lain, tanpa duplikat) |
+| POST | /cvs/{id}/skills/apply | candidate | **Terapkan ke Profil** — pilih skill → status accepted + merge nama ke `candidate_profiles.skills` (dedupe, batas 30 → 400); idempoten |
 
-### Health
+**Payload ekstraksi M1** (`cv_extractions.payload`, `pymupdf-heuristic-v1` — deterministik, tanpa LLM):
+`contact{name,email,phone,location,links}` · `summary` · `experiences[]` · `education[]` ·
+`skills[]` · `certifications[]` · `languages[]` · `projects[]` · `awards[]` — tiap item
+memuat `evidence` (kutipan sumber) & `confidence`; ditambah `field_confidence{}` per
+bagian + `needs_review[]` (confidence < 0,6). **Gate matching (M3+): hanya CV dengan
+`confirmed_at` terisi yang boleh dipakai.**
+
+### Skills (kandidat & HR)
+| Method | Path | Auth | Fungsi |
+|---|---|---|---|
+| GET | /skills/taxonomy | candidate, hr | Ringkasan taksonomi: versi, kategori + jumlah, total |
+| GET | /skills/autocomplete?q= | candidate, hr | Pencarian canonical (nama > prefix > alias > contains; limit 10; q<2 → items kosong) |
+| GET | /skills/{id} | candidate, hr | Detail skill + alias (404 envelope) |
+
+### Profil (tambahan M2)
+| Method | Path | Auth | Fungsi |
+|---|---|---|---|
+| GET | /me/candidate-skills | candidate | Skill accepted milik sendiri |
+| DELETE | /me/candidate-skills/{id} | candidate | Hapus skill accepted + nama display dari profil JSONB |
+
+`GET /hr/jobs/{id}` kini memuat `skills_normalized[]` (canonical + raw_name + required + confidence + needs_review) — proyeksi kamus dari tabel `job_skills`.
+
+### Tabel M2 (migrasi 0010, ADR 0007)
+- **canonical_skills**: slug UNIQUE, name, category (string, dikendalikan seed), skill_type CHECK hard/soft, related JSONB, is_active, taxonomy_version — 352 entri (v1.1.0, termasuk kategori Languages).
+- **skill_aliases**: canonical FK CASCADE, alias **UNIQUE global** (satu alias → satu canonical), source seed/manual — 610 alias.
+- **candidate_skills**: UNIQUE(kandidat, canonical), source_cv_id (traceability SET NULL), raw_name, confidence, evidence, source_section, extraction_method CHECK explicit/inferred/manual, status CHECK suggested/accepted/rejected.
+- **job_skills**: UNIQUE(job, canonical), raw_name, required, confidence — proyeksi kanonik; `jobs.skills` JSONB tetap sumber tampilan.
+- Normalisasi dictionary-first: exact → alias → fuzzy terkendali (threshold 0,92, unik-terbaik) → needs_review + saran; **tidak pernah memaksa pemetaan**; skill tanpa pemetaan tidak di-bariskan (tetap terlihat di payload M1 / JSONB lowongan).
 
 | Method | Path | Auth | Fungsi |
 |---|---|---|---|

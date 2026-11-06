@@ -29,8 +29,22 @@ def main() -> int:
 
     engine = create_engine(url)
     Base.metadata.create_all(engine)
+
+    # Taksonomi skill wajib di-seed: alur E2E M2 (autocomplete HR, skill
+    # terstandardisasi kandidat) membacanya dari database.
+    from sqlalchemy.orm import sessionmaker  # noqa: E402
+
+    from app.services import taxonomy_service  # noqa: E402
+
+    factory = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
+    with factory() as db:
+        stats = taxonomy_service.seed_from_json(db)
+        db.commit()
     engine.dispose()
-    print("E2E database siap:", db_path.resolve())
+    print(
+        f"E2E database siap: {db_path.resolve()} "
+        f"(taksonomi: {stats['canonical']} skill, {stats['aliases']} alias)"
+    )
     return 0
 
 

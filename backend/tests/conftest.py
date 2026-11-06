@@ -54,6 +54,16 @@ def db_session(db_engine) -> Generator[Session, None, None]:
         db.close()
 
 
+@pytest.fixture()
+def seeded_taxonomy(db_session: Session) -> dict:
+    """Taksonomi skill sudah di-seed ke db_session test (minta eksplisit, bukan autouse)."""
+    from app.services.taxonomy_service import seed_from_json
+
+    summary = seed_from_json(db_session)
+    db_session.flush()
+    return summary
+
+
 def _make_settings(**overrides) -> Settings:
     base = dict(
         app_env="test",

@@ -8,6 +8,8 @@ import CandidateProfilePage from "./pages/candidate/Profile";
 import JobDiscovery from "./pages/candidate/Jobs";
 import JobDetailPage from "./pages/candidate/JobDetail";
 import MyCvPage from "./pages/candidate/MyCV";
+import ReviewExtractionPage from "./pages/candidate/ReviewExtraction";
+import CvSkillsPage from "./pages/candidate/CvSkills";
 import HrDashboard from "./pages/hr/Dashboard";
 import CompanyPage from "./pages/hr/Company";
 import HrJobsPage from "./pages/hr/Jobs";
@@ -51,6 +53,8 @@ export default function App() {
           <Route path="jobs" element={<JobDiscovery />} />
           <Route path="jobs/:id" element={<JobDetailPage />} />
           <Route path="cv" element={<MyCvPage />} />
+          <Route path="cv/:id/review" element={<ReviewExtractionPage />} />
+          <Route path="cv/:id/skills" element={<CvSkillsPage />} />
         </Route>
 
         <Route

@@ -3,11 +3,17 @@ import type {
   AuthResponse,
   CVDoc,
   CandidateProfile,
+  CandidateSkillList,
+  CandidateSkillSuggestionList,
   Company,
+  CvExtraction,
+  CvExtractionPayload,
   Job,
   JobStats,
   MeSummary,
   Page,
+  SkillAutocompleteItem,
+  SkillTaxonomy,
 } from "./types";
 
 export * from "./types";
@@ -163,4 +169,61 @@ export async function downloadCv(id: string, filename: string): Promise<void> {
   a.download = filename;
   a.click();
   URL.revokeObjectURL(url);
+}
+
+// --- CV ekstraksi (M1) ---
+export async function getExtraction(cvId: string): Promise<CvExtraction> {
+  const { data } = await api.get<CvExtraction>(`/cvs/${cvId}/extraction`);
+  return data;
+}
+
+/** Kirim payload hasil review (lengkap, sudah diedit atau tidak) untuk dikonfirmasi. */
+export async function confirmExtraction(
+  cvId: string,
+  payload: CvExtractionPayload,
+): Promise<CvExtraction> {
+  const { data } = await api.put<CvExtraction>(`/cvs/${cvId}/extraction/confirm`, { payload });
+  return data;
+}
+
+// --- Skills terstandardisasi (M2) ---
+
+/** Saran skill dari kamus standar (kirim hanya bila q ≥ 2 karakter). */
+export async function fetchSkillAutocomplete(q: string): Promise<SkillAutocompleteItem[]> {
+  const { data } = await api.get<{ items: SkillAutocompleteItem[] }>("/skills/autocomplete", {
+    params: { q },
+  });
+  return data.items;
+}
+
+export async function fetchSkillTaxonomy(): Promise<SkillTaxonomy> {
+  const { data } = await api.get<SkillTaxonomy>("/skills/taxonomy");
+  return data;
+}
+
+/** Skill hasil ekstraksi & normalisasi untuk satu CV (404 bila bukan milik Anda). */
+export async function fetchCvSkills(cvId: string): Promise<CandidateSkillSuggestionList> {
+  const { data } = await api.get<CandidateSkillSuggestionList>(`/cvs/${cvId}/skills`);
+  return data;
+}
+
+/** Terapkan skill terpilih ke profil kandidat. */
+export async function applyCvSkills(
+  cvId: string,
+  skillIds: string[],
+): Promise<{ applied: number }> {
+  const { data } = await api.post<{ applied: number }>(`/cvs/${cvId}/skills/apply`, {
+    skill_ids: skillIds,
+  });
+  return data;
+}
+
+/** Skill kandidat yang sudah diterapkan (accepted). */
+export async function fetchMySkills(): Promise<CandidateSkillList> {
+  const { data } = await api.get<CandidateSkillList>("/me/candidate-skills");
+  return data;
+}
+
+export async function deleteMySkill(skillId: string): Promise<void> {
+  await api.delete(`/me/candidate-skills/${skillId}`);
 }

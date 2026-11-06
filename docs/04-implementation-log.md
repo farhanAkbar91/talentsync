@@ -240,3 +240,116 @@ hijau ✅ · secret scan file baru bersih, kedua `.env` ter-gitignore ✅.
 ### Catatan penutup P3.0
 Tidak ada commit/push — menunggu persetujuan pemilik proyek. P3.0 selesai;
 langkah berikutnya: M1 — Advanced CV Parsing (docs/08 Wave 1).
+
+## WAVE 1 — M1 Advanced CV Parsing (6 November 2026)
+
+**Status:** ✅ Selesai & lolos seluruh gate (lokal + E2E browser) — menunggu
+persetujuan Wave 2.
+
+### WAVE 0 — Finalisasi Git P3.0
+- Audit working tree (26 perubahan), scan secret (satu false-positive pada
+  template placeholder `.env.example` — diverifikasi aman), gate penuh hijau,
+  lalu **commit `5bac361`** `feat(ai): finalize AI engine infrastructure and
+  evaluation foundation` — 70 file, 4.133 insertions; tanpa push/amend;
+  `.env` terverifikasi tidak ter-track.
+- Catatan: `docs/06-p1-p2-audit-report.md` yang dirujuk master prompt tidak ada
+  sebagai file terpisah — audit P1+P2 terdokumentasi di docs/04 (tanpa dampak).
+
+### Implementasi M1 (pipeline deterministik, tanpa LLM — ADR 0002 §7)
+- `app/ai/extraction/`: `preprocess.py` (dehyphenate, normalisasi bullet,
+  buang nomor halaman) → `segmenter.py` (10 kunci kanonik, alias heading
+  ID/EN, pre-heading = zona kontak) → `entities.py` (kontak regex + nama
+  "Nama — Headline", rentang tanggal ID/EN + `sekarang/present` → `YYYY-MM`,
+  pendidikan S1/S2/BSc…+IPK, skills dedupe, sertifikasi, bahasa, proyek,
+  penghargaan) → `payload_schema.py` (Pydantic, kontrak frozen) → `parser.py`
+  (`build_payload`, per-section guarded — total function).
+- Wire: `run_extraction` kini membangun payload (`pymupdf-heuristic-v1`,
+  kegagalan payload tidak menggagalkan ekstraksi teks); service
+  `extraction_service` (GET ownership-404, confirm 409/400, re-confirm
+  allowed, `parser_version` dipaksa); endpoint `GET /cvs/{id}/extraction` +
+  `PUT /cvs/{id}/extraction/confirm`; `CVOut` + `extraction_status/
+  extraction_confirmed`; model property `is_confirmed`. **Gate matching:
+  hanya CV terkonfirmasi** (dipakai M3+).
+- Bug nyata tertangkap agent: regex email naive O(n²) pada baris panjang
+  (250k char = 132 dtk) → linear scan + regex bounded, patologis < 0,7 dtk.
+
+### Evaluasi (keputusan #target F1 ≥ 0,80)
+- **Macro F1 = 1,000 (LULUS)** — nama/email/telepon 1,000 · skills
+  set-F1 1,000 · recall pengalaman/pendidikan/sertifikasi 1,000 (12 CV).
+- Temuan proses: golden set generator awalnya TIDAK merender telepon ke teks
+  → parser jujur melaporkan null (provenance honesty bekerja); generator
+  diperbaiki, golden set diregenerasi, evaluasi diulang. Normalisasi telepon
+  evaluator diperbaiki untuk format 08xx (CV nyata).
+- **Keterbatasan jujur (terdokumentasi di laporan):** korpus sintetis
+  in-domain — angka belum merepresentasikan CV nyata; evaluasi volunteer CV
+  menyusul (docs/03 §4.4). Laporan: `eval/reports/extraction_evaluation.json`.
+
+### Frontend M1
+- Halaman **Review Ekstraksi** `/app/cv/:id/review` (kartu per bagian, badge
+  keyakinan hijau/amber/merah, kutipan `evidence`, outline merah untuk
+  `needs_review`, edit per field, "Simpan & Konfirmasi" → PUT payload
+  tersunting) · chip "Terkonfirmasi"/"Perlu review" di daftar CV · link
+  "Review ekstraksi" · polling status diperbaiki (tetap jalan selama
+  pending/processing).
+- **Playwright E2E: 2/2 lulus** (alur HR utuh + kandidat
+  register→…→upload→review→konfirmasi→chip hijau) via backend sungguhan.
+
+### Gate akhir Wave 1
+pytest **103/103** (51 lama + 52 baru) · ruff check+format bersih (78 file) ·
+frontend tsc+build hijau · E2E 2/2 · evaluasi F1 1,000 (target 0,80) ·
+tidak ada commit untuk Wave 1 (menunggu persetujuan setelah laporan).
+
+## WAVE 2 — M2 Skill Extraction & Normalization (6 November 2026)
+
+**Status:** ✅ Selesai & lolos seluruh gate — menunggu persetujuan Wave 3.
+(Wave 1 belum di-commit sesuai instruksi pemilik proyek; Wave 2 dibangun di
+atas perubahan Wave 1 tanpa amend/reset.)
+
+### Implementasi
+- **Taksonomi** (agent B1a): `app/ai/extraction/taxonomy/skills_v1.json` → DB
+  via seed idempoten. **352 skill kanonik, 610 alias, 21 kategori (v1.1.0,
+  termasuk Languages yang saya tambahkan setelah evaluasi menemukan gap)**.
+  Validasi anti-false-positive: javascript∉java, react-native∉react,
+  postgresql∉sql, deep-learning∉machine-learning, "pm" tak dipakai, alias
+  unik global. Model `canonical_skills/skill_aliases/candidate_skills/
+  job_skills` + **migrasi 0010** (diterapkan ke Supabase + RLS 17/17 tabel +
+  seed produksi).
+- **Normalizer** dictionary-first (ADR 0007): exact → alias → fuzzy
+  terkendali (difflib ≥0,92, unik-terbaik) → needs_review + ≤3 saran —
+  tidak pernah memaksa pemetaan; inferred ditandai & diberi catatan UI;
+  provenance raw_name + evidence + source_section di semua item.
+- **Integrasi** (agent B1b): confirm M1 → persist `candidate_skills`
+  (suggested, idempoten, accepted dipelihara); job create/update → replace
+  `job_skills` (JSONB tak diubah); API: taxonomy/autocomplete/detail,
+  GET+apply skills per CV, GET/DELETE /me/candidate-skills;
+  `GET /hr/jobs/{id}` + `skills_normalized`.
+- **Frontend** (agent F): halaman "Skills terstandardisasi" (checkbox,
+  badge Eksplisit/Inferred, confidence, saran ambigu, Terapkan ke Profil),
+  section profil + hapus, **HR SkillPicker autocomplete** (debounce, keyboard,
+  chip Wajib/Disarankan, fallback teks bebas "tidak dikenal" — payload form
+  tak berubah), kartu "Pemetaan skill (kamus standar)" di JobDetail.
+
+### Evaluasi (target: F1 ≥0,85 · canon ≥0,90 · false-map 0 · duplikat 0)
+- **Extraction F1 macro: 0,980** (recall 1,0 semua CV; presisi 0,83–1,0 —
+  inferred jujur menambah konteks "Data Analyst" yang tak tercantum GT)
+- **Canonicalization accuracy: 0,923** · **false-map: 0** · **merges: LULUS**
+  · **idempotensi: LULUS** · **duplikat: 0,000** — semua target terpenuhi.
+- Perbaikan selama evaluasi: gap taksonomi bahasa (tambah 9 skill bahasa +
+  kategori Languages, v1.1.0), duplikat alias "bahasa mandarin" (typo saya,
+  tertangkap test B1a), ekspektasi slug di skrip evaluasi.
+- Laporan: `eval/reports/skills_evaluation.json`. Keterbatasan jujur: korpus
+  sintetis in-domain; evaluasi CV volunteer menyusul.
+
+### Temuan & perbaikan E2E
+1. E2E SQLite (`e2e.db`) tidak di-seed taksonomi → autocomplete kosong →
+   `bootstrap_e2e.py` kini men-seed taksonomi (352 skill).
+2. Fixture `sample-cv.pdf` hanya 3 baris tanpa bagian skills → parser jujur
+   melaporkan nol skill → fixture diperkaya jadi CV realistis lengkap
+   (RIWAYAT, PENDIDIKAN, KEAHLIAN, SERTIFIKASI, BAHASA).
+
+### Gate akhir Wave 2
+pytest **196/196** (103 + 93 baru: 50 taksonomi + 43 integrasi) · ruff bersih
+(90 file) · frontend build hijau · **Playwright 2/2** (HR: autocomplete→
+pemetaan skill; kandidat: upload→review→konfirmasi→skills→terapkan→profil) ·
+Supabase: migrasi 0010 + RLS 17/17 + integrasi LULUS · evaluasi 5/5 target ·
+Wave 2 belum di-commit (menunggu persetujuan).

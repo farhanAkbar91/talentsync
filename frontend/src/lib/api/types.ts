@@ -54,6 +54,8 @@ export interface Job {
   created_at?: string;
   updated_at?: string;
   deleted_at?: string | null;
+  /** M2 — hasil pemetaan skill ke kamus standar (display-only; null/absen bila belum ada). */
+  skills_normalized?: NormalizedJobSkill[] | null;
 }
 
 export interface Page<T> {
@@ -115,6 +117,8 @@ export interface Company {
 
 export type CvStatus = "pending" | "processing" | "ready" | "failed";
 
+export type ExtractionStatus = "pending" | "done" | "failed";
+
 export interface CVDoc {
   id: string;
   status: CvStatus;
@@ -126,6 +130,193 @@ export interface CVDoc {
   page_count: number | null;
   created_at: string;
   updated_at: string;
+  /** M1 — hasil ekstraksi (opsional: null/absen saat belum ada baris ekstraksi). */
+  extraction_confirmed?: boolean | null;
+  extraction_status?: ExtractionStatus | null;
+}
+
+// --- Ekstraksi CV (M1 — review hasil parser) ---
+
+export interface ExtractionContact {
+  name: string | null;
+  email: string | null;
+  phone: string | null;
+  location: string | null;
+  links: string[];
+}
+
+export interface ExtractionExperience {
+  title: string | null;
+  company: string | null;
+  period: string | null;
+  start: string | null;
+  end: string | null;
+  current: boolean;
+  bullets: string[];
+  evidence: string;
+  confidence: number;
+}
+
+export interface ExtractionEducation {
+  degree: string | null;
+  institution: string | null;
+  field: string | null;
+  years: string | null;
+  gpa: number | null;
+  evidence: string;
+  confidence: number;
+}
+
+export interface ExtractionSkill {
+  name: string;
+  evidence: string;
+  confidence: number;
+}
+
+export interface ExtractionCertification {
+  name: string;
+  issuer: string | null;
+  year: number | null;
+  evidence: string;
+  confidence: number;
+}
+
+export interface ExtractionLanguage {
+  language: string;
+  level: string | null;
+  evidence: string;
+  confidence: number;
+}
+
+export interface ExtractionProject {
+  name: string | null;
+  description: string | null;
+  evidence: string;
+  confidence: number;
+}
+
+export interface ExtractionAward {
+  text: string;
+  evidence: string;
+  confidence: number;
+}
+
+/** Keyakinan per bidang — kunci opsional agar UI tetap aman bila parser tak mengirim. */
+export type ExtractionFieldConfidence = Partial<{
+  name: number;
+  email: number;
+  phone: number;
+  location: number;
+  summary: number;
+  experiences: number;
+  education: number;
+  skills: number;
+  certifications: number;
+  languages: number;
+}>;
+
+export interface CvExtractionPayload {
+  parser_version: string;
+  generated_at: string | null;
+  contact: ExtractionContact;
+  summary: string | null;
+  experiences: ExtractionExperience[];
+  education: ExtractionEducation[];
+  skills: ExtractionSkill[];
+  certifications: ExtractionCertification[];
+  languages: ExtractionLanguage[];
+  projects: ExtractionProject[];
+  awards: ExtractionAward[];
+  field_confidence: ExtractionFieldConfidence;
+  needs_review: string[];
+  sections_found: string[];
+}
+
+export interface CvExtraction {
+  cv_id: string;
+  status: ExtractionStatus;
+  parser_version: string;
+  payload: CvExtractionPayload | null;
+  confirmed_at: string | null;
+  confirmed_by: string | null;
+}
+
+// --- Skill terstandardisasi (M2 — kamus skill & normalisasi) ---
+
+export type SkillType = "hard" | "soft";
+
+export interface CanonicalSkill {
+  slug: string;
+  name: string;
+  category: string;
+  skill_type: SkillType;
+}
+
+export interface SkillAutocompleteItem {
+  id: string;
+  slug: string;
+  name: string;
+  category: string;
+  skill_type: SkillType;
+}
+
+export interface SkillTaxonomy {
+  version: string;
+  categories: { name: string; count: number }[];
+  total: number;
+}
+
+export interface SkillSuggestionOption {
+  slug: string;
+  name: string;
+}
+
+export type SkillExtractionMethod = "explicit" | "inferred" | "manual";
+
+export type SkillStatus = "suggested" | "accepted" | "rejected";
+
+/** Item skill hasil ekstraksi & normalisasi pada sebuah CV (milik kandidat). */
+export interface CandidateSkillSuggestion {
+  id: string;
+  canonical: CanonicalSkill;
+  raw_name: string;
+  confidence: number;
+  evidence: string | null;
+  source_section: string | null;
+  extraction_method: SkillExtractionMethod;
+  status: SkillStatus;
+  needs_review: boolean;
+  suggestions: SkillSuggestionOption[];
+}
+
+export interface CandidateSkillSuggestionList {
+  items: CandidateSkillSuggestion[];
+  total: number;
+}
+
+/** Skill kandidat yang sudah diterapkan ke profil. */
+export interface CandidateSkill {
+  id: string;
+  canonical: CanonicalSkill;
+  raw_name: string;
+  confidence: number;
+  status: SkillStatus;
+  source_section: string | null;
+  extraction_method: SkillExtractionMethod;
+}
+
+export interface CandidateSkillList {
+  items: CandidateSkill[];
+  total: number;
+}
+
+/** Hasil normalisasi skill lowongan (display-only, khusus versi HR). */
+export interface NormalizedJobSkill {
+  canonical: { slug: string; name: string; category: string };
+  raw_name: string;
+  required: boolean;
+  confidence: number;
+  needs_review: boolean;
 }
 
 export interface JobStats {

@@ -1,4 +1,6 @@
-"""Endpoint profil: kandidat & perusahaan (HR)."""
+"""Endpoint profil: kandidat & perusahaan (HR), plus skill kandidat (M2)."""
+
+import uuid
 
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
@@ -9,7 +11,8 @@ from app.db.session import get_db
 from app.models.user import User
 from app.schemas.company import CompanyIn, CompanyOut
 from app.schemas.profile import CandidateProfileIn, CandidateProfileOut
-from app.services import profile_service
+from app.schemas.skill import CandidateSkillItemOut, CandidateSkillListOut
+from app.services import profile_service, skill_service
 
 router = APIRouter(prefix="/me", tags=["profiles"])
 
@@ -58,6 +61,27 @@ def update_candidate_profile(
         links=profile.links or {},
         updated_at=profile.updated_at,
     )
+
+
+@router.get("/candidate-skills", response_model=CandidateSkillListOut)
+def list_my_candidate_skills(
+    user: User = Depends(require_roles("candidate")), db: Session = Depends(get_db)
+) -> CandidateSkillListOut:
+    """Seluruh skill yang sudah diterima kandidat (status accepted), urut nama."""
+    rows = skill_service.list_my_skills(db, user)
+    raw_items = skill_service.build_skill_items(db, rows)
+    items = [CandidateSkillItemOut.model_validate(i) for i in raw_items]
+    return CandidateSkillListOut(items=items, total=len(items))
+
+
+@router.delete("/candidate-skills/{skill_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_my_candidate_skill(
+    skill_id: uuid.UUID,
+    user: User = Depends(require_roles("candidate")),
+    db: Session = Depends(get_db),
+) -> None:
+    """Hapus satu skill milik kandidat + bersihkan namanya dari profil."""
+    skill_service.delete_my_skill(db, user, skill_id)
 
 
 @router.get("/company", response_model=CompanyOut)

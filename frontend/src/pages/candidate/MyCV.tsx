@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { deleteCv, downloadCv, fetchCvs, setPrimaryCv, uploadCv, type CVDoc } from "../../lib/api";
 import { cvStatusLabels, formatDateTime, formatFileSize } from "../../lib/format";
 import { Alert, Badge, Button, Card, EmptyState, Spinner } from "../../components/ui";
@@ -9,12 +10,43 @@ export default function MyCvPage() {
   const [uploading, setUploading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  async function refresh() {
-    setCvs(await fetchCvs());
+  function isBusy(list: CVDoc[]): boolean {
+    return list.some(
+      (c) =>
+        c.status === "pending" ||
+        c.status === "processing" ||
+        c.extraction_status === "pending",
+    );
+  }
+
+  async function refresh(): Promise<CVDoc[]> {
+    const current = await fetchCvs();
+    setCvs(current);
+    return current;
+  }
+
+  // Polling ringan selama ada CV yang masih diproses — termasuk ekstraksi M1
+  // (extraction_status "pending"), agar chip status & tautan review muncul sendiri.
+  const pollTimer = useRef<number | undefined>(undefined);
+
+  function schedulePoll(current: CVDoc[]) {
+    window.clearTimeout(pollTimer.current);
+    if (isBusy(current)) {
+      pollTimer.current = window.setTimeout(poll, 800);
+    }
+  }
+
+  async function poll(): Promise<void> {
+    try {
+      schedulePoll(await refresh());
+    } catch (err) {
+      setMessage({ kind: "error", text: err instanceof Error ? err.message : "Gagal memuat." });
+    }
   }
 
   useEffect(() => {
-    refresh().catch((err) => setMessage({ kind: "error", text: err instanceof Error ? err.message : "Gagal memuat." }));
+    poll();
+    return () => window.clearTimeout(pollTimer.current);
   }, []);
 
   async function handleUpload() {
@@ -28,18 +60,11 @@ export default function MyCvPage() {
     try {
       await uploadCv(file);
       if (fileRef.current) fileRef.current.value = "";
-      await refresh();
+      await poll();
       setMessage({
         kind: "success",
-        text: "CV terunggah. Teks dasar sudah diekstrak — analisis AI penuh berjalan pada fase berikutnya.",
+        text: "CV terunggah. Ekstraksi berjalan otomatis — status pada tabel diperbarui sendiri.",
       });
-      // Ekstraksi berjalan async di server — poll ringan sampai selesai.
-      for (let i = 0; i < 10; i++) {
-        const current = await fetchCvs();
-        setCvs(current);
-        if (current.every((c) => c.status !== "pending" && c.status !== "processing")) break;
-        await new Promise((resolve) => setTimeout(resolve, 700));
-      }
     } catch (err) {
       setMessage({ kind: "error", text: err instanceof Error ? err.message : "Unggah gagal." });
     } finally {
@@ -50,7 +75,7 @@ export default function MyCvPage() {
   async function handlePrimary(cv: CVDoc) {
     try {
       await setPrimaryCv(cv.id);
-      await refresh();
+      await poll();
     } catch (err) {
       setMessage({ kind: "error", text: err instanceof Error ? err.message : "Gagal." });
     }
@@ -60,7 +85,7 @@ export default function MyCvPage() {
     if (!window.confirm(`Hapus CV "${cv.original_filename}"? Riwayat versi tetap tersimpan.`)) return;
     try {
       await deleteCv(cv.id);
-      await refresh();
+      await poll();
       setMessage({ kind: "success", text: "CV dihapus (soft delete)." });
     } catch (err) {
       setMessage({ kind: "error", text: err instanceof Error ? err.message : "Gagal menghapus." });
@@ -124,11 +149,39 @@ export default function MyCvPage() {
                   <td className="px-4 py-3 text-slate-500">{formatFileSize(cv.file_size_bytes)}</td>
                   <td className="px-4 py-3 text-slate-500">{cv.page_count ?? "—"}</td>
                   <td className="px-4 py-3">
-                    <Badge value={cv.status} label={cvStatusLabels[cv.status]} />
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <Badge value={cv.status} label={cvStatusLabels[cv.status]} />
+                      {/* Status ekstraksi (M1) — "Gagal" sudah terwakili badge status CV. */}
+                      {cv.extraction_status === "done" && cv.extraction_confirmed === true && (
+                        <Badge value="ready" label="Terkonfirmasi" />
+                      )}
+                      {cv.extraction_status === "done" && cv.extraction_confirmed === false && (
+                        <Badge value="pending" label="Perlu review" />
+                      )}
+                      {cv.extraction_status === "failed" && cv.status !== "failed" && (
+                        <Badge value="failed" label="Gagal" />
+                      )}
+                    </div>
                   </td>
                   <td className="px-4 py-3 text-slate-500">{formatDateTime(cv.created_at)}</td>
                   <td className="px-4 py-3">
                     <div className="flex justify-end gap-1.5">
+                      {cv.extraction_status === "done" && cv.extraction_confirmed !== true && (
+                        <Link
+                          to={`/app/cv/${cv.id}/review`}
+                          className="inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold text-primary-700 transition hover:bg-primary-50"
+                        >
+                          Review ekstraksi
+                        </Link>
+                      )}
+                      {cv.extraction_confirmed === true && (
+                        <Link
+                          to={`/app/cv/${cv.id}/skills`}
+                          className="inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold text-primary-700 transition hover:bg-primary-50"
+                        >
+                          Skills terstandardisasi
+                        </Link>
+                      )}
                       {!cv.is_primary && cv.status !== "failed" && (
                         <Button variant="secondary" onClick={() => handlePrimary(cv)}>
                           Jadikan Utama

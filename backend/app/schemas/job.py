@@ -103,6 +103,26 @@ class JobPublicOut(BaseModel):
     closing_at: datetime | None
 
 
+class NormalizedJobSkillCanonical(BaseModel):
+    slug: str
+    name: str
+    category: str
+
+
+class NormalizedJobSkill(BaseModel):
+    """Satu skill lowongan hasil normalisasi taksonomi (baris `job_skills`).
+
+    `canonical` selalu terisi untuk baris tersimpan (FK NOT NULL); None hanya
+    untuk toleransi kontrak frontend. Nama mentah tanpa padanan kanon tidak
+    dibuatkan baris — tetap tampil di `skills` (JSONB) sebagai sumber utama."""
+
+    canonical: NormalizedJobSkillCanonical | None = None
+    raw_name: str
+    required: bool
+    confidence: float | None = None
+    needs_review: bool = False
+
+
 class JobHrOut(JobPublicOut):
     """Versi HR — tambah status & metadata internal."""
 
@@ -111,3 +131,5 @@ class JobHrOut(JobPublicOut):
     created_at: datetime
     updated_at: datetime
     deleted_at: datetime | None
+    # Hanya diisi pada endpoint DETAIL (GET /hr/jobs/{id}); endpoint list dibiarkan None.
+    skills_normalized: list[NormalizedJobSkill] | None = None

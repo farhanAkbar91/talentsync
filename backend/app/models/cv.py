@@ -95,3 +95,8 @@ class CvExtraction(Base):
     )
 
     cv: Mapped[CV] = relationship(back_populates="extraction")
+
+    @property
+    def is_confirmed(self) -> bool:
+        """Hasil ekstraksi sudah dikonfirmasi (jejak review terisi)."""
+        return self.confirmed_at is not None

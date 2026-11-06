@@ -132,7 +132,7 @@ def _cv_text(cv: dict) -> str:
     """Render CV terstruktur ke teks (seperti hasil ekstraksi PDF)."""
     lines = [
         f"{cv['nama']} — {cv['headline']}",
-        f"{cv['email']} | {cv['lokasi']}",
+        f"{cv['email']} | {cv['telepon']} | {cv['lokasi']}",
         "RINGKASAN",
         cv["ringkasan"],
         "PENGALAMAN",

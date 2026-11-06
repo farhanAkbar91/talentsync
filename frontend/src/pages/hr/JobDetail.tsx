@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { archiveJob, extractErrorMessage, fetchHrJob, transitionJob, type Job } from "../../lib/api";
-import { employmentTypeLabels, formatDate, formatSalary, jobStatusLabels, workModeLabels } from "../../lib/format";
-import { Alert, Badge, Button, Card, Spinner } from "../../components/ui";
+import { employmentTypeLabels, formatDate, formatSalary, jobStatusLabels, toConfidencePercent, workModeLabels } from "../../lib/format";
+import { Alert, Badge, Button, Card, Spinner, cn } from "../../components/ui";
 
 const nextActions: Record<string, { action: "publish" | "pause" | "resume" | "close"; label: string; variant?: "primary" | "secondary" }[]> = {
   draft: [{ action: "publish", label: "Terbitkan Lowongan" }],
@@ -150,31 +150,86 @@ export default function HrJobDetailPage() {
           )}
         </div>
 
-        <Card>
-          <h2 className="text-sm font-semibold text-slate-700">Kriteria Kompetensi</h2>
-          <p className="mt-1 text-xs font-medium text-primary-700">Wajib — 60%</p>
-          <div className="mt-1.5 flex flex-wrap gap-1.5">
-            {job.skills.filter((s) => s.required).map((s) => (
-              <span key={s.name} className="rounded-full bg-primary-600 px-2.5 py-1 text-xs font-medium text-white">
-                {s.name}
-              </span>
-            ))}
-            {job.skills.filter((s) => s.required).length === 0 && (
-              <span className="text-xs text-slate-400">—</span>
-            )}
-          </div>
-          <p className="mt-3 text-xs font-medium text-slate-500">Nilai Tambah — 40%</p>
-          <div className="mt-1.5 flex flex-wrap gap-1.5">
-            {job.skills.filter((s) => !s.required).map((s) => (
-              <span key={s.name} className="rounded-full bg-primary-100 px-2.5 py-1 text-xs font-medium text-primary-700">
-                {s.name}
-              </span>
-            ))}
-            {job.skills.filter((s) => !s.required).length === 0 && (
-              <span className="text-xs text-slate-400">—</span>
-            )}
-          </div>
-        </Card>
+        <div className="space-y-5">
+          <Card>
+            <h2 className="text-sm font-semibold text-slate-700">Kriteria Kompetensi</h2>
+            <p className="mt-1 text-xs font-medium text-primary-700">Wajib — 60%</p>
+            <div className="mt-1.5 flex flex-wrap gap-1.5">
+              {job.skills.filter((s) => s.required).map((s) => (
+                <span key={s.name} className="rounded-full bg-primary-600 px-2.5 py-1 text-xs font-medium text-white">
+                  {s.name}
+                </span>
+              ))}
+              {job.skills.filter((s) => s.required).length === 0 && (
+                <span className="text-xs text-slate-400">—</span>
+              )}
+            </div>
+            <p className="mt-3 text-xs font-medium text-slate-500">Nilai Tambah — 40%</p>
+            <div className="mt-1.5 flex flex-wrap gap-1.5">
+              {job.skills.filter((s) => !s.required).map((s) => (
+                <span key={s.name} className="rounded-full bg-primary-100 px-2.5 py-1 text-xs font-medium text-primary-700">
+                  {s.name}
+                </span>
+              ))}
+              {job.skills.filter((s) => !s.required).length === 0 && (
+                <span className="text-xs text-slate-400">—</span>
+              )}
+            </div>
+          </Card>
+
+          {job.skills_normalized && job.skills_normalized.length > 0 && (
+            <Card>
+              <h2 className="text-sm font-semibold text-slate-700">Pemetaan skill (kamus standar)</h2>
+              <p className="mt-0.5 text-xs text-slate-400">
+                Hasil pemetaan skill lowongan ke kamus skill standar.
+              </p>
+              <ul className="mt-2 space-y-2">
+                {job.skills_normalized.map((ns) => {
+                  const pct = toConfidencePercent(ns.confidence);
+                  return (
+                    <li
+                      key={`${ns.canonical.slug}-${ns.raw_name}`}
+                      className="flex flex-wrap items-center gap-2 rounded-xl bg-slate-50 px-3 py-2 text-sm"
+                    >
+                      <span className="font-semibold text-slate-800">{ns.canonical.name}</span>
+                      <span className="text-xs text-slate-400">{ns.canonical.category}</span>
+                      <span className="text-xs text-slate-500">
+                        dari teks: <span className="italic">“{ns.raw_name}”</span>
+                      </span>
+                      <span
+                        className={cn(
+                          "inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium",
+                          ns.required
+                            ? "bg-primary-600 text-white"
+                            : "bg-primary-100 text-primary-700",
+                        )}
+                      >
+                        {ns.required ? "Wajib" : "Disarankan"}
+                      </span>
+                      <span
+                        className={cn(
+                          "inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium",
+                          pct >= 80
+                            ? "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200"
+                            : pct >= 60
+                              ? "bg-amber-50 text-amber-700 ring-1 ring-amber-200"
+                              : "bg-red-50 text-red-600 ring-1 ring-red-200",
+                        )}
+                      >
+                        {pct}%
+                      </span>
+                      {ns.needs_review && (
+                        <span className="inline-flex items-center rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700 ring-1 ring-amber-200">
+                          Perlu review
+                        </span>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </Card>
+          )}
+        </div>
       </div>
     </div>
   );

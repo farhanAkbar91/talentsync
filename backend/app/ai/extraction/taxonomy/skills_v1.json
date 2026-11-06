@@ -1,0 +1,4800 @@
+{
+  "version": "1.1.0",
+  "generated_note": "Susunan internal tim TalentSync (bukan salinan standar eksternal); referensi kategori mengikuti domain rekrutmen teknologi.",
+  "categories": [
+    "Programming Languages",
+    "Web Development",
+    "Mobile Development",
+    "Data Engineering",
+    "Data Analytics",
+    "Machine Learning",
+    "Artificial Intelligence",
+    "Database Management",
+    "Cloud Computing",
+    "DevOps",
+    "Cybersecurity",
+    "Networking",
+    "Software Engineering",
+    "Project Management",
+    "Business Analysis",
+    "Design & UI/UX",
+    "Quality Assurance",
+    "Communication",
+    "Leadership",
+    "Other Professional Skills",
+    "Languages"
+  ],
+  "skills": [
+    {
+      "slug": "python",
+      "name": "Python",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman serbaguna untuk web, data, dan otomasi.",
+      "related": [
+        "fastapi",
+        "pandas",
+        "django"
+      ],
+      "aliases": [
+        "python programming",
+        "bahasa pemrograman python",
+        "python3"
+      ]
+    },
+    {
+      "slug": "javascript",
+      "name": "JavaScript",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman utama interaktivitas web.",
+      "related": [
+        "typescript",
+        "nodejs",
+        "react"
+      ],
+      "aliases": [
+        "js",
+        "java script",
+        "ecmascript",
+        "bahasa pemrograman javascript"
+      ]
+    },
+    {
+      "slug": "typescript",
+      "name": "TypeScript",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "JavaScript dengan sistem tipe statis.",
+      "related": [
+        "javascript",
+        "nextjs"
+      ],
+      "aliases": [
+        "ts"
+      ]
+    },
+    {
+      "slug": "java",
+      "name": "Java",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman berorientasi objek untuk enterprise.",
+      "related": [
+        "spring-boot",
+        "kotlin"
+      ],
+      "aliases": [
+        "java programming",
+        "bahasa pemrograman java",
+        "core java"
+      ]
+    },
+    {
+      "slug": "csharp",
+      "name": "C#",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman Microsoft untuk .NET.",
+      "related": [
+        "asp-net"
+      ],
+      "aliases": [
+        "c sharp",
+        "csharp",
+        "c-sharp"
+      ]
+    },
+    {
+      "slug": "cpp",
+      "name": "C++",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman performa tinggi untuk sistem.",
+      "aliases": [
+        "c plus plus",
+        "cpp"
+      ]
+    },
+    {
+      "slug": "c",
+      "name": "C",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman dasar untuk sistem operasi.",
+      "aliases": [
+        "bahasa c"
+      ]
+    },
+    {
+      "slug": "go",
+      "name": "Go",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman sederhana untuk backend dan cloud.",
+      "aliases": [
+        "golang",
+        "go lang",
+        "bahasa go"
+      ]
+    },
+    {
+      "slug": "rust",
+      "name": "Rust",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman aman memori tanpa garbage collector.",
+      "aliases": [
+        "rustlang"
+      ]
+    },
+    {
+      "slug": "php",
+      "name": "PHP",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman server-side untuk web.",
+      "related": [
+        "laravel"
+      ],
+      "aliases": [
+        "bahasa pemrograman php"
+      ]
+    },
+    {
+      "slug": "ruby",
+      "name": "Ruby",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman dinamis berfokus produktivitas.",
+      "related": [
+        "ruby-on-rails"
+      ],
+      "aliases": [
+        "bahasa pemrograman ruby"
+      ]
+    },
+    {
+      "slug": "ruby-on-rails",
+      "name": "Ruby on Rails",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Kerangka kerja web full-stack berbasis Ruby.",
+      "aliases": [
+        "rails",
+        "ror"
+      ]
+    },
+    {
+      "slug": "kotlin",
+      "name": "Kotlin",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa resmi pengembangan aplikasi Android.",
+      "related": [
+        "java",
+        "android-development"
+      ],
+      "aliases": [
+        "bahasa pemrograman kotlin"
+      ]
+    },
+    {
+      "slug": "swift",
+      "name": "Swift",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman untuk aplikasi iOS dan macOS.",
+      "related": [
+        "ios-development",
+        "swiftui"
+      ],
+      "aliases": [
+        "bahasa pemrograman swift",
+        "swift language"
+      ]
+    },
+    {
+      "slug": "dart",
+      "name": "Dart",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman dasar kerangka Flutter.",
+      "related": [
+        "flutter"
+      ],
+      "aliases": [
+        "bahasa pemrograman dart"
+      ]
+    },
+    {
+      "slug": "scala",
+      "name": "Scala",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa yang memadukan OOP dan pemrograman fungsional.",
+      "aliases": [
+        "bahasa pemrograman scala"
+      ]
+    },
+    {
+      "slug": "r",
+      "name": "R",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman untuk komputasi statistik.",
+      "related": [
+        "statistics"
+      ],
+      "aliases": [
+        "bahasa r",
+        "r programming",
+        "r language"
+      ]
+    },
+    {
+      "slug": "sql",
+      "name": "SQL",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa standar untuk kueri basis data relasional.",
+      "related": [
+        "postgresql",
+        "mysql",
+        "query-optimization"
+      ],
+      "aliases": [
+        "structured query language",
+        "bahasa sql"
+      ]
+    },
+    {
+      "slug": "groovy",
+      "name": "Groovy",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa skrip untuk JVM dan pipeline Jenkins.",
+      "aliases": [
+        "apache groovy"
+      ]
+    },
+    {
+      "slug": "perl",
+      "name": "Perl",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa skrip untuk pemrosesan teks.",
+      "aliases": [
+        "bahasa pemrograman perl"
+      ]
+    },
+    {
+      "slug": "lua",
+      "name": "Lua",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa skrip ringan untuk game dan embedded.",
+      "aliases": [
+        "bahasa pemrograman lua"
+      ]
+    },
+    {
+      "slug": "haskell",
+      "name": "Haskell",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman fungsional murni.",
+      "aliases": [
+        "bahasa pemrograman haskell"
+      ]
+    },
+    {
+      "slug": "elixir",
+      "name": "Elixir",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa fungsional di atas BEAM untuk sistem terdistribusi.",
+      "aliases": [
+        "bahasa pemrograman elixir"
+      ]
+    },
+    {
+      "slug": "objective-c",
+      "name": "Objective-C",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman lama untuk aplikasi Apple.",
+      "aliases": [
+        "objective c",
+        "objectivec"
+      ]
+    },
+    {
+      "slug": "visual-basic",
+      "name": "Visual Basic",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman dari keluarga BASIC.",
+      "aliases": [
+        "vb",
+        "vb.net",
+        "visual basic net"
+      ]
+    },
+    {
+      "slug": "bash",
+      "name": "Bash",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Shell scripting untuk otomasi di Unix/Linux.",
+      "aliases": [
+        "shell scripting",
+        "shell script",
+        "unix shell"
+      ]
+    },
+    {
+      "slug": "matlab",
+      "name": "MATLAB",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa dan lingkungan komputasi numerik.",
+      "aliases": [
+        "bahasa pemrograman matlab"
+      ]
+    },
+    {
+      "slug": "julia",
+      "name": "Julia",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman untuk komputasi ilmiah cepat.",
+      "aliases": [
+        "bahasa pemrograman julia"
+      ]
+    },
+    {
+      "slug": "solidity",
+      "name": "Solidity",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa pemrograman kontrak pintar blockchain.",
+      "aliases": [
+        "smart contracts"
+      ]
+    },
+    {
+      "slug": "assembly",
+      "name": "Assembly Language",
+      "category": "Programming Languages",
+      "skill_type": "hard",
+      "description": "Bahasa tingkat rendah dekat dengan mesin.",
+      "aliases": [
+        "assembly",
+        "asm",
+        "bahasa rakitan"
+      ]
+    },
+    {
+      "slug": "react",
+      "name": "React",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Pustaka JavaScript untuk membangun antarmuka pengguna.",
+      "related": [
+        "javascript",
+        "nextjs",
+        "redux"
+      ],
+      "aliases": [
+        "reactjs",
+        "react.js",
+        "react js"
+      ]
+    },
+    {
+      "slug": "vue-js",
+      "name": "Vue.js",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja JavaScript progresif untuk UI.",
+      "aliases": [
+        "vue",
+        "vuejs",
+        "vue js"
+      ]
+    },
+    {
+      "slug": "angular",
+      "name": "Angular",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja web dari Google berbasis TypeScript.",
+      "aliases": [
+        "angularjs",
+        "angular js"
+      ]
+    },
+    {
+      "slug": "nextjs",
+      "name": "Next.js",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja React untuk rendering dan routing.",
+      "related": [
+        "react",
+        "typescript"
+      ],
+      "aliases": [
+        "nextjs",
+        "next js"
+      ]
+    },
+    {
+      "slug": "svelte",
+      "name": "Svelte",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja UI yang dikompilasi tanpa virtual DOM.",
+      "aliases": [
+        "sveltejs",
+        "svelte js"
+      ]
+    },
+    {
+      "slug": "html",
+      "name": "HTML",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Bahasa markup struktur halaman web.",
+      "related": [
+        "css"
+      ],
+      "aliases": [
+        "html5"
+      ]
+    },
+    {
+      "slug": "css",
+      "name": "CSS",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Bahasa styling tampilan halaman web.",
+      "related": [
+        "html",
+        "tailwind-css"
+      ],
+      "aliases": [
+        "css3",
+        "cascading style sheets"
+      ]
+    },
+    {
+      "slug": "tailwind-css",
+      "name": "Tailwind CSS",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja CSS berbasis utility-first.",
+      "related": [
+        "css"
+      ],
+      "aliases": [
+        "tailwind",
+        "tailwindcss"
+      ]
+    },
+    {
+      "slug": "bootstrap",
+      "name": "Bootstrap",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja CSS untuk komponen responsif.",
+      "related": [
+        "css"
+      ],
+      "aliases": [
+        "twitter bootstrap"
+      ]
+    },
+    {
+      "slug": "sass",
+      "name": "Sass",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Preprocessor CSS dengan variabel dan nesting.",
+      "aliases": [
+        "scss"
+      ]
+    },
+    {
+      "slug": "rest-api",
+      "name": "REST API",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Gaya arsitektur API berbasis HTTP.",
+      "related": [
+        "fastapi",
+        "api-testing"
+      ],
+      "aliases": [
+        "restful api",
+        "rest",
+        "restful"
+      ]
+    },
+    {
+      "slug": "graphql",
+      "name": "GraphQL",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Bahasa kueri API dengan skema fleksibel.",
+      "aliases": [
+        "graphql api"
+      ]
+    },
+    {
+      "slug": "django",
+      "name": "Django",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja web Python full-featured.",
+      "related": [
+        "python",
+        "rest-api"
+      ],
+      "aliases": [
+        "django framework"
+      ]
+    },
+    {
+      "slug": "flask",
+      "name": "Flask",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Mikro-kerangka kerja web Python.",
+      "related": [
+        "python",
+        "rest-api"
+      ],
+      "aliases": [
+        "flask framework"
+      ]
+    },
+    {
+      "slug": "fastapi",
+      "name": "FastAPI",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja API Python modern berperforma tinggi.",
+      "related": [
+        "python",
+        "rest-api",
+        "sqlalchemy"
+      ],
+      "aliases": [
+        "fast api"
+      ]
+    },
+    {
+      "slug": "laravel",
+      "name": "Laravel",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja web PHP dengan sintaks elegan.",
+      "related": [
+        "php"
+      ],
+      "aliases": [
+        "laravel framework"
+      ]
+    },
+    {
+      "slug": "spring-boot",
+      "name": "Spring Boot",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja Java untuk aplikasi siap produksi.",
+      "related": [
+        "java"
+      ],
+      "aliases": [
+        "springboot",
+        "spring framework"
+      ]
+    },
+    {
+      "slug": "express-js",
+      "name": "Express.js",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja web minimalis untuk Node.js.",
+      "related": [
+        "nodejs"
+      ],
+      "aliases": [
+        "express",
+        "expressjs",
+        "express js"
+      ]
+    },
+    {
+      "slug": "asp-net",
+      "name": "ASP.NET",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja web dari ekosistem .NET.",
+      "related": [
+        "csharp",
+        "dotnet"
+      ],
+      "aliases": [
+        "asp net"
+      ]
+    },
+    {
+      "slug": "dotnet",
+      "name": ".NET",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Platform pengembangan aplikasi dari Microsoft.",
+      "related": [
+        "csharp",
+        "asp-net"
+      ],
+      "aliases": [
+        "dot net",
+        "dotnet core",
+        ".net core"
+      ]
+    },
+    {
+      "slug": "nodejs",
+      "name": "Node.js",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Runtime JavaScript di luar peramban.",
+      "related": [
+        "javascript",
+        "express-js"
+      ],
+      "aliases": [
+        "nodejs",
+        "node js",
+        "node"
+      ]
+    },
+    {
+      "slug": "websockets",
+      "name": "WebSockets",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Protokol komunikasi dua araja real-time.",
+      "aliases": [
+        "websocket"
+      ]
+    },
+    {
+      "slug": "jquery",
+      "name": "jQuery",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Pustaka JavaScript untuk manipulasi DOM.",
+      "aliases": [
+        "pustaka jquery"
+      ]
+    },
+    {
+      "slug": "redux",
+      "name": "Redux",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Pengelola state terpusat untuk aplikasi frontend.",
+      "related": [
+        "react"
+      ],
+      "aliases": [
+        "redux toolkit"
+      ]
+    },
+    {
+      "slug": "wordpress",
+      "name": "WordPress",
+      "category": "Web Development",
+      "skill_type": "hard",
+      "description": "Sistem manajemen konten berbasis PHP.",
+      "aliases": [
+        "cms wordpress"
+      ]
+    },
+    {
+      "slug": "react-native",
+      "name": "React Native",
+      "category": "Mobile Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja aplikasi mobile lintas platform dari React.",
+      "related": [
+        "react",
+        "flutter",
+        "mobile-app-development"
+      ],
+      "aliases": [
+        "reactnative",
+        "react native app"
+      ]
+    },
+    {
+      "slug": "flutter",
+      "name": "Flutter",
+      "category": "Mobile Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja UI lintas platform dari Google.",
+      "related": [
+        "dart",
+        "firebase",
+        "react-native"
+      ],
+      "aliases": [
+        "flutter framework"
+      ]
+    },
+    {
+      "slug": "android-development",
+      "name": "Android Development",
+      "category": "Mobile Development",
+      "skill_type": "hard",
+      "description": "Pengembangan aplikasi native Android.",
+      "related": [
+        "kotlin",
+        "jetpack-compose"
+      ],
+      "aliases": [
+        "android",
+        "android sdk",
+        "pengembangan android"
+      ]
+    },
+    {
+      "slug": "ios-development",
+      "name": "iOS Development",
+      "category": "Mobile Development",
+      "skill_type": "hard",
+      "description": "Pengembangan aplikasi native iPhone dan iPad.",
+      "related": [
+        "swift",
+        "swiftui"
+      ],
+      "aliases": [
+        "ios",
+        "pengembangan ios"
+      ]
+    },
+    {
+      "slug": "swiftui",
+      "name": "SwiftUI",
+      "category": "Mobile Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja UI deklaratif untuk platform Apple.",
+      "related": [
+        "swift",
+        "ios-development"
+      ],
+      "aliases": [
+        "swift ui"
+      ]
+    },
+    {
+      "slug": "jetpack-compose",
+      "name": "Jetpack Compose",
+      "category": "Mobile Development",
+      "skill_type": "hard",
+      "description": "Toolkit UI deklaratif modern untuk Android.",
+      "related": [
+        "android-development",
+        "kotlin"
+      ],
+      "aliases": [
+        "android jetpack compose"
+      ]
+    },
+    {
+      "slug": "mobile-app-development",
+      "name": "Mobile App Development",
+      "category": "Mobile Development",
+      "skill_type": "hard",
+      "description": "Pengembangan aplikasi mobile secara umum.",
+      "aliases": [
+        "pengembangan aplikasi mobile",
+        "mobile apps",
+        "aplikasi mobile"
+      ]
+    },
+    {
+      "slug": "xamarin",
+      "name": "Xamarin",
+      "category": "Mobile Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja mobile lintas platform berbasis .NET.",
+      "aliases": [
+        "xamarin forms"
+      ]
+    },
+    {
+      "slug": "ionic",
+      "name": "Ionic",
+      "category": "Mobile Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja aplikasi hybrid berbasis web.",
+      "aliases": [
+        "ionic framework"
+      ]
+    },
+    {
+      "slug": "cordova",
+      "name": "Cordova",
+      "category": "Mobile Development",
+      "skill_type": "hard",
+      "description": "Kerangka kerja aplikasi mobile berbasis HTML.",
+      "aliases": [
+        "apache cordova",
+        "phonegap"
+      ]
+    },
+    {
+      "slug": "app-store-optimization",
+      "name": "App Store Optimization",
+      "category": "Mobile Development",
+      "skill_type": "hard",
+      "description": "Optimasi visibilitas aplikasi di app store.",
+      "aliases": [
+        "aso",
+        "optimasi app store"
+      ]
+    },
+    {
+      "slug": "firebase",
+      "name": "Firebase",
+      "category": "Mobile Development",
+      "skill_type": "hard",
+      "description": "Platform backend-as-a-service dari Google.",
+      "related": [
+        "flutter",
+        "android-development"
+      ],
+      "aliases": [
+        "google firebase",
+        "fcm",
+        "firebase cloud messaging"
+      ]
+    },
+    {
+      "slug": "data-engineering",
+      "name": "Data Engineering",
+      "category": "Data Engineering",
+      "skill_type": "hard",
+      "description": "Membangun infrastruktur dan aliran data.",
+      "related": [
+        "etl",
+        "data-pipeline",
+        "data-warehousing"
+      ],
+      "aliases": [
+        "rekayasa data"
+      ]
+    },
+    {
+      "slug": "apache-airflow",
+      "name": "Apache Airflow",
+      "category": "Data Engineering",
+      "skill_type": "hard",
+      "description": "Platform orkestrasi pipeline data.",
+      "aliases": [
+        "airflow"
+      ]
+    },
+    {
+      "slug": "apache-spark",
+      "name": "Apache Spark",
+      "category": "Data Engineering",
+      "skill_type": "hard",
+      "description": "Mesin pemrosesan data skala besar.",
+      "aliases": [
+        "spark",
+        "pyspark"
+      ]
+    },
+    {
+      "slug": "apache-hadoop",
+      "name": "Apache Hadoop",
+      "category": "Data Engineering",
+      "skill_type": "hard",
+      "description": "Kerangka kerja penyimpanan dan pemrosesan data terdistribusi.",
+      "aliases": [
+        "hadoop"
+      ]
+    },
+    {
+      "slug": "apache-kafka",
+      "name": "Apache Kafka",
+      "category": "Data Engineering",
+      "skill_type": "hard",
+      "description": "Platform streaming event terdistribusi.",
+      "aliases": [
+        "kafka"
+      ]
+    },
+    {
+      "slug": "apache-hive",
+      "name": "Apache Hive",
+      "category": "Data Engineering",
+      "skill_type": "hard",
+      "description": "Gudang data di atas Hadoop dengan SQL.",
+      "aliases": [
+        "hive"
+      ]
+    },
+    {
+      "slug": "apache-flink",
+      "name": "Apache Flink",
+      "category": "Data Engineering",
+      "skill_type": "hard",
+      "description": "Mesin pemrosesan stream stateful.",
+      "aliases": [
+        "flink"
+      ]
+    },
+    {
+      "slug": "etl",
+      "name": "ETL",
+      "category": "Data Engineering",
+      "skill_type": "hard",
+      "description": "Proses extract, transform, load data.",
+      "aliases": [
+        "extract transform load",
+        "elt"
+      ]
+    },
+    {
+      "slug": "data-warehousing",
+      "name": "Data Warehousing",
+      "category": "Data Engineering",
+      "skill_type": "hard",
+      "description": "Perancangan gudang data analitik.",
+      "aliases": [
+        "data warehouse",
+        "gudang data"
+      ]
+    },
+    {
+      "slug": "dbt",
+      "name": "dbt",
+      "category": "Data Engineering",
+      "skill_type": "hard",
+      "description": "Alat transformasi data berbasis SQL.",
+      "aliases": [
+        "data build tool"
+      ]
+    },
+    {
+      "slug": "data-pipeline",
+      "name": "Data Pipeline",
+      "category": "Data Engineering",
+      "skill_type": "hard",
+      "description": "Perancangan alur perpindahan data antar sistem.",
+      "aliases": [
+        "data pipelines",
+        "pipeline data"
+      ]
+    },
+    {
+      "slug": "snowflake",
+      "name": "Snowflake",
+      "category": "Data Engineering",
+      "skill_type": "hard",
+      "description": "Platform cloud data warehouse.",
+      "aliases": [
+        "snowflake data warehouse"
+      ]
+    },
+    {
+      "slug": "databricks",
+      "name": "Databricks",
+      "category": "Data Engineering",
+      "skill_type": "hard",
+      "description": "Platform lakehouse untuk data dan AI.",
+      "aliases": [
+        "databricks lakehouse"
+      ]
+    },
+    {
+      "slug": "data-modeling",
+      "name": "Data Modeling",
+      "category": "Data Engineering",
+      "skill_type": "hard",
+      "description": "Perancangan struktur dan relasi data.",
+      "aliases": [
+        "data modelling",
+        "pemodelan data"
+      ]
+    },
+    {
+      "slug": "data-lake",
+      "name": "Data Lake",
+      "category": "Data Engineering",
+      "skill_type": "hard",
+      "description": "Repositori data mentah skala besar.",
+      "aliases": [
+        "data lakes"
+      ]
+    },
+    {
+      "slug": "excel",
+      "name": "Excel",
+      "category": "Data Analytics",
+      "skill_type": "hard",
+      "description": "Pengolah angka Microsoft untuk analisis data.",
+      "related": [
+        "pivot-table",
+        "excel-vba",
+        "data-analysis"
+      ],
+      "aliases": [
+        "microsoft excel",
+        "ms excel",
+        "pengolah angka"
+      ]
+    },
+    {
+      "slug": "google-sheets",
+      "name": "Google Sheets",
+      "category": "Data Analytics",
+      "skill_type": "hard",
+      "description": "Pengolah angka kolaboratif dari Google.",
+      "aliases": [
+        "google spreadsheet"
+      ]
+    },
+    {
+      "slug": "tableau",
+      "name": "Tableau",
+      "category": "Data Analytics",
+      "skill_type": "hard",
+      "description": "Platform visualisasi data interaktif.",
+      "related": [
+        "data-visualization",
+        "business-intelligence"
+      ],
+      "aliases": [
+        "tableau desktop",
+        "tableau public"
+      ]
+    },
+    {
+      "slug": "power-bi",
+      "name": "Power BI",
+      "category": "Data Analytics",
+      "skill_type": "hard",
+      "description": "Alat business intelligence dari Microsoft.",
+      "related": [
+        "data-visualization",
+        "excel",
+        "dashboarding"
+      ],
+      "aliases": [
+        "powerbi",
+        "microsoft power bi"
+      ]
+    },
+    {
+      "slug": "looker",
+      "name": "Looker",
+      "category": "Data Analytics",
+      "skill_type": "hard",
+      "description": "Platform BI berbasis model data LookML.",
+      "aliases": [
+        "looker studio",
+        "google data studio"
+      ]
+    },
+    {
+      "slug": "data-analysis",
+      "name": "Data Analysis",
+      "category": "Data Analytics",
+      "skill_type": "hard",
+      "description": "Mengolah data menjadi insight.",
+      "related": [
+        "statistics",
+        "pandas",
+        "sql"
+      ],
+      "aliases": [
+        "analisis data",
+        "data analytics",
+        "data analyst"
+      ]
+    },
+    {
+      "slug": "data-visualization",
+      "name": "Data Visualization",
+      "category": "Data Analytics",
+      "skill_type": "hard",
+      "description": "Menyajikan data dalam bentuk visual.",
+      "related": [
+        "tableau",
+        "power-bi",
+        "statistics"
+      ],
+      "aliases": [
+        "visualisasi data",
+        "dataviz"
+      ]
+    },
+    {
+      "slug": "statistics",
+      "name": "Statistics",
+      "category": "Data Analytics",
+      "skill_type": "hard",
+      "description": "Analisis statistik dan inferensi data.",
+      "related": [
+        "data-analysis",
+        "ab-testing"
+      ],
+      "aliases": [
+        "statistika",
+        "statistical analysis",
+        "analisis statistik"
+      ]
+    },
+    {
+      "slug": "google-analytics",
+      "name": "Google Analytics",
+      "category": "Data Analytics",
+      "skill_type": "hard",
+      "description": "Alat analitik trafik web dari Google.",
+      "aliases": [
+        "ga4",
+        "google analytics 4"
+      ]
+    },
+    {
+      "slug": "spss",
+      "name": "SPSS",
+      "category": "Data Analytics",
+      "skill_type": "hard",
+      "description": "Perangkat lunak statistik dari IBM.",
+      "related": [
+        "statistics"
+      ],
+      "aliases": [
+        "ibm spss"
+      ]
+    },
+    {
+      "slug": "sas",
+      "name": "SAS",
+      "category": "Data Analytics",
+      "skill_type": "hard",
+      "description": "Suite perangkat lunak analitik lanjutan.",
+      "related": [
+        "statistics"
+      ],
+      "aliases": [
+        "statistical analysis system"
+      ]
+    },
+    {
+      "slug": "dashboarding",
+      "name": "Dashboarding",
+      "category": "Data Analytics",
+      "skill_type": "hard",
+      "description": "Membangun dashboard monitoring metrik.",
+      "related": [
+        "data-visualization",
+        "power-bi"
+      ],
+      "aliases": [
+        "dashboard",
+        "pembuatan dashboard",
+        "dasbor"
+      ]
+    },
+    {
+      "slug": "ab-testing",
+      "name": "A/B Testing",
+      "category": "Data Analytics",
+      "skill_type": "hard",
+      "description": "Eksperimen perbandingan dua varian.",
+      "related": [
+        "statistics"
+      ],
+      "aliases": [
+        "ab testing",
+        "split testing",
+        "uji a/b"
+      ]
+    },
+    {
+      "slug": "pivot-table",
+      "name": "Pivot Table",
+      "category": "Data Analytics",
+      "skill_type": "hard",
+      "description": "Ringkasan data interaktif di spreadsheet.",
+      "related": [
+        "excel"
+      ],
+      "aliases": [
+        "pivot tables",
+        "tabel pivot"
+      ]
+    },
+    {
+      "slug": "data-storytelling",
+      "name": "Data Storytelling",
+      "category": "Data Analytics",
+      "skill_type": "hard",
+      "description": "Menyampaikan insight data secara naratif.",
+      "related": [
+        "data-visualization"
+      ],
+      "aliases": [
+        "cerita data"
+      ]
+    },
+    {
+      "slug": "business-intelligence",
+      "name": "Business Intelligence",
+      "category": "Data Analytics",
+      "skill_type": "hard",
+      "description": "Pelaporan dan analitik untuk keputusan bisnis.",
+      "related": [
+        "data-warehousing",
+        "dashboarding"
+      ],
+      "aliases": [
+        "bi",
+        "kecerdasan bisnis"
+      ]
+    },
+    {
+      "slug": "excel-vba",
+      "name": "Excel VBA",
+      "category": "Data Analytics",
+      "skill_type": "hard",
+      "description": "Otomasi Excel dengan makro VBA.",
+      "related": [
+        "excel"
+      ],
+      "aliases": [
+        "vba",
+        "macro excel",
+        "makro vba"
+      ]
+    },
+    {
+      "slug": "machine-learning",
+      "name": "Machine Learning",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Model yang belajar dari data.",
+      "related": [
+        "deep-learning",
+        "scikit-learn",
+        "pandas"
+      ],
+      "aliases": [
+        "ml",
+        "pembelajaran mesin"
+      ]
+    },
+    {
+      "slug": "deep-learning",
+      "name": "Deep Learning",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Jaringan saraf tiruan berlapis.",
+      "related": [
+        "machine-learning",
+        "tensorflow",
+        "pytorch"
+      ],
+      "aliases": [
+        "pembelajaran mendalam"
+      ]
+    },
+    {
+      "slug": "scikit-learn",
+      "name": "scikit-learn",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Pustaka machine learning Python klasik.",
+      "related": [
+        "machine-learning",
+        "python"
+      ],
+      "aliases": [
+        "sklearn",
+        "scikit learn"
+      ]
+    },
+    {
+      "slug": "tensorflow",
+      "name": "TensorFlow",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Kerangka kerja deep learning dari Google.",
+      "related": [
+        "deep-learning",
+        "keras"
+      ],
+      "aliases": [
+        "tf"
+      ]
+    },
+    {
+      "slug": "pytorch",
+      "name": "PyTorch",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Kerangka kerja deep learning dari Meta.",
+      "related": [
+        "deep-learning",
+        "python"
+      ],
+      "aliases": [
+        "torch"
+      ]
+    },
+    {
+      "slug": "keras",
+      "name": "Keras",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "API high-level untuk membangun model neural.",
+      "related": [
+        "tensorflow",
+        "deep-learning"
+      ],
+      "aliases": [
+        "tensorflow keras"
+      ]
+    },
+    {
+      "slug": "natural-language-processing",
+      "name": "Natural Language Processing",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Pemrosesan bahasa alami oleh komputer.",
+      "related": [
+        "machine-learning",
+        "embeddings"
+      ],
+      "aliases": [
+        "nlp",
+        "pemrosesan bahasa alami",
+        "text mining",
+        "penambangan teks"
+      ]
+    },
+    {
+      "slug": "computer-vision",
+      "name": "Computer Vision",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Pemrosesan dan analisis citra oleh komputer.",
+      "related": [
+        "deep-learning"
+      ],
+      "aliases": [
+        "vision komputer",
+        "penglihatan komputer"
+      ]
+    },
+    {
+      "slug": "reinforcement-learning",
+      "name": "Reinforcement Learning",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Pembelajaran melalui reward dan interaksi.",
+      "related": [
+        "machine-learning"
+      ],
+      "aliases": [
+        "pembelajaran penguatan"
+      ]
+    },
+    {
+      "slug": "feature-engineering",
+      "name": "Feature Engineering",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Membuat fitur input model yang informatif.",
+      "related": [
+        "machine-learning"
+      ],
+      "aliases": [
+        "rekayasa fitur"
+      ]
+    },
+    {
+      "slug": "model-deployment",
+      "name": "Model Deployment",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Menyajikan model ML ke produksi.",
+      "related": [
+        "mlops",
+        "machine-learning"
+      ],
+      "aliases": [
+        "model serving",
+        "deployment model"
+      ]
+    },
+    {
+      "slug": "pandas",
+      "name": "pandas",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Pustaka manipulasi data tabular Python.",
+      "related": [
+        "python",
+        "numpy",
+        "data-analysis"
+      ],
+      "aliases": [
+        "pustaka pandas"
+      ]
+    },
+    {
+      "slug": "numpy",
+      "name": "NumPy",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Pustaka komputasi numerik Python.",
+      "related": [
+        "python",
+        "pandas",
+        "scipy"
+      ],
+      "aliases": [
+        "numerical python",
+        "pustaka numpy"
+      ]
+    },
+    {
+      "slug": "scipy",
+      "name": "SciPy",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Pustaka komputasi ilmiah Python.",
+      "related": [
+        "numpy",
+        "python"
+      ],
+      "aliases": [
+        "pustaka scipy"
+      ]
+    },
+    {
+      "slug": "xgboost",
+      "name": "XGBoost",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Kerangka kerja gradient boosting berperforma tinggi.",
+      "related": [
+        "machine-learning",
+        "scikit-learn"
+      ],
+      "aliases": [
+        "extreme gradient boosting"
+      ]
+    },
+    {
+      "slug": "hugging-face",
+      "name": "Hugging Face",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Ekosistem model dan pustaka transformers.",
+      "related": [
+        "large-language-models",
+        "natural-language-processing"
+      ],
+      "aliases": [
+        "huggingface",
+        "hugging face transformers"
+      ]
+    },
+    {
+      "slug": "mlops",
+      "name": "MLOps",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Operasionalisasi siklus hidup model ML.",
+      "related": [
+        "machine-learning",
+        "model-deployment",
+        "ci-cd"
+      ],
+      "aliases": [
+        "ml ops",
+        "machine learning operations"
+      ]
+    },
+    {
+      "slug": "recommendation-systems",
+      "name": "Recommendation Systems",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Sistem rekomendasi konten atau produk.",
+      "related": [
+        "machine-learning"
+      ],
+      "aliases": [
+        "recommender systems",
+        "sistem rekomendasi"
+      ]
+    },
+    {
+      "slug": "time-series-analysis",
+      "name": "Time Series Analysis",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Analisis dan peramalan data deret waktu.",
+      "related": [
+        "statistics",
+        "machine-learning"
+      ],
+      "aliases": [
+        "analisis deret waktu",
+        "time series forecasting"
+      ]
+    },
+    {
+      "slug": "predictive-modeling",
+      "name": "Predictive Modeling",
+      "category": "Machine Learning",
+      "skill_type": "hard",
+      "description": "Pemodelan statistik untuk prediksi.",
+      "related": [
+        "machine-learning",
+        "statistics"
+      ],
+      "aliases": [
+        "pemodelan prediktif",
+        "predictive analytics"
+      ]
+    },
+    {
+      "slug": "artificial-intelligence",
+      "name": "Artificial Intelligence",
+      "category": "Artificial Intelligence",
+      "skill_type": "hard",
+      "description": "Bidang kecerdasan buatan secara umum.",
+      "related": [
+        "machine-learning",
+        "large-language-models"
+      ],
+      "aliases": [
+        "ai",
+        "kecerdasan buatan"
+      ]
+    },
+    {
+      "slug": "prompt-engineering",
+      "name": "Prompt Engineering",
+      "category": "Artificial Intelligence",
+      "skill_type": "hard",
+      "description": "Merancang prompt efektif untuk LLM.",
+      "related": [
+        "large-language-models",
+        "generative-ai"
+      ],
+      "aliases": [
+        "rekayasa prompt"
+      ]
+    },
+    {
+      "slug": "large-language-models",
+      "name": "Large Language Models",
+      "category": "Artificial Intelligence",
+      "skill_type": "hard",
+      "description": "Model bahasa berskala besar seperti GPT.",
+      "related": [
+        "prompt-engineering",
+        "rag",
+        "generative-ai"
+      ],
+      "aliases": [
+        "llm",
+        "llms",
+        "model bahasa besar"
+      ]
+    },
+    {
+      "slug": "generative-ai",
+      "name": "Generative AI",
+      "category": "Artificial Intelligence",
+      "skill_type": "hard",
+      "description": "AI yang menghasilkan teks, gambar, atau audio.",
+      "related": [
+        "large-language-models",
+        "artificial-intelligence"
+      ],
+      "aliases": [
+        "gen ai",
+        "ai generatif"
+      ]
+    },
+    {
+      "slug": "ai-agents",
+      "name": "AI Agents",
+      "category": "Artificial Intelligence",
+      "skill_type": "hard",
+      "description": "Agen otonom berbasis LLM dengan alat.",
+      "related": [
+        "large-language-models",
+        "langchain"
+      ],
+      "aliases": [
+        "ai agent",
+        "agen ai"
+      ]
+    },
+    {
+      "slug": "rag",
+      "name": "RAG",
+      "category": "Artificial Intelligence",
+      "skill_type": "hard",
+      "description": "Retrieval augmented generation untuk LLM.",
+      "related": [
+        "large-language-models",
+        "vector-database",
+        "embeddings"
+      ],
+      "aliases": [
+        "retrieval augmented generation",
+        "retrieval-augmented generation"
+      ]
+    },
+    {
+      "slug": "langchain",
+      "name": "LangChain",
+      "category": "Artificial Intelligence",
+      "skill_type": "hard",
+      "description": "Kerangka kerja aplikasi berbasis LLM.",
+      "related": [
+        "large-language-models",
+        "ai-agents"
+      ],
+      "aliases": [
+        "langchain framework"
+      ]
+    },
+    {
+      "slug": "openai-api",
+      "name": "OpenAI API",
+      "category": "Artificial Intelligence",
+      "skill_type": "hard",
+      "description": "API model AI komersial OpenAI.",
+      "related": [
+        "large-language-models",
+        "prompt-engineering"
+      ],
+      "aliases": [
+        "openai",
+        "open ai api"
+      ]
+    },
+    {
+      "slug": "chatbot-development",
+      "name": "Chatbot Development",
+      "category": "Artificial Intelligence",
+      "skill_type": "hard",
+      "description": "Membangun asisten percakapan otomatis.",
+      "related": [
+        "natural-language-processing",
+        "ai-agents"
+      ],
+      "aliases": [
+        "chatbot",
+        "pengembangan chatbot"
+      ]
+    },
+    {
+      "slug": "speech-recognition",
+      "name": "Speech Recognition",
+      "category": "Artificial Intelligence",
+      "skill_type": "hard",
+      "description": "Mengubah ucapan menjadi teks.",
+      "related": [
+        "natural-language-processing"
+      ],
+      "aliases": [
+        "speech to text",
+        "pengenalan suara",
+        "voice recognition"
+      ]
+    },
+    {
+      "slug": "ocr",
+      "name": "OCR",
+      "category": "Artificial Intelligence",
+      "skill_type": "hard",
+      "description": "Pengenalan karakter optik dari gambar.",
+      "related": [
+        "computer-vision"
+      ],
+      "aliases": [
+        "optical character recognition",
+        "pengenalan karakter optik"
+      ]
+    },
+    {
+      "slug": "ai-ethics",
+      "name": "AI Ethics",
+      "category": "Artificial Intelligence",
+      "skill_type": "hard",
+      "description": "Prinsip pengembangan AI yang bertanggung jawab.",
+      "related": [
+        "artificial-intelligence"
+      ],
+      "aliases": [
+        "etika ai",
+        "responsible ai"
+      ]
+    },
+    {
+      "slug": "vector-database",
+      "name": "Vector Database",
+      "category": "Artificial Intelligence",
+      "skill_type": "hard",
+      "description": "Basis data untuk pencarian similarity vektor.",
+      "related": [
+        "embeddings",
+        "rag"
+      ],
+      "aliases": [
+        "vector db",
+        "basis data vektor"
+      ]
+    },
+    {
+      "slug": "embeddings",
+      "name": "Embeddings",
+      "category": "Artificial Intelligence",
+      "skill_type": "hard",
+      "description": "Representasi vektor semantik teks.",
+      "related": [
+        "vector-database",
+        "natural-language-processing"
+      ],
+      "aliases": [
+        "embedding",
+        "text embeddings",
+        "embedding vektor"
+      ]
+    },
+    {
+      "slug": "postgresql",
+      "name": "PostgreSQL",
+      "category": "Database Management",
+      "skill_type": "hard",
+      "description": "Basis data relasional open-source lanjutan.",
+      "related": [
+        "sql",
+        "database-design",
+        "database-administration"
+      ],
+      "aliases": [
+        "postgres",
+        "psql"
+      ]
+    },
+    {
+      "slug": "mysql",
+      "name": "MySQL",
+      "category": "Database Management",
+      "skill_type": "hard",
+      "description": "Basis data relasional populer untuk web.",
+      "related": [
+        "sql",
+        "database-design"
+      ],
+      "aliases": [
+        "my sql"
+      ]
+    },
+    {
+      "slug": "sqlite",
+      "name": "SQLite",
+      "category": "Database Management",
+      "skill_type": "hard",
+      "description": "Basis data relasional ringan tanpa server.",
+      "related": [
+        "sql",
+        "mobile-app-development"
+      ],
+      "aliases": [
+        "sqlite3"
+      ]
+    },
+    {
+      "slug": "mongodb",
+      "name": "MongoDB",
+      "category": "Database Management",
+      "skill_type": "hard",
+      "description": "Basis data NoSQL berbasis dokumen.",
+      "related": [
+        "database-design"
+      ],
+      "aliases": [
+        "mongo"
+      ]
+    },
+    {
+      "slug": "redis",
+      "name": "Redis",
+      "category": "Database Management",
+      "skill_type": "hard",
+      "description": "Penyimpanan key-value in-memory untuk cache.",
+      "aliases": [
+        "redis cache"
+      ]
+    },
+    {
+      "slug": "oracle-database",
+      "name": "Oracle Database",
+      "category": "Database Management",
+      "skill_type": "hard",
+      "description": "Basis data relasional enterprise Oracle.",
+      "aliases": [
+        "oracle",
+        "oracle db"
+      ]
+    },
+    {
+      "slug": "sql-server",
+      "name": "SQL Server",
+      "category": "Database Management",
+      "skill_type": "hard",
+      "description": "Basis data relasional dari Microsoft.",
+      "aliases": [
+        "microsoft sql server",
+        "ms sql server",
+        "ms sql",
+        "mssql"
+      ]
+    },
+    {
+      "slug": "apache-cassandra",
+      "name": "Apache Cassandra",
+      "category": "Database Management",
+      "skill_type": "hard",
+      "description": "Basis data NoSQL terdistribusi lebar kolom.",
+      "aliases": [
+        "cassandra"
+      ]
+    },
+    {
+      "slug": "dynamodb",
+      "name": "DynamoDB",
+      "category": "Database Management",
+      "skill_type": "hard",
+      "description": "Basis data NoSQL terkelola dari AWS.",
+      "related": [
+        "aws"
+      ],
+      "aliases": [
+        "amazon dynamodb"
+      ]
+    },
+    {
+      "slug": "mariadb",
+      "name": "MariaDB",
+      "category": "Database Management",
+      "skill_type": "hard",
+      "description": "Fork komunitas dari MySQL.",
+      "aliases": [
+        "sistem basis data mariadb"
+      ]
+    },
+    {
+      "slug": "database-design",
+      "name": "Database Design",
+      "category": "Database Management",
+      "skill_type": "hard",
+      "description": "Perancangan skema dan relasi basis data.",
+      "related": [
+        "postgresql",
+        "mysql"
+      ],
+      "aliases": [
+        "perancangan basis data",
+        "desain basis data"
+      ]
+    },
+    {
+      "slug": "database-administration",
+      "name": "Database Administration",
+      "category": "Database Management",
+      "skill_type": "hard",
+      "description": "Operasional dan pemeliharaan basis data.",
+      "related": [
+        "postgresql",
+        "oracle-database"
+      ],
+      "aliases": [
+        "dba",
+        "administrasi basis data"
+      ]
+    },
+    {
+      "slug": "query-optimization",
+      "name": "Query Optimization",
+      "category": "Database Management",
+      "skill_type": "hard",
+      "description": "Penyempurnaan performa kueri basis data.",
+      "related": [
+        "sql",
+        "database-administration"
+      ],
+      "aliases": [
+        "query tuning",
+        "optimasi query"
+      ]
+    },
+    {
+      "slug": "sqlalchemy",
+      "name": "SQLAlchemy",
+      "category": "Database Management",
+      "skill_type": "hard",
+      "description": "ORM dan toolkit SQL untuk Python.",
+      "related": [
+        "python",
+        "postgresql"
+      ],
+      "aliases": [
+        "sql alchemy"
+      ]
+    },
+    {
+      "slug": "elasticsearch",
+      "name": "Elasticsearch",
+      "category": "Database Management",
+      "skill_type": "hard",
+      "description": "Mesin pencarian dan analitik terdistribusi.",
+      "related": [
+        "elk-stack"
+      ],
+      "aliases": [
+        "elastic search",
+        "elastic"
+      ]
+    },
+    {
+      "slug": "aws",
+      "name": "AWS",
+      "category": "Cloud Computing",
+      "skill_type": "hard",
+      "description": "Penyedia layanan cloud terbesar dari Amazon.",
+      "related": [
+        "amazon-s3",
+        "amazon-ec2",
+        "aws-lambda"
+      ],
+      "aliases": [
+        "amazon web services"
+      ]
+    },
+    {
+      "slug": "google-cloud-platform",
+      "name": "Google Cloud Platform",
+      "category": "Cloud Computing",
+      "skill_type": "hard",
+      "description": "Layanan cloud dari Google.",
+      "related": [
+        "aws",
+        "microsoft-azure"
+      ],
+      "aliases": [
+        "gcp",
+        "google cloud"
+      ]
+    },
+    {
+      "slug": "microsoft-azure",
+      "name": "Microsoft Azure",
+      "category": "Cloud Computing",
+      "skill_type": "hard",
+      "description": "Layanan cloud dari Microsoft.",
+      "related": [
+        "aws",
+        "google-cloud-platform"
+      ],
+      "aliases": [
+        "azure",
+        "azure cloud"
+      ]
+    },
+    {
+      "slug": "digitalocean",
+      "name": "DigitalOcean",
+      "category": "Cloud Computing",
+      "skill_type": "hard",
+      "description": "Penyedia cloud untuk developer.",
+      "aliases": [
+        "digital ocean"
+      ]
+    },
+    {
+      "slug": "cloud-architecture",
+      "name": "Cloud Architecture",
+      "category": "Cloud Computing",
+      "skill_type": "hard",
+      "description": "Merancang arsitektur sistem di cloud.",
+      "related": [
+        "aws",
+        "serverless"
+      ],
+      "aliases": [
+        "arsitektur cloud"
+      ]
+    },
+    {
+      "slug": "serverless",
+      "name": "Serverless",
+      "category": "Cloud Computing",
+      "skill_type": "hard",
+      "description": "Arsitektur tanpa manajemen server.",
+      "related": [
+        "aws-lambda",
+        "cloud-architecture"
+      ],
+      "aliases": [
+        "serverless computing"
+      ]
+    },
+    {
+      "slug": "aws-lambda",
+      "name": "AWS Lambda",
+      "category": "Cloud Computing",
+      "skill_type": "hard",
+      "description": "Komputasi serverless dari AWS.",
+      "related": [
+        "aws",
+        "serverless"
+      ],
+      "aliases": [
+        "lambda"
+      ]
+    },
+    {
+      "slug": "amazon-s3",
+      "name": "Amazon S3",
+      "category": "Cloud Computing",
+      "skill_type": "hard",
+      "description": "Penyimpanan objek dari AWS.",
+      "related": [
+        "aws"
+      ],
+      "aliases": [
+        "s3",
+        "aws s3"
+      ]
+    },
+    {
+      "slug": "amazon-ec2",
+      "name": "Amazon EC2",
+      "category": "Cloud Computing",
+      "skill_type": "hard",
+      "description": "Server virtual dari AWS.",
+      "related": [
+        "aws"
+      ],
+      "aliases": [
+        "ec2",
+        "aws ec2"
+      ]
+    },
+    {
+      "slug": "cdn",
+      "name": "CDN",
+      "category": "Cloud Computing",
+      "skill_type": "hard",
+      "description": "Jaringan distribusi konten global.",
+      "aliases": [
+        "content delivery network",
+        "content distribution network"
+      ]
+    },
+    {
+      "slug": "cloud-migration",
+      "name": "Cloud Migration",
+      "category": "Cloud Computing",
+      "skill_type": "hard",
+      "description": "Memindahkan sistem ke infrastruktur cloud.",
+      "related": [
+        "cloud-architecture",
+        "aws"
+      ],
+      "aliases": [
+        "migrasi cloud"
+      ]
+    },
+    {
+      "slug": "docker",
+      "name": "Docker",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Kontainerisasi aplikasi.",
+      "related": [
+        "kubernetes",
+        "ci-cd"
+      ],
+      "aliases": [
+        "docker compose",
+        "docker-compose"
+      ]
+    },
+    {
+      "slug": "kubernetes",
+      "name": "Kubernetes",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Orkestrasi kontainer skala besar.",
+      "related": [
+        "docker",
+        "helm"
+      ],
+      "aliases": [
+        "k8s"
+      ]
+    },
+    {
+      "slug": "ci-cd",
+      "name": "CI/CD",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Integrasi dan deployment berkelanjutan.",
+      "related": [
+        "github-actions",
+        "jenkins",
+        "gitlab-ci"
+      ],
+      "aliases": [
+        "continuous integration",
+        "continuous delivery",
+        "continuous deployment",
+        "integrasi berkelanjutan"
+      ]
+    },
+    {
+      "slug": "github-actions",
+      "name": "GitHub Actions",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Otomasi workflow CI/CD di GitHub.",
+      "related": [
+        "ci-cd",
+        "github"
+      ],
+      "aliases": [
+        "github action",
+        "gh actions"
+      ]
+    },
+    {
+      "slug": "gitlab-ci",
+      "name": "GitLab CI",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Pipeline CI/CD bawaan GitLab.",
+      "related": [
+        "ci-cd",
+        "gitlab"
+      ],
+      "aliases": [
+        "gitlab ci/cd",
+        "gitlab pipeline"
+      ]
+    },
+    {
+      "slug": "jenkins",
+      "name": "Jenkins",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Server otomasi CI/CD open-source.",
+      "related": [
+        "ci-cd"
+      ],
+      "aliases": [
+        "jenkins ci",
+        "jenkins pipeline"
+      ]
+    },
+    {
+      "slug": "terraform",
+      "name": "Terraform",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Provisioning infrastruktur sebagai kode.",
+      "related": [
+        "infrastructure-as-code",
+        "aws"
+      ],
+      "aliases": [
+        "hashicorp terraform"
+      ]
+    },
+    {
+      "slug": "ansible",
+      "name": "Ansible",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Otomasi konfigurasi berbasis YAML.",
+      "aliases": [
+        "ansible playbook"
+      ]
+    },
+    {
+      "slug": "chef",
+      "name": "Chef",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Manajemen konfigurasi infrastruktur.",
+      "aliases": [
+        "chef infra"
+      ]
+    },
+    {
+      "slug": "puppet",
+      "name": "Puppet",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Otomasi konfigurasi server deklaratif.",
+      "aliases": [
+        "puppet labs"
+      ]
+    },
+    {
+      "slug": "prometheus",
+      "name": "Prometheus",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Monitoring dan alerting metrik.",
+      "related": [
+        "grafana",
+        "observability"
+      ],
+      "aliases": [
+        "prometheus monitoring"
+      ]
+    },
+    {
+      "slug": "grafana",
+      "name": "Grafana",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Visualisasi metrik dan dashboard monitoring.",
+      "related": [
+        "prometheus",
+        "observability"
+      ],
+      "aliases": [
+        "grafana dashboard"
+      ]
+    },
+    {
+      "slug": "elk-stack",
+      "name": "ELK Stack",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Agregasi dan analisis log terpusat.",
+      "related": [
+        "elasticsearch",
+        "observability"
+      ],
+      "aliases": [
+        "elastic stack",
+        "elk",
+        "logstash",
+        "kibana"
+      ]
+    },
+    {
+      "slug": "linux",
+      "name": "Linux",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Administrasi sistem operasi Linux.",
+      "related": [
+        "bash",
+        "nginx"
+      ],
+      "aliases": [
+        "gnu/linux",
+        "sistem operasi linux"
+      ]
+    },
+    {
+      "slug": "nginx",
+      "name": "Nginx",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Web server dan reverse proxy berperforma tinggi.",
+      "related": [
+        "linux",
+        "apache-http-server"
+      ],
+      "aliases": [
+        "nginx web server",
+        "nginx server"
+      ]
+    },
+    {
+      "slug": "apache-http-server",
+      "name": "Apache HTTP Server",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Web server open-source klasik.",
+      "aliases": [
+        "httpd",
+        "apache web server"
+      ]
+    },
+    {
+      "slug": "git",
+      "name": "Git",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Sistem kontrol versi terdistribusi.",
+      "related": [
+        "github",
+        "gitlab",
+        "version-control"
+      ],
+      "aliases": [
+        "sistem kontrol versi git"
+      ]
+    },
+    {
+      "slug": "version-control",
+      "name": "Version Control",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Praktik pengelolaan versi kode.",
+      "related": [
+        "git"
+      ],
+      "aliases": [
+        "kontrol versi",
+        "versioning"
+      ]
+    },
+    {
+      "slug": "github",
+      "name": "GitHub",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Platform hosting repositori Git.",
+      "related": [
+        "git",
+        "github-actions"
+      ],
+      "aliases": [
+        "platform github"
+      ]
+    },
+    {
+      "slug": "gitlab",
+      "name": "GitLab",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Platform DevOps dengan repositori Git.",
+      "related": [
+        "git",
+        "gitlab-ci"
+      ],
+      "aliases": [
+        "platform gitlab"
+      ]
+    },
+    {
+      "slug": "infrastructure-as-code",
+      "name": "Infrastructure as Code",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Mengelola infrastruktur lewat kode.",
+      "related": [
+        "terraform",
+        "ansible"
+      ],
+      "aliases": [
+        "iac",
+        "infrastruktur sebagai kode"
+      ]
+    },
+    {
+      "slug": "observability",
+      "name": "Observability",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Kemampuan mengamati kondisi sistem produksi.",
+      "related": [
+        "prometheus",
+        "grafana"
+      ],
+      "aliases": [
+        "observabilitas"
+      ]
+    },
+    {
+      "slug": "site-reliability-engineering",
+      "name": "Site Reliability Engineering",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Praktik keandalan sistem dari Google.",
+      "related": [
+        "observability",
+        "ci-cd"
+      ],
+      "aliases": [
+        "sre"
+      ]
+    },
+    {
+      "slug": "helm",
+      "name": "Helm",
+      "category": "DevOps",
+      "skill_type": "hard",
+      "description": "Package manager untuk Kubernetes.",
+      "related": [
+        "kubernetes"
+      ],
+      "aliases": [
+        "helm charts"
+      ]
+    },
+    {
+      "slug": "penetration-testing",
+      "name": "Penetration Testing",
+      "category": "Cybersecurity",
+      "skill_type": "hard",
+      "description": "Pengujian keamanan dengan simulasi serangan.",
+      "related": [
+        "ethical-hacking",
+        "burp-suite"
+      ],
+      "aliases": [
+        "pen testing",
+        "pentest",
+        "pengujian penetrasi"
+      ]
+    },
+    {
+      "slug": "owasp",
+      "name": "OWASP",
+      "category": "Cybersecurity",
+      "skill_type": "hard",
+      "description": "Standar keamanan aplikasi web.",
+      "related": [
+        "application-security"
+      ],
+      "aliases": [
+        "owasp top 10",
+        "owasp top ten"
+      ]
+    },
+    {
+      "slug": "network-security",
+      "name": "Network Security",
+      "category": "Cybersecurity",
+      "skill_type": "hard",
+      "description": "Pengamanan infrastruktur jaringan.",
+      "related": [
+        "firewall",
+        "vpn"
+      ],
+      "aliases": [
+        "keamanan jaringan"
+      ]
+    },
+    {
+      "slug": "application-security",
+      "name": "Application Security",
+      "category": "Cybersecurity",
+      "skill_type": "hard",
+      "description": "Pengamanan aplikasi dari celah keamanan.",
+      "related": [
+        "owasp",
+        "penetration-testing"
+      ],
+      "aliases": [
+        "appsec",
+        "keamanan aplikasi"
+      ]
+    },
+    {
+      "slug": "encryption",
+      "name": "Encryption",
+      "category": "Cybersecurity",
+      "skill_type": "hard",
+      "description": "Kriptografi dan pengamanan data.",
+      "aliases": [
+        "enkripsi",
+        "kriptografi",
+        "cryptography"
+      ]
+    },
+    {
+      "slug": "identity-and-access-management",
+      "name": "Identity and Access Management",
+      "category": "Cybersecurity",
+      "skill_type": "hard",
+      "description": "Pengelolaan identitas dan hak akses.",
+      "aliases": [
+        "iam",
+        "manajemen identitas dan akses"
+      ]
+    },
+    {
+      "slug": "siem",
+      "name": "SIEM",
+      "category": "Cybersecurity",
+      "skill_type": "hard",
+      "description": "Monitoring keamanan berbasis log terpusat.",
+      "related": [
+        "incident-response",
+        "information-security"
+      ],
+      "aliases": [
+        "security information and event management"
+      ]
+    },
+    {
+      "slug": "incident-response",
+      "name": "Incident Response",
+      "category": "Cybersecurity",
+      "skill_type": "hard",
+      "description": "Penanganan insiden keamanan siber.",
+      "related": [
+        "siem"
+      ],
+      "aliases": [
+        "respons insiden",
+        "penanganan insiden keamanan"
+      ]
+    },
+    {
+      "slug": "security-auditing",
+      "name": "Security Auditing",
+      "category": "Cybersecurity",
+      "skill_type": "hard",
+      "description": "Audit kepatuhan dan keamanan sistem.",
+      "related": [
+        "vulnerability-assessment"
+      ],
+      "aliases": [
+        "audit keamanan"
+      ]
+    },
+    {
+      "slug": "ethical-hacking",
+      "name": "Ethical Hacking",
+      "category": "Cybersecurity",
+      "skill_type": "hard",
+      "description": "Peretasan etis untuk menguji keamanan.",
+      "related": [
+        "penetration-testing",
+        "metasploit"
+      ],
+      "aliases": [
+        "hacking etis"
+      ]
+    },
+    {
+      "slug": "vulnerability-assessment",
+      "name": "Vulnerability Assessment",
+      "category": "Cybersecurity",
+      "skill_type": "hard",
+      "description": "Penilaian kerentanan sistem.",
+      "related": [
+        "penetration-testing",
+        "security-auditing"
+      ],
+      "aliases": [
+        "vulnerability scanning",
+        "penilaian kerentanan"
+      ]
+    },
+    {
+      "slug": "burp-suite",
+      "name": "Burp Suite",
+      "category": "Cybersecurity",
+      "skill_type": "hard",
+      "description": "Alat pengujian keamanan aplikasi web.",
+      "related": [
+        "penetration-testing"
+      ],
+      "aliases": [
+        "burpsuite"
+      ]
+    },
+    {
+      "slug": "metasploit",
+      "name": "Metasploit",
+      "category": "Cybersecurity",
+      "skill_type": "hard",
+      "description": "Kerangka kerja eksploitasi keamanan.",
+      "related": [
+        "penetration-testing"
+      ],
+      "aliases": [
+        "metasploit framework"
+      ]
+    },
+    {
+      "slug": "wireshark",
+      "name": "Wireshark",
+      "category": "Cybersecurity",
+      "skill_type": "hard",
+      "description": "Analisis paket jaringan.",
+      "related": [
+        "network-security"
+      ],
+      "aliases": [
+        "wireshark packet analyzer"
+      ]
+    },
+    {
+      "slug": "oauth-2-0",
+      "name": "OAuth 2.0",
+      "category": "Cybersecurity",
+      "skill_type": "hard",
+      "description": "Standar otorisasi berbasis token.",
+      "related": [
+        "identity-and-access-management"
+      ],
+      "aliases": [
+        "oauth",
+        "oauth2",
+        "oauth 2"
+      ]
+    },
+    {
+      "slug": "zero-trust",
+      "name": "Zero Trust",
+      "category": "Cybersecurity",
+      "skill_type": "hard",
+      "description": "Model keamanan tanpa kepercayaan bawaan.",
+      "related": [
+        "network-security",
+        "identity-and-access-management"
+      ],
+      "aliases": [
+        "zero trust architecture",
+        "arsitektur zero trust"
+      ]
+    },
+    {
+      "slug": "information-security",
+      "name": "Information Security",
+      "category": "Cybersecurity",
+      "skill_type": "hard",
+      "description": "Pengamanan informasi secara menyeluruh.",
+      "related": [
+        "network-security",
+        "security-auditing"
+      ],
+      "aliases": [
+        "infosec",
+        "keamanan informasi"
+      ]
+    },
+    {
+      "slug": "tcp-ip",
+      "name": "TCP/IP",
+      "category": "Networking",
+      "skill_type": "hard",
+      "description": "Protokol dasar komunikasi jaringan.",
+      "aliases": [
+        "tcp ip",
+        "tcp-ip"
+      ]
+    },
+    {
+      "slug": "dns",
+      "name": "DNS",
+      "category": "Networking",
+      "skill_type": "hard",
+      "description": "Sistem penamaan domain internet.",
+      "aliases": [
+        "domain name system",
+        "sistem nama domain"
+      ]
+    },
+    {
+      "slug": "load-balancing",
+      "name": "Load Balancing",
+      "category": "Networking",
+      "skill_type": "hard",
+      "description": "Distribusi trafik ke beberapa server.",
+      "related": [
+        "nginx"
+      ],
+      "aliases": [
+        "load balancer",
+        "penyeimbang beban"
+      ]
+    },
+    {
+      "slug": "vpn",
+      "name": "VPN",
+      "category": "Networking",
+      "skill_type": "hard",
+      "description": "Jaringan privat terenkripsi.",
+      "related": [
+        "network-security"
+      ],
+      "aliases": [
+        "virtual private network"
+      ]
+    },
+    {
+      "slug": "firewall",
+      "name": "Firewall",
+      "category": "Networking",
+      "skill_type": "hard",
+      "description": "Penyaringan trafik jaringan.",
+      "related": [
+        "network-security"
+      ],
+      "aliases": [
+        "konfigurasi firewall"
+      ]
+    },
+    {
+      "slug": "routing-and-switching",
+      "name": "Routing and Switching",
+      "category": "Networking",
+      "skill_type": "hard",
+      "description": "Konfigurasi routing dan switching perangkat.",
+      "related": [
+        "cisco-networking",
+        "network-administration"
+      ],
+      "aliases": [
+        "routing",
+        "switching",
+        "routing switching"
+      ]
+    },
+    {
+      "slug": "network-administration",
+      "name": "Network Administration",
+      "category": "Networking",
+      "skill_type": "hard",
+      "description": "Administrasi jaringan sehari-hari.",
+      "aliases": [
+        "administrasi jaringan",
+        "network admin",
+        "admin jaringan"
+      ]
+    },
+    {
+      "slug": "http-https",
+      "name": "HTTP/HTTPS",
+      "category": "Networking",
+      "skill_type": "hard",
+      "description": "Protokol transfer web aman.",
+      "related": [
+        "rest-api"
+      ],
+      "aliases": [
+        "http",
+        "https",
+        "hypertext transfer protocol"
+      ]
+    },
+    {
+      "slug": "subnetting",
+      "name": "Subnetting",
+      "category": "Networking",
+      "skill_type": "hard",
+      "description": "Pembagian jaringan menjadi subnet.",
+      "related": [
+        "tcp-ip"
+      ],
+      "aliases": [
+        "ip subnetting"
+      ]
+    },
+    {
+      "slug": "cisco-networking",
+      "name": "Cisco Networking",
+      "category": "Networking",
+      "skill_type": "hard",
+      "description": "Konfigurasi perangkat jaringan Cisco.",
+      "related": [
+        "routing-and-switching",
+        "network-administration"
+      ],
+      "aliases": [
+        "cisco",
+        "ccna"
+      ]
+    },
+    {
+      "slug": "wireless-networking",
+      "name": "Wireless Networking",
+      "category": "Networking",
+      "skill_type": "hard",
+      "description": "Jaringan nirkabel dan Wi-Fi.",
+      "aliases": [
+        "jaringan nirkabel",
+        "wifi",
+        "wi-fi"
+      ]
+    },
+    {
+      "slug": "object-oriented-programming",
+      "name": "Object-Oriented Programming",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Paradigma pemrograman berbasis objek.",
+      "aliases": [
+        "oop",
+        "pemrograman berorientasi objek"
+      ]
+    },
+    {
+      "slug": "functional-programming",
+      "name": "Functional Programming",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Paradigma pemrograman fungsional murni.",
+      "aliases": [
+        "pemrograman fungsional"
+      ]
+    },
+    {
+      "slug": "design-patterns",
+      "name": "Design Patterns",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Pola solusi desain perangkat lunak.",
+      "related": [
+        "object-oriented-programming",
+        "clean-code"
+      ],
+      "aliases": [
+        "pola desain"
+      ]
+    },
+    {
+      "slug": "microservices",
+      "name": "Microservices",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Arsitektur layanan terpisah yang kecil.",
+      "related": [
+        "software-architecture",
+        "docker"
+      ],
+      "aliases": [
+        "microservices architecture",
+        "arsitektur mikroservis",
+        "arsitektur microservices"
+      ]
+    },
+    {
+      "slug": "system-design",
+      "name": "System Design",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Perancangan sistem skala besar.",
+      "related": [
+        "software-architecture",
+        "distributed-systems"
+      ],
+      "aliases": [
+        "desain sistem",
+        "perancangan sistem"
+      ]
+    },
+    {
+      "slug": "clean-code",
+      "name": "Clean Code",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Praktik menulis kode yang mudah dibaca.",
+      "related": [
+        "refactoring",
+        "code-review"
+      ],
+      "aliases": [
+        "kode bersih"
+      ]
+    },
+    {
+      "slug": "unit-testing",
+      "name": "Unit Testing",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Pengujian unit kode terkecil.",
+      "related": [
+        "test-automation",
+        "test-driven-development"
+      ],
+      "aliases": [
+        "pengujian unit",
+        "test unit"
+      ]
+    },
+    {
+      "slug": "integration-testing",
+      "name": "Integration Testing",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Pengujian integrasi antar komponen.",
+      "related": [
+        "unit-testing",
+        "api-testing"
+      ],
+      "aliases": [
+        "pengujian integrasi"
+      ]
+    },
+    {
+      "slug": "test-automation",
+      "name": "Test Automation",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Otomasi pengujian perangkat lunak.",
+      "related": [
+        "selenium",
+        "playwright",
+        "unit-testing"
+      ],
+      "aliases": [
+        "automated testing",
+        "automation testing",
+        "otomasi pengujian"
+      ]
+    },
+    {
+      "slug": "test-driven-development",
+      "name": "Test-Driven Development",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Pengembangan dimulai dari tes.",
+      "related": [
+        "unit-testing"
+      ],
+      "aliases": [
+        "tdd",
+        "pengembangan berbasis pengujian"
+      ]
+    },
+    {
+      "slug": "solid-principles",
+      "name": "SOLID Principles",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Lima prinsip desain OOP.",
+      "related": [
+        "object-oriented-programming",
+        "design-patterns"
+      ],
+      "aliases": [
+        "solid",
+        "prinsip solid"
+      ]
+    },
+    {
+      "slug": "refactoring",
+      "name": "Refactoring",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Penyempurnaan struktur kode tanpa ubah perilaku.",
+      "related": [
+        "clean-code"
+      ],
+      "aliases": [
+        "refactor",
+        "refaktorasi"
+      ]
+    },
+    {
+      "slug": "code-review",
+      "name": "Code Review",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Peninjauan kode oleh rekan.",
+      "related": [
+        "clean-code"
+      ],
+      "aliases": [
+        "review kode",
+        "peer review kode"
+      ]
+    },
+    {
+      "slug": "software-architecture",
+      "name": "Software Architecture",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Perancangan arsitektur perangkat lunak.",
+      "related": [
+        "system-design",
+        "microservices"
+      ],
+      "aliases": [
+        "arsitektur perangkat lunak"
+      ]
+    },
+    {
+      "slug": "distributed-systems",
+      "name": "Distributed Systems",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Sistem yang terdiri dari banyak node.",
+      "related": [
+        "microservices",
+        "system-design"
+      ],
+      "aliases": [
+        "sistem terdistribusi"
+      ]
+    },
+    {
+      "slug": "concurrency",
+      "name": "Concurrency",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Pemrograman paralel dan konkuren.",
+      "aliases": [
+        "pemrograman konkuren",
+        "parallel computing",
+        "komputasi paralel"
+      ]
+    },
+    {
+      "slug": "performance-optimization",
+      "name": "Performance Optimization",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Optimasi performa aplikasi.",
+      "aliases": [
+        "optimasi performa",
+        "performance tuning"
+      ]
+    },
+    {
+      "slug": "debugging",
+      "name": "Debugging",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Diagnosa dan perbaikan bug.",
+      "aliases": [
+        "debug"
+      ]
+    },
+    {
+      "slug": "sdlc",
+      "name": "SDLC",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Siklus hidup pengembangan perangkat lunak.",
+      "aliases": [
+        "software development life cycle",
+        "software development lifecycle",
+        "siklus hidup pengembangan perangkat lunak"
+      ]
+    },
+    {
+      "slug": "technical-documentation",
+      "name": "Technical Documentation",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Penyusunan dokumentasi teknis.",
+      "related": [
+        "process-documentation"
+      ],
+      "aliases": [
+        "dokumentasi teknis"
+      ]
+    },
+    {
+      "slug": "algorithms",
+      "name": "Algorithms and Data Structures",
+      "category": "Software Engineering",
+      "skill_type": "hard",
+      "description": "Dasar algoritma dan struktur data.",
+      "aliases": [
+        "algoritma dan struktur data",
+        "data structures",
+        "algorithms",
+        "struktur data"
+      ]
+    },
+    {
+      "slug": "agile",
+      "name": "Agile",
+      "category": "Project Management",
+      "skill_type": "soft",
+      "description": "Metodologi pengembangan iteratif.",
+      "related": [
+        "scrum",
+        "kanban",
+        "project-management"
+      ],
+      "aliases": [
+        "metodologi agile",
+        "agile methodology",
+        "metode agile"
+      ]
+    },
+    {
+      "slug": "scrum",
+      "name": "Scrum",
+      "category": "Project Management",
+      "skill_type": "soft",
+      "description": "Kerangka kerja agile berbasis sprint.",
+      "related": [
+        "agile",
+        "backlog-management"
+      ],
+      "aliases": [
+        "scrum framework",
+        "scrum master",
+        "metode scrum"
+      ]
+    },
+    {
+      "slug": "kanban",
+      "name": "Kanban",
+      "category": "Project Management",
+      "skill_type": "soft",
+      "description": "Metode manajemen alur kerja visual.",
+      "related": [
+        "agile",
+        "trello"
+      ],
+      "aliases": [
+        "metode kanban",
+        "papan kanban"
+      ]
+    },
+    {
+      "slug": "jira",
+      "name": "Jira",
+      "category": "Project Management",
+      "skill_type": "hard",
+      "description": "Alat pelacakan proyek Atlassian.",
+      "related": [
+        "scrum",
+        "backlog-management"
+      ],
+      "aliases": [
+        "atlassian jira"
+      ]
+    },
+    {
+      "slug": "project-planning",
+      "name": "Project Planning",
+      "category": "Project Management",
+      "skill_type": "soft",
+      "description": "Perencanaan proyek dan jadwal.",
+      "related": [
+        "project-management",
+        "gantt-chart"
+      ],
+      "aliases": [
+        "perencanaan proyek",
+        "project scheduling",
+        "penjadwalan proyek"
+      ]
+    },
+    {
+      "slug": "risk-management",
+      "name": "Risk Management",
+      "category": "Project Management",
+      "skill_type": "soft",
+      "description": "Identifikasi dan mitigasi risiko.",
+      "related": [
+        "project-management"
+      ],
+      "aliases": [
+        "manajemen risiko"
+      ]
+    },
+    {
+      "slug": "gantt-chart",
+      "name": "Gantt Chart",
+      "category": "Project Management",
+      "skill_type": "hard",
+      "description": "Diagram jadwal proyek visual.",
+      "related": [
+        "project-planning"
+      ],
+      "aliases": [
+        "diagram gantt"
+      ]
+    },
+    {
+      "slug": "sprint-planning",
+      "name": "Sprint Planning",
+      "category": "Project Management",
+      "skill_type": "soft",
+      "description": "Perencanaan sprint tim agile.",
+      "related": [
+        "scrum"
+      ],
+      "aliases": [
+        "perencanaan sprint"
+      ]
+    },
+    {
+      "slug": "waterfall",
+      "name": "Waterfall",
+      "category": "Project Management",
+      "skill_type": "soft",
+      "description": "Metodologi pengembangan berurutan.",
+      "related": [
+        "project-management"
+      ],
+      "aliases": [
+        "waterfall model",
+        "model waterfall"
+      ]
+    },
+    {
+      "slug": "budget-management",
+      "name": "Budget Management",
+      "category": "Project Management",
+      "skill_type": "soft",
+      "description": "Pengelolaan anggaran proyek.",
+      "related": [
+        "project-management"
+      ],
+      "aliases": [
+        "manajemen anggaran",
+        "budgeting"
+      ]
+    },
+    {
+      "slug": "resource-allocation",
+      "name": "Resource Allocation",
+      "category": "Project Management",
+      "skill_type": "soft",
+      "description": "Alokasi sumber daya proyek.",
+      "related": [
+        "project-management"
+      ],
+      "aliases": [
+        "alokasi sumber daya"
+      ]
+    },
+    {
+      "slug": "microsoft-project",
+      "name": "Microsoft Project",
+      "category": "Project Management",
+      "skill_type": "hard",
+      "description": "Perangkat lunak manajemen proyek Microsoft.",
+      "related": [
+        "project-planning",
+        "gantt-chart"
+      ],
+      "aliases": [
+        "ms project"
+      ]
+    },
+    {
+      "slug": "project-management",
+      "name": "Project Management",
+      "category": "Project Management",
+      "skill_type": "soft",
+      "description": "Mengelola proyek end-to-end.",
+      "related": [
+        "agile",
+        "risk-management",
+        "stakeholder-management"
+      ],
+      "aliases": [
+        "manajemen proyek"
+      ]
+    },
+    {
+      "slug": "backlog-management",
+      "name": "Backlog Management",
+      "category": "Project Management",
+      "skill_type": "soft",
+      "description": "Pengelolaan backlog produk.",
+      "related": [
+        "scrum",
+        "jira"
+      ],
+      "aliases": [
+        "product backlog",
+        "backlog refinement",
+        "manajemen backlog"
+      ]
+    },
+    {
+      "slug": "stakeholder-management",
+      "name": "Stakeholder Management",
+      "category": "Project Management",
+      "skill_type": "soft",
+      "description": "Mengelola ekspektasi pemangku kepentingan.",
+      "related": [
+        "project-management",
+        "business-analysis"
+      ],
+      "aliases": [
+        "manajemen pemangku kepentingan",
+        "pengelolaan pemangku kepentingan"
+      ]
+    },
+    {
+      "slug": "trello",
+      "name": "Trello",
+      "category": "Project Management",
+      "skill_type": "hard",
+      "description": "Alat manajemen tugas berbasis papan.",
+      "related": [
+        "kanban"
+      ],
+      "aliases": [
+        "trello board"
+      ]
+    },
+    {
+      "slug": "asana",
+      "name": "Asana",
+      "category": "Project Management",
+      "skill_type": "hard",
+      "description": "Alat manajemen proyek tim.",
+      "related": [
+        "project-management"
+      ],
+      "aliases": [
+        "asana project management"
+      ]
+    },
+    {
+      "slug": "business-analysis",
+      "name": "Business Analysis",
+      "category": "Business Analysis",
+      "skill_type": "soft",
+      "description": "Analisis kebutuhan dan proses bisnis.",
+      "related": [
+        "requirements-gathering",
+        "stakeholder-management",
+        "bpmn"
+      ],
+      "aliases": [
+        "analisis bisnis",
+        "analisa bisnis"
+      ]
+    },
+    {
+      "slug": "requirements-gathering",
+      "name": "Requirements Gathering",
+      "category": "Business Analysis",
+      "skill_type": "soft",
+      "description": "Pengumpulan kebutuhan pemangku kepentingan.",
+      "related": [
+        "business-analysis",
+        "user-story-mapping"
+      ],
+      "aliases": [
+        "pengumpulan kebutuhan",
+        "requirement gathering",
+        "requirements elicitation",
+        "requirement elicitation"
+      ]
+    },
+    {
+      "slug": "bpmn",
+      "name": "BPMN",
+      "category": "Business Analysis",
+      "skill_type": "hard",
+      "description": "Notasi pemodelan proses bisnis standar.",
+      "related": [
+        "business-process-analysis",
+        "process-documentation"
+      ],
+      "aliases": [
+        "business process model and notation"
+      ]
+    },
+    {
+      "slug": "process-documentation",
+      "name": "Process Documentation",
+      "category": "Business Analysis",
+      "skill_type": "soft",
+      "description": "Dokumentasi proses bisnis.",
+      "related": [
+        "bpmn",
+        "technical-documentation"
+      ],
+      "aliases": [
+        "documentasi proses",
+        "dokumentasi proses"
+      ]
+    },
+    {
+      "slug": "business-process-analysis",
+      "name": "Business Process Analysis",
+      "category": "Business Analysis",
+      "skill_type": "soft",
+      "description": "Analisis dan perbaikan proses bisnis.",
+      "related": [
+        "bpmn",
+        "business-analysis"
+      ],
+      "aliases": [
+        "analisis proses bisnis"
+      ]
+    },
+    {
+      "slug": "swot-analysis",
+      "name": "SWOT Analysis",
+      "category": "Business Analysis",
+      "skill_type": "soft",
+      "description": "Analisis kekuatan, kelemahan, peluang, ancaman.",
+      "related": [
+        "market-research",
+        "business-analysis"
+      ],
+      "aliases": [
+        "analisis swot"
+      ]
+    },
+    {
+      "slug": "market-research",
+      "name": "Market Research",
+      "category": "Business Analysis",
+      "skill_type": "soft",
+      "description": "Riset pasar dan kompetitor.",
+      "related": [
+        "swot-analysis",
+        "user-research"
+      ],
+      "aliases": [
+        "riset pasar"
+      ]
+    },
+    {
+      "slug": "product-roadmap",
+      "name": "Product Roadmap",
+      "category": "Business Analysis",
+      "skill_type": "soft",
+      "description": "Penyusunan peta jalan produk.",
+      "related": [
+        "product-management",
+        "business-analysis"
+      ],
+      "aliases": [
+        "roadmap produk",
+        "peta jalan produk"
+      ]
+    },
+    {
+      "slug": "user-story-mapping",
+      "name": "User Story Mapping",
+      "category": "Business Analysis",
+      "skill_type": "soft",
+      "description": "Pemetaan user story menjadi alur produk.",
+      "related": [
+        "requirements-gathering",
+        "product-management"
+      ],
+      "aliases": [
+        "user story",
+        "user stories",
+        "pemetaan user story"
+      ]
+    },
+    {
+      "slug": "gap-analysis",
+      "name": "Gap Analysis",
+      "category": "Business Analysis",
+      "skill_type": "soft",
+      "description": "Analisis kesenjangan kondisi dan target.",
+      "related": [
+        "business-analysis"
+      ],
+      "aliases": [
+        "analisis kesenjangan"
+      ]
+    },
+    {
+      "slug": "business-requirements-document",
+      "name": "Business Requirements Document",
+      "category": "Business Analysis",
+      "skill_type": "soft",
+      "description": "Penyusunan dokumen kebutuhan bisnis.",
+      "related": [
+        "requirements-gathering"
+      ],
+      "aliases": [
+        "brd",
+        "dokumen kebutuhan bisnis"
+      ]
+    },
+    {
+      "slug": "feasibility-study",
+      "name": "Feasibility Study",
+      "category": "Business Analysis",
+      "skill_type": "soft",
+      "description": "Studi kelayakan proyek atau inisiatif.",
+      "related": [
+        "business-analysis",
+        "gap-analysis"
+      ],
+      "aliases": [
+        "studi kelayakan"
+      ]
+    },
+    {
+      "slug": "product-management",
+      "name": "Product Management",
+      "category": "Business Analysis",
+      "skill_type": "soft",
+      "description": "Mengelola siklus hidup produk.",
+      "related": [
+        "product-roadmap",
+        "user-story-mapping",
+        "market-research"
+      ],
+      "aliases": [
+        "manajemen produk"
+      ]
+    },
+    {
+      "slug": "figma",
+      "name": "Figma",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Alat desain kolaboratif berbasis web.",
+      "related": [
+        "ui-design",
+        "prototyping",
+        "design-system"
+      ],
+      "aliases": [
+        "alat desain figma"
+      ]
+    },
+    {
+      "slug": "adobe-xd",
+      "name": "Adobe XD",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Alat desain UI/UX dari Adobe.",
+      "related": [
+        "ui-design",
+        "prototyping"
+      ],
+      "aliases": [
+        "adobe experience design"
+      ]
+    },
+    {
+      "slug": "sketch",
+      "name": "Sketch",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Alat desain UI untuk macOS.",
+      "related": [
+        "ui-design"
+      ],
+      "aliases": [
+        "sketch app"
+      ]
+    },
+    {
+      "slug": "canva",
+      "name": "Canva",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Alat desain grafis mudah dipakai.",
+      "related": [
+        "ui-design"
+      ],
+      "aliases": [
+        "alat desain canva"
+      ]
+    },
+    {
+      "slug": "ui-design",
+      "name": "UI Design",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Desain antarmuka pengguna.",
+      "related": [
+        "ux-design",
+        "figma"
+      ],
+      "aliases": [
+        "user interface design",
+        "desain antarmuka",
+        "desain ui"
+      ]
+    },
+    {
+      "slug": "ux-design",
+      "name": "UX Design",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Desain pengalaman pengguna.",
+      "related": [
+        "user-research",
+        "usability-testing",
+        "ui-design"
+      ],
+      "aliases": [
+        "user experience design",
+        "desain pengalaman pengguna",
+        "desain ux"
+      ]
+    },
+    {
+      "slug": "wireframing",
+      "name": "Wireframing",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Pembuatan sketsa kerangka antarmuka.",
+      "related": [
+        "ui-design",
+        "prototyping"
+      ],
+      "aliases": [
+        "wireframe",
+        "pembuatan wireframe"
+      ]
+    },
+    {
+      "slug": "prototyping",
+      "name": "Prototyping",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Pembuatan prototipe produk digital.",
+      "related": [
+        "figma",
+        "wireframing"
+      ],
+      "aliases": [
+        "prototype",
+        "prototipe",
+        "rapid prototyping"
+      ]
+    },
+    {
+      "slug": "user-research",
+      "name": "User Research",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Riset kebutuhan dan perilaku pengguna.",
+      "related": [
+        "ux-design",
+        "usability-testing"
+      ],
+      "aliases": [
+        "riset pengguna",
+        "penelitian pengguna"
+      ]
+    },
+    {
+      "slug": "usability-testing",
+      "name": "Usability Testing",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Pengujian kegunaan produk dengan pengguna.",
+      "related": [
+        "ux-design",
+        "user-research"
+      ],
+      "aliases": [
+        "pengujian kegunaan",
+        "usability test",
+        "tes kegunaan"
+      ]
+    },
+    {
+      "slug": "design-system",
+      "name": "Design System",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Sistem komponen dan standar desain.",
+      "related": [
+        "ui-design",
+        "figma"
+      ],
+      "aliases": [
+        "sistem desain"
+      ]
+    },
+    {
+      "slug": "interaction-design",
+      "name": "Interaction Design",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Desain interaksi pengguna dengan produk.",
+      "related": [
+        "ux-design"
+      ],
+      "aliases": [
+        "desain interaksi"
+      ]
+    },
+    {
+      "slug": "typography",
+      "name": "Typography",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Seni pemilihan dan pengaturan huruf.",
+      "aliases": [
+        "tipografi"
+      ]
+    },
+    {
+      "slug": "color-theory",
+      "name": "Color Theory",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Teori penggunaan warna dalam desain.",
+      "aliases": [
+        "teori warna"
+      ]
+    },
+    {
+      "slug": "adobe-photoshop",
+      "name": "Adobe Photoshop",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Editor gambar raster dari Adobe.",
+      "aliases": [
+        "photoshop"
+      ]
+    },
+    {
+      "slug": "adobe-illustrator",
+      "name": "Adobe Illustrator",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Editor grafis vektor dari Adobe.",
+      "aliases": [
+        "illustrator"
+      ]
+    },
+    {
+      "slug": "adobe-after-effects",
+      "name": "Adobe After Effects",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Perangkat lunak efek visual dan motion.",
+      "related": [
+        "motion-graphics"
+      ],
+      "aliases": [
+        "after effects"
+      ]
+    },
+    {
+      "slug": "adobe-premiere-pro",
+      "name": "Adobe Premiere Pro",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Perangkat lunak penyuntingan video.",
+      "aliases": [
+        "premiere pro"
+      ]
+    },
+    {
+      "slug": "motion-graphics",
+      "name": "Motion Graphics",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Desain grafis bergerak.",
+      "related": [
+        "adobe-after-effects"
+      ],
+      "aliases": [
+        "motion design"
+      ]
+    },
+    {
+      "slug": "design-thinking",
+      "name": "Design Thinking",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Pendekatan berpusat pada manusia.",
+      "related": [
+        "ux-design",
+        "user-research"
+      ],
+      "aliases": [
+        "berpikir desain"
+      ]
+    },
+    {
+      "slug": "web-accessibility",
+      "name": "Web Accessibility",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Aksesibilitas produk digital untuk semua.",
+      "related": [
+        "ui-design",
+        "ux-design"
+      ],
+      "aliases": [
+        "accessibility",
+        "aksesibilitas",
+        "wcag"
+      ]
+    },
+    {
+      "slug": "information-architecture",
+      "name": "Information Architecture",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Penataan struktur informasi produk.",
+      "related": [
+        "ux-design"
+      ],
+      "aliases": [
+        "arsitektur informasi"
+      ]
+    },
+    {
+      "slug": "user-persona",
+      "name": "User Persona",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Representasi pengguna target.",
+      "related": [
+        "user-research"
+      ],
+      "aliases": [
+        "persona pengguna"
+      ]
+    },
+    {
+      "slug": "journey-mapping",
+      "name": "Customer Journey Mapping",
+      "category": "Design & UI/UX",
+      "skill_type": "hard",
+      "description": "Pemetaan perjalanan pelanggan.",
+      "related": [
+        "user-research",
+        "ux-design"
+      ],
+      "aliases": [
+        "customer journey",
+        "perjalanan pelanggan",
+        "user journey mapping"
+      ]
+    },
+    {
+      "slug": "software-testing",
+      "name": "Software Testing",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Pengujian perangkat lunak secara umum.",
+      "related": [
+        "manual-testing",
+        "test-automation"
+      ],
+      "aliases": [
+        "testing",
+        "pengujian perangkat lunak"
+      ]
+    },
+    {
+      "slug": "manual-testing",
+      "name": "Manual Testing",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Pengujian manual tanpa skrip otomasi.",
+      "related": [
+        "software-testing",
+        "test-case-design",
+        "bug-tracking"
+      ],
+      "aliases": [
+        "pengujian manual",
+        "tes manual"
+      ]
+    },
+    {
+      "slug": "test-planning",
+      "name": "Test Planning",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Penyusunan rencana pengujian.",
+      "related": [
+        "software-testing",
+        "test-case-design"
+      ],
+      "aliases": [
+        "perencanaan pengujian",
+        "test plan"
+      ]
+    },
+    {
+      "slug": "test-case-design",
+      "name": "Test Case Design",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Perancangan kasus uji.",
+      "related": [
+        "manual-testing",
+        "test-planning"
+      ],
+      "aliases": [
+        "test case",
+        "perancangan kasus uji"
+      ]
+    },
+    {
+      "slug": "regression-testing",
+      "name": "Regression Testing",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Pengujian ulang setelah perubahan.",
+      "related": [
+        "manual-testing",
+        "test-automation"
+      ],
+      "aliases": [
+        "pengujian regresi"
+      ]
+    },
+    {
+      "slug": "api-testing",
+      "name": "API Testing",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Pengujian endpoint dan kontrak API.",
+      "related": [
+        "rest-api",
+        "postman"
+      ],
+      "aliases": [
+        "pengujian api",
+        "api test"
+      ]
+    },
+    {
+      "slug": "selenium",
+      "name": "Selenium",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Otomasi pengujian aplikasi web.",
+      "related": [
+        "test-automation",
+        "python"
+      ],
+      "aliases": [
+        "selenium webdriver"
+      ]
+    },
+    {
+      "slug": "playwright",
+      "name": "Playwright",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Otomasi browser modern dari Microsoft.",
+      "related": [
+        "test-automation",
+        "selenium"
+      ],
+      "aliases": [
+        "microsoft playwright"
+      ]
+    },
+    {
+      "slug": "cypress",
+      "name": "Cypress",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Kerangka kerja e2e testing berbasis JavaScript.",
+      "related": [
+        "test-automation"
+      ],
+      "aliases": [
+        "cypress io"
+      ]
+    },
+    {
+      "slug": "postman",
+      "name": "Postman",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Platform pengujian API.",
+      "related": [
+        "api-testing",
+        "rest-api"
+      ],
+      "aliases": [
+        "postman api platform"
+      ]
+    },
+    {
+      "slug": "apache-jmeter",
+      "name": "Apache JMeter",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Alat uji beban dan performa.",
+      "related": [
+        "performance-testing",
+        "load-testing"
+      ],
+      "aliases": [
+        "jmeter"
+      ]
+    },
+    {
+      "slug": "performance-testing",
+      "name": "Performance Testing",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Pengujian performa sistem.",
+      "related": [
+        "load-testing",
+        "apache-jmeter"
+      ],
+      "aliases": [
+        "pengujian performa"
+      ]
+    },
+    {
+      "slug": "load-testing",
+      "name": "Load Testing",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Pengujian beban dan ketahanan sistem.",
+      "related": [
+        "performance-testing"
+      ],
+      "aliases": [
+        "stress testing",
+        "pengujian beban"
+      ]
+    },
+    {
+      "slug": "bug-tracking",
+      "name": "Bug Tracking",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Pelacakan dan manajemen bug.",
+      "related": [
+        "manual-testing",
+        "jira"
+      ],
+      "aliases": [
+        "manajemen bug",
+        "pelacakan bug",
+        "bug tracker"
+      ]
+    },
+    {
+      "slug": "smoke-testing",
+      "name": "Smoke Testing",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Pengujian dasar kelayakan build.",
+      "related": [
+        "manual-testing"
+      ],
+      "aliases": [
+        "smoke test",
+        "pengujian smoke"
+      ]
+    },
+    {
+      "slug": "user-acceptance-testing",
+      "name": "User Acceptance Testing",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Pengujian penerimaan oleh pengguna.",
+      "related": [
+        "manual-testing"
+      ],
+      "aliases": [
+        "uat",
+        "acceptance testing",
+        "pengujian penerimaan"
+      ]
+    },
+    {
+      "slug": "black-box-testing",
+      "name": "Black Box Testing",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Pengujian tanpa melihat kode internal.",
+      "related": [
+        "manual-testing"
+      ],
+      "aliases": [
+        "pengujian kotak hitam"
+      ]
+    },
+    {
+      "slug": "white-box-testing",
+      "name": "White Box Testing",
+      "category": "Quality Assurance",
+      "skill_type": "hard",
+      "description": "Pengujian berbasis struktur kode.",
+      "related": [
+        "unit-testing"
+      ],
+      "aliases": [
+        "pengujian kotak putih"
+      ]
+    },
+    {
+      "slug": "public-speaking",
+      "name": "Public Speaking",
+      "category": "Communication",
+      "skill_type": "soft",
+      "description": "Berbicara efektif di depan umum.",
+      "related": [
+        "presentation-skills"
+      ],
+      "aliases": [
+        "bicara di depan umum"
+      ]
+    },
+    {
+      "slug": "presentation-skills",
+      "name": "Presentation Skills",
+      "category": "Communication",
+      "skill_type": "soft",
+      "description": "Keterampilan presentasi yang meyakinkan.",
+      "related": [
+        "public-speaking",
+        "storytelling"
+      ],
+      "aliases": [
+        "keterampilan presentasi",
+        "presentasi"
+      ]
+    },
+    {
+      "slug": "writing-skills",
+      "name": "Writing Skills",
+      "category": "Communication",
+      "skill_type": "soft",
+      "description": "Kemampuan menulis yang jelas dan terstruktur.",
+      "related": [
+        "technical-writing"
+      ],
+      "aliases": [
+        "kemampuan menulis",
+        "menulis"
+      ]
+    },
+    {
+      "slug": "technical-writing",
+      "name": "Technical Writing",
+      "category": "Communication",
+      "skill_type": "soft",
+      "description": "Penulisan dokumen teknis.",
+      "related": [
+        "writing-skills",
+        "technical-documentation"
+      ],
+      "aliases": [
+        "penulisan teknis"
+      ]
+    },
+    {
+      "slug": "active-listening",
+      "name": "Active Listening",
+      "category": "Communication",
+      "skill_type": "soft",
+      "description": "Mendengarkan aktif dengan empati.",
+      "related": [
+        "interpersonal-communication"
+      ],
+      "aliases": [
+        "mendengarkan aktif"
+      ]
+    },
+    {
+      "slug": "negotiation",
+      "name": "Negotiation",
+      "category": "Communication",
+      "skill_type": "soft",
+      "description": "Negosiasi menuju kesepakatan.",
+      "related": [
+        "persuasion",
+        "business-communication"
+      ],
+      "aliases": [
+        "negosiasi"
+      ]
+    },
+    {
+      "slug": "storytelling",
+      "name": "Storytelling",
+      "category": "Communication",
+      "skill_type": "soft",
+      "description": "Seni bercerita yang engaging.",
+      "related": [
+        "presentation-skills"
+      ],
+      "aliases": [
+        "seni bercerita"
+      ]
+    },
+    {
+      "slug": "business-communication",
+      "name": "Business Communication",
+      "category": "Communication",
+      "skill_type": "soft",
+      "description": "Komunikasi profesional di dunia kerja.",
+      "related": [
+        "interpersonal-communication"
+      ],
+      "aliases": [
+        "komunikasi bisnis"
+      ]
+    },
+    {
+      "slug": "interpersonal-communication",
+      "name": "Interpersonal Communication",
+      "category": "Communication",
+      "skill_type": "soft",
+      "description": "Komunikasi antarpribadi efektif.",
+      "related": [
+        "active-listening",
+        "business-communication"
+      ],
+      "aliases": [
+        "komunikasi interpersonal"
+      ]
+    },
+    {
+      "slug": "persuasion",
+      "name": "Persuasion",
+      "category": "Communication",
+      "skill_type": "soft",
+      "description": "Kemampuan memengaruhi dengan argumen.",
+      "related": [
+        "negotiation"
+      ],
+      "aliases": [
+        "persuasif",
+        "kemampuan persuasi"
+      ]
+    },
+    {
+      "slug": "team-leadership",
+      "name": "Team Leadership",
+      "category": "Leadership",
+      "skill_type": "soft",
+      "description": "Memimpin dan mengarahkan tim.",
+      "related": [
+        "people-management",
+        "team-building"
+      ],
+      "aliases": [
+        "kepemimpinan tim"
+      ]
+    },
+    {
+      "slug": "mentoring",
+      "name": "Mentoring",
+      "category": "Leadership",
+      "skill_type": "soft",
+      "description": "Membimbing pertumbuhan orang lain.",
+      "related": [
+        "coaching",
+        "team-leadership"
+      ],
+      "aliases": [
+        "menjadi mentor",
+        "pembimbingan"
+      ]
+    },
+    {
+      "slug": "coaching",
+      "name": "Coaching",
+      "category": "Leadership",
+      "skill_type": "soft",
+      "description": "Mengembangkan potensi melalui coaching.",
+      "related": [
+        "mentoring"
+      ],
+      "aliases": [
+        "bimbingan",
+        "pembinaan"
+      ]
+    },
+    {
+      "slug": "conflict-resolution",
+      "name": "Conflict Resolution",
+      "category": "Leadership",
+      "skill_type": "soft",
+      "description": "Penyelesaian konflik secara konstruktif.",
+      "related": [
+        "negotiation",
+        "team-leadership"
+      ],
+      "aliases": [
+        "resolusi konflik",
+        "penyelesaian konflik"
+      ]
+    },
+    {
+      "slug": "decision-making",
+      "name": "Decision Making",
+      "category": "Leadership",
+      "skill_type": "soft",
+      "description": "Pengambilan keputusan yang baik.",
+      "related": [
+        "critical-thinking",
+        "problem-solving"
+      ],
+      "aliases": [
+        "pengambilan keputusan"
+      ]
+    },
+    {
+      "slug": "strategic-thinking",
+      "name": "Strategic Thinking",
+      "category": "Leadership",
+      "skill_type": "soft",
+      "description": "Berpikir jangka panjang dan strategis.",
+      "related": [
+        "decision-making"
+      ],
+      "aliases": [
+        "berpikir strategis"
+      ]
+    },
+    {
+      "slug": "delegation",
+      "name": "Delegation",
+      "category": "Leadership",
+      "skill_type": "soft",
+      "description": "Pendelegasian tugas secara efektif.",
+      "related": [
+        "team-leadership"
+      ],
+      "aliases": [
+        "delegasi",
+        "pendelegasian tugas"
+      ]
+    },
+    {
+      "slug": "change-management",
+      "name": "Change Management",
+      "category": "Leadership",
+      "skill_type": "soft",
+      "description": "Mengelola perubahan organisasi.",
+      "related": [
+        "team-leadership"
+      ],
+      "aliases": [
+        "manajemen perubahan"
+      ]
+    },
+    {
+      "slug": "people-management",
+      "name": "People Management",
+      "category": "Leadership",
+      "skill_type": "soft",
+      "description": "Mengelola kinerja dan perkembangan orang.",
+      "related": [
+        "team-leadership",
+        "mentoring"
+      ],
+      "aliases": [
+        "manajemen sumber daya manusia",
+        "manajemen orang"
+      ]
+    },
+    {
+      "slug": "team-building",
+      "name": "Team Building",
+      "category": "Leadership",
+      "skill_type": "soft",
+      "description": "Membangun kohesi tim.",
+      "related": [
+        "teamwork",
+        "team-leadership"
+      ],
+      "aliases": [
+        "pembangunan tim"
+      ]
+    },
+    {
+      "slug": "problem-solving",
+      "name": "Problem Solving",
+      "category": "Other Professional Skills",
+      "skill_type": "soft",
+      "description": "Pemecahan masalah secara sistematis.",
+      "related": [
+        "critical-thinking",
+        "analytical-thinking"
+      ],
+      "aliases": [
+        "pemecahan masalah"
+      ]
+    },
+    {
+      "slug": "critical-thinking",
+      "name": "Critical Thinking",
+      "category": "Other Professional Skills",
+      "skill_type": "soft",
+      "description": "Berpikir kritis dan menilai argumen.",
+      "related": [
+        "problem-solving",
+        "decision-making"
+      ],
+      "aliases": [
+        "berpikir kritis"
+      ]
+    },
+    {
+      "slug": "time-management",
+      "name": "Time Management",
+      "category": "Other Professional Skills",
+      "skill_type": "soft",
+      "description": "Mengelola waktu dan prioritas.",
+      "related": [
+        "organizational-skills"
+      ],
+      "aliases": [
+        "manajemen waktu"
+      ]
+    },
+    {
+      "slug": "adaptability",
+      "name": "Adaptability",
+      "category": "Other Professional Skills",
+      "skill_type": "soft",
+      "description": "Berkadaptasi dengan perubahan.",
+      "aliases": [
+        "kemampuan beradaptasi",
+        "adaptif"
+      ]
+    },
+    {
+      "slug": "teamwork",
+      "name": "Teamwork",
+      "category": "Other Professional Skills",
+      "skill_type": "soft",
+      "description": "Bekerja sama dalam tim.",
+      "related": [
+        "collaboration"
+      ],
+      "aliases": [
+        "kerja tim",
+        "kerjasama tim",
+        "kemampuan bekerja sama"
+      ]
+    },
+    {
+      "slug": "collaboration",
+      "name": "Collaboration",
+      "category": "Other Professional Skills",
+      "skill_type": "soft",
+      "description": "Kolaborasi lintas fungsi.",
+      "related": [
+        "teamwork"
+      ],
+      "aliases": [
+        "kolaborasi"
+      ]
+    },
+    {
+      "slug": "creativity",
+      "name": "Creativity",
+      "category": "Other Professional Skills",
+      "skill_type": "soft",
+      "description": "Berpikir kreatif dan inovatif.",
+      "related": [
+        "problem-solving"
+      ],
+      "aliases": [
+        "kreativitas"
+      ]
+    },
+    {
+      "slug": "customer-service",
+      "name": "Customer Service",
+      "category": "Other Professional Skills",
+      "skill_type": "soft",
+      "description": "Melayani pelanggan dengan baik.",
+      "related": [
+        "interpersonal-communication"
+      ],
+      "aliases": [
+        "layanan pelanggan"
+      ]
+    },
+    {
+      "slug": "work-ethic",
+      "name": "Work Ethic",
+      "category": "Other Professional Skills",
+      "skill_type": "soft",
+      "description": "Etika dan integritas kerja.",
+      "aliases": [
+        "etika kerja"
+      ]
+    },
+    {
+      "slug": "attention-to-detail",
+      "name": "Attention to Detail",
+      "category": "Other Professional Skills",
+      "skill_type": "soft",
+      "description": "Ketelitian terhadap detail.",
+      "aliases": [
+        "ketelitian",
+        "teliti"
+      ]
+    },
+    {
+      "slug": "emotional-intelligence",
+      "name": "Emotional Intelligence",
+      "category": "Other Professional Skills",
+      "skill_type": "soft",
+      "description": "Kecerdasan emosional dalam relasi kerja.",
+      "related": [
+        "interpersonal-communication"
+      ],
+      "aliases": [
+        "kecerdasan emosional",
+        "eq"
+      ]
+    },
+    {
+      "slug": "continuous-learning",
+      "name": "Continuous Learning",
+      "category": "Other Professional Skills",
+      "skill_type": "soft",
+      "description": "Terus belajar hal baru.",
+      "aliases": [
+        "pembelajaran berkelanjutan"
+      ]
+    },
+    {
+      "slug": "stress-management",
+      "name": "Stress Management",
+      "category": "Other Professional Skills",
+      "skill_type": "soft",
+      "description": "Mengelola tekanan dan stres kerja.",
+      "aliases": [
+        "manajemen stres"
+      ]
+    },
+    {
+      "slug": "analytical-thinking",
+      "name": "Analytical Thinking",
+      "category": "Other Professional Skills",
+      "skill_type": "soft",
+      "description": "Berpikir analitis terhadap data dan fakta.",
+      "related": [
+        "critical-thinking"
+      ],
+      "aliases": [
+        "berpikir analitis"
+      ]
+    },
+    {
+      "slug": "multitasking",
+      "name": "Multitasking",
+      "category": "Other Professional Skills",
+      "skill_type": "soft",
+      "description": "Menangani beberapa tugas sekaligus.",
+      "related": [
+        "time-management"
+      ],
+      "aliases": [
+        "menangani banyak tugas"
+      ]
+    },
+    {
+      "slug": "organizational-skills",
+      "name": "Organizational Skills",
+      "category": "Other Professional Skills",
+      "skill_type": "soft",
+      "description": "Keterampilan mengorganisasi pekerjaan.",
+      "related": [
+        "time-management"
+      ],
+      "aliases": [
+        "keterampilan organisasi",
+        "kemampuan mengorganisasi"
+      ]
+    },
+    {
+      "slug": "microsoft-office",
+      "name": "Microsoft Office",
+      "category": "Other Professional Skills",
+      "skill_type": "hard",
+      "description": "Suite produktivitas Microsoft.",
+      "related": [
+        "microsoft-word",
+        "microsoft-powerpoint",
+        "excel"
+      ],
+      "aliases": [
+        "ms office",
+        "microsoft 365"
+      ]
+    },
+    {
+      "slug": "microsoft-word",
+      "name": "Microsoft Word",
+      "category": "Other Professional Skills",
+      "skill_type": "hard",
+      "description": "Pengolah kata Microsoft.",
+      "related": [
+        "microsoft-office"
+      ],
+      "aliases": [
+        "ms word",
+        "word"
+      ]
+    },
+    {
+      "slug": "microsoft-powerpoint",
+      "name": "Microsoft PowerPoint",
+      "category": "Other Professional Skills",
+      "skill_type": "hard",
+      "description": "Perangkat lunak presentasi Microsoft.",
+      "related": [
+        "microsoft-office",
+        "presentation-skills"
+      ],
+      "aliases": [
+        "powerpoint",
+        "ppt"
+      ]
+    },
+    {
+      "slug": "english-language",
+      "name": "English",
+      "category": "Languages",
+      "skill_type": "hard",
+      "description": "Kemampuan berbahasa English",
+      "related": [],
+      "aliases": [
+        "english",
+        "bahasa inggris",
+        "inggris"
+      ]
+    },
+    {
+      "slug": "indonesian-language",
+      "name": "Indonesian",
+      "category": "Languages",
+      "skill_type": "hard",
+      "description": "Kemampuan berbahasa Indonesian",
+      "related": [],
+      "aliases": [
+        "indonesian",
+        "bahasa indonesia",
+        "bahasa"
+      ]
+    },
+    {
+      "slug": "mandarin-language",
+      "name": "Mandarin Chinese",
+      "category": "Languages",
+      "skill_type": "hard",
+      "description": "Kemampuan berbahasa Mandarin Chinese",
+      "related": [],
+      "aliases": [
+        "mandarin",
+        "chinese",
+        "bahasa mandarin"
+      ]
+    },
+    {
+      "slug": "japanese-language",
+      "name": "Japanese",
+      "category": "Languages",
+      "skill_type": "hard",
+      "description": "Kemampuan berbahasa Japanese",
+      "related": [],
+      "aliases": [
+        "japanese",
+        "bahasa jepang",
+        "jepang"
+      ]
+    },
+    {
+      "slug": "korean-language",
+      "name": "Korean",
+      "category": "Languages",
+      "skill_type": "hard",
+      "description": "Kemampuan berbahasa Korean",
+      "related": [],
+      "aliases": [
+        "korean",
+        "bahasa korea",
+        "korea"
+      ]
+    },
+    {
+      "slug": "arabic-language",
+      "name": "Arabic",
+      "category": "Languages",
+      "skill_type": "hard",
+      "description": "Kemampuan berbahasa Arabic",
+      "related": [],
+      "aliases": [
+        "arabic",
+        "bahasa arab",
+        "arab"
+      ]
+    },
+    {
+      "slug": "german-language",
+      "name": "German",
+      "category": "Languages",
+      "skill_type": "hard",
+      "description": "Kemampuan berbahasa German",
+      "related": [],
+      "aliases": [
+        "german",
+        "bahasa jerman",
+        "jerman"
+      ]
+    },
+    {
+      "slug": "french-language",
+      "name": "French",
+      "category": "Languages",
+      "skill_type": "hard",
+      "description": "Kemampuan berbahasa French",
+      "related": [],
+      "aliases": [
+        "french",
+        "bahasa perancis",
+        "perancis"
+      ]
+    },
+    {
+      "slug": "spanish-language",
+      "name": "Spanish",
+      "category": "Languages",
+      "skill_type": "hard",
+      "description": "Kemampuan berbahasa Spanish",
+      "related": [],
+      "aliases": [
+        "spanish",
+        "bahasa spanyol",
+        "spanyol"
+      ]
+    }
+  ]
+}

@@ -9,8 +9,10 @@ from sqlalchemy.orm import Session
 from app.core.exceptions import BadRequestError, ConflictError, NotFoundError
 from app.models.company import Company, CompanyMember
 from app.models.job import Job
+from app.models.skill import JobSkill
 from app.models.user import User
 from app.schemas.job import JobIn
+from app.services import skill_service
 
 # Transisi lifecycle (blueprint §5.3, versi manual untuk P2 — sweep expired otomatis
 # menyusul di fase ingestion):
@@ -32,6 +34,31 @@ def get_company_of(db: Session, user: User) -> Company:
     if member is None:
         raise BadRequestError("Buat profil perusahaan terlebih dahulu.")
     return member.company
+
+
+def _replace_job_skills(db: Session, job_id: uuid.UUID, skills: list[dict]) -> None:
+    """Ganti baris `job_skills` lowongan dengan hasil normalisasi taksonomi (M2).
+
+    Nama tanpa padanan kanon tidak dibuatkan baris (FK canonical NOT NULL) — ia
+    tetap tampil di `jobs.skills` (JSONB, sumber kebenaran tampilan). Tidak
+    commit: mengikuti transaksi pemanggil (create/update)."""
+    normalized = skill_service.normalize_job_skills(db, skills)
+    for row in db.scalars(select(JobSkill).where(JobSkill.job_id == job_id)):
+        db.delete(row)
+    db.flush()
+    for item in normalized:
+        if item["canonical_skill_id"] is None:
+            continue
+        db.add(
+            JobSkill(
+                job_id=job_id,
+                canonical_skill_id=item["canonical_skill_id"],
+                raw_name=item["raw_name"],
+                required=item["required"],
+                evidence=item["evidence"],
+                confidence=item["confidence"],
+            )
+        )
 
 
 def create_job(db: Session, user: User, data: JobIn) -> Job:
@@ -57,6 +84,9 @@ def create_job(db: Session, user: User, data: JobIn) -> Job:
         closing_at=data.closing_at,
     )
     db.add(job)
+    # M2: job harus punya id dulu sebelum baris job_skills disisipkan.
+    db.flush()
+    _replace_job_skills(db, job.id, [s.model_dump() for s in data.skills])
     db.commit()
     db.refresh(job)
     return job
@@ -111,6 +141,8 @@ def update_job(db: Session, user: User, job_id: uuid.UUID, data: JobIn) -> Job:
     job.salary_currency = data.salary_currency
     job.closing_at = data.closing_at
     job.updated_at = datetime.now(UTC)
+    # M2: baris job_skills diganti penuh mengikuti daftar skill terbaru.
+    _replace_job_skills(db, job.id, [s.model_dump() for s in data.skills])
     db.commit()
     db.refresh(job)
     return job

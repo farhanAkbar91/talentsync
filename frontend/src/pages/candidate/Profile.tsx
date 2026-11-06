@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import {
+  deleteMySkill,
+  extractErrorMessage,
   fetchCandidateProfile,
+  fetchMySkills,
   updateCandidateProfile,
   type CandidateProfile,
+  type CandidateSkill,
   type CertificationItem,
   type EducationItem,
   type ExperienceItem,
@@ -19,6 +23,11 @@ export default function CandidateProfilePage() {
   const [message, setMessage] = useState<{ kind: "success" | "error"; text: string } | null>(null);
   const [busy, setBusy] = useState(false);
 
+  // M2 — skill terstandardisasi yang diterapkan dari CV (read-only + hapus).
+  const [cvSkills, setCvSkills] = useState<CandidateSkill[] | null>(null);
+  const [cvSkillsError, setCvSkillsError] = useState<string | null>(null);
+  const [removingCvSkillId, setRemovingCvSkillId] = useState<string | null>(null);
+
   useEffect(() => {
     fetchCandidateProfile()
       .then((p) => {
@@ -31,6 +40,36 @@ export default function CandidateProfilePage() {
       })
       .catch((err) => setMessage({ kind: "error", text: err instanceof Error ? err.message : "Gagal memuat." }));
   }, []);
+
+  async function refreshCvSkills(): Promise<void> {
+    try {
+      const res = await fetchMySkills();
+      setCvSkills(res.items);
+      setCvSkillsError(null);
+    } catch (err) {
+      setCvSkillsError(extractErrorMessage(err));
+    }
+  }
+
+  useEffect(() => {
+    void refreshCvSkills();
+  }, []);
+
+  async function handleRemoveCvSkill(item: CandidateSkill) {
+    setRemovingCvSkillId(item.id);
+    try {
+      await deleteMySkill(item.id);
+      await refreshCvSkills();
+      // Selaraskan juga editor keahlian teks-bebas di atas bila namanya ada.
+      const name = item.canonical.name.toLowerCase();
+      setSkills((prev) => prev.filter((s) => s.toLowerCase() !== name));
+      setMessage({ kind: "success", text: `Skill "${item.canonical.name}" dihapus dari profil.` });
+    } catch (err) {
+      setMessage({ kind: "error", text: extractErrorMessage(err) });
+    } finally {
+      setRemovingCvSkillId(null);
+    }
+  }
 
   if (!profile) return <Spinner />;
 
@@ -119,6 +158,46 @@ export default function CandidateProfilePage() {
             />
           </Field>
         </div>
+      </Card>
+
+      <Card className="space-y-3">
+        <div>
+          <h2 className="text-sm font-semibold text-slate-700">Skill terstandardisasi (dari CV)</h2>
+          <p className="mt-0.5 text-xs text-slate-400">
+            Diterapkan dari hasil pemetaan skill CV ke kamus standar. Menghapus di sini juga
+            menghapus nama yang sama dari daftar keahlian di atas.
+          </p>
+        </div>
+        {cvSkillsError && <Alert kind="error">{cvSkillsError}</Alert>}
+        {cvSkills === null ? (
+          <Spinner label="Memuat skill terstandardisasi…" />
+        ) : cvSkills.length === 0 ? (
+          <p className="text-xs text-slate-400">Belum ada skill dari CV yang diterapkan.</p>
+        ) : (
+          <ul className="space-y-2">
+            {cvSkills.map((s) => (
+              <li
+                key={s.id}
+                className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-slate-50 px-3 py-2"
+              >
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-sm font-medium text-slate-700">{s.canonical.name}</span>
+                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-600">
+                    {s.canonical.category}
+                  </span>
+                </div>
+                <Button
+                  type="button"
+                  variant="danger"
+                  disabled={removingCvSkillId === s.id}
+                  onClick={() => void handleRemoveCvSkill(s)}
+                >
+                  {removingCvSkillId === s.id ? "Menghapus…" : "Hapus"}
+                </Button>
+              </li>
+            ))}
+          </ul>
+        )}
       </Card>
 
       <Card className="space-y-4">

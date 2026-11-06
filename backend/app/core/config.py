@@ -78,6 +78,16 @@ class Settings(BaseSettings):
         0.10,
     )
 
+    # M2 — Taksonomi skill: ambang fuzzy normalize_skill (0.5-1.0).
+    skill_fuzzy_threshold: float = 0.92
+
+    @field_validator("skill_fuzzy_threshold")
+    @classmethod
+    def _validate_skill_fuzzy_threshold(cls, value: float) -> float:
+        if not 0.5 <= value <= 1.0:
+            raise ValueError("skill_fuzzy_threshold harus di rentang 0.5-1.0")
+        return value
+
     @field_validator("cors_origins", mode="before")
     @classmethod
     def _split_origins(cls, value: object) -> object:

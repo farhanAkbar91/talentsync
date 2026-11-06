@@ -1,0 +1,17 @@
+{
+  "corpus": "eval/golden/cvs (12 CV sintetis)",
+  "parser_version": "pymupdf-heuristic-v1",
+  "per_field_macro": {
+    "nama": 1.0,
+    "email": 1.0,
+    "telepon": 1.0,
+    "skills": 1.0,
+    "pengalaman": 1.0,
+    "pendidikan": 1.0,
+    "sertifikasi": 1.0
+  },
+  "overall_macro_f1": 1.0,
+  "target": 0.8,
+  "identity_failures": [],
+  "known_limitation": "korpus sintetis in-domain; evaluasi CV volunteer menyusul"
+}

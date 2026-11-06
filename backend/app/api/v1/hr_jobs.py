@@ -3,14 +3,16 @@
 import uuid
 
 from fastapi import APIRouter, Depends, Query, status
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.core.deps import require_roles
 from app.db.session import get_db
+from app.models.skill import CanonicalSkill, JobSkill
 from app.models.user import User
 from app.schemas.common import Page
-from app.schemas.job import JobHrOut, JobIn
-from app.services import job_service
+from app.schemas.job import JobHrOut, JobIn, NormalizedJobSkill, NormalizedJobSkillCanonical
+from app.services import job_service, skill_service
 
 router = APIRouter(prefix="/hr/jobs", tags=["hr-jobs"])
 hr_dependency = require_roles("hr")
@@ -75,11 +77,44 @@ def create_job(
     return _to_hr_out(job_service.create_job(db, user, payload))
 
 
+def _load_skills_normalized(db: Session, job) -> list[NormalizedJobSkill]:
+    """Baris job_skills lowongan + nama kanonnya (None-safe saat belum ada baris).
+    Nama mentah tanpa padanan kanon tidak pernah menjadi baris — ia tetap tampil
+    di `skills` (JSONB). needs_review diangkat untuk baris ber-confidence rendah
+    (fuzzy 0.8) atau tanpa confidence."""
+    rows = db.execute(
+        select(JobSkill, CanonicalSkill)
+        .join(CanonicalSkill, JobSkill.canonical_skill_id == CanonicalSkill.id)
+        .where(JobSkill.job_id == job.id)
+        .order_by(JobSkill.created_at)
+    ).all()
+    items: list[NormalizedJobSkill] = []
+    for job_skill, canon in rows:
+        confidence = float(job_skill.confidence) if job_skill.confidence is not None else None
+        items.append(
+            NormalizedJobSkill(
+                canonical=NormalizedJobSkillCanonical(
+                    slug=canon.slug, name=canon.name, category=canon.category
+                ),
+                raw_name=job_skill.raw_name,
+                required=job_skill.required,
+                confidence=confidence,
+                needs_review=(
+                    confidence is None or confidence < skill_service.REVIEW_REDERIVE_BELOW
+                ),
+            )
+        )
+    return items
+
+
 @router.get("/{job_id}", response_model=JobHrOut)
 def get_job(
     job_id: uuid.UUID, user: User = Depends(hr_dependency), db: Session = Depends(get_db)
 ) -> JobHrOut:
-    return _to_hr_out(job_service.get_job_for_company(db, user, job_id))
+    job = job_service.get_job_for_company(db, user, job_id)
+    out = _to_hr_out(job)
+    out.skills_normalized = _load_skills_normalized(db, job)
+    return out
 
 
 @router.put("/{job_id}", response_model=JobHrOut)

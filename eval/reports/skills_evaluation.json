@@ -1,0 +1,106 @@
+{
+  "extraction_f1_macro": 0.9799,
+  "canonicalization_accuracy": 0.9231,
+  "adversarial_false_maps": [],
+  "adversarial_failed_merges": [],
+  "idempotent": true,
+  "duplicate_rate": 0.0,
+  "per_cv": {
+    "CV-001": {
+      "precision": 0.833,
+      "recall": 1.0,
+      "f1": 0.909,
+      "gt": 5,
+      "pred": 6
+    },
+    "CV-002": {
+      "precision": 0.889,
+      "recall": 1.0,
+      "f1": 0.941,
+      "gt": 8,
+      "pred": 9
+    },
+    "CV-003": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "gt": 5,
+      "pred": 5
+    },
+    "CV-004": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "gt": 7,
+      "pred": 7
+    },
+    "CV-005": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "gt": 7,
+      "pred": 7
+    },
+    "CV-006": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "gt": 7,
+      "pred": 7
+    },
+    "CV-007": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "gt": 7,
+      "pred": 7
+    },
+    "CV-008": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "gt": 7,
+      "pred": 7
+    },
+    "CV-009": {
+      "precision": 0.833,
+      "recall": 1.0,
+      "f1": 0.909,
+      "gt": 5,
+      "pred": 6
+    },
+    "CV-010": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "gt": 7,
+      "pred": 7
+    },
+    "CV-011": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "gt": 7,
+      "pred": 7
+    },
+    "CV-012": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "gt": 6,
+      "pred": 6
+    }
+  },
+  "taxonomy": {
+    "canonical": 352,
+    "aliases": 610,
+    "version": "1.1.0"
+  },
+  "target": {
+    "extraction_f1": 0.85,
+    "canonicalization": 0.9,
+    "false_maps": 0,
+    "duplicates": 0
+  },
+  "known_limitation": "korpus sintetis in-domain; evaluasi CV volunteer menyusul"
+}

@@ -18,6 +18,8 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, sessionmaker
 
 from app.ai.extraction.basic_pdf import PARSER_VERSION, PdfExtractionError, extract_text_from_pdf
+from app.ai.extraction.parser import build_payload
+from app.ai.extraction.payload_schema import PAYLOAD_PARSER_VERSION
 from app.core.config import Settings
 from app.core.exceptions import (
     BadRequestError,
@@ -146,6 +148,13 @@ def run_extraction(
             extraction.page_count = pages
             extraction.raw_text = text[:MAX_TEXT_CHARS]
             extraction.error_message = None
+            # Payload terstruktur (heuristik deterministik, M1): kegagalan payload
+            # TIDAK menggagalkan CV — teks mentah tetap berharga untuk review.
+            try:
+                extraction.payload = build_payload(text)
+                extraction.parser_version = PAYLOAD_PARSER_VERSION
+            except Exception as exc:  # kegagalan payload terekam log, status tetap done
+                logger.warning("Pembuatan payload ekstraksi gagal cv=%s: %s", cv_id, exc)
         except PdfExtractionError as exc:
             cv.status = "failed"
             extraction.status = "failed"
