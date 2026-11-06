@@ -98,7 +98,7 @@ cvs (1) ──< cv_optimizations  (job_id CASCADE; applied_cv_id SET NULL)
   nullable · `applied_cv_id` FK cvs SET NULL · timestamps.
 - RLS: seluruh tabel `ENABLE ROW LEVEL SECURITY` tanpa policy (ADR 0005 §2.5).
 
-## 2. Daftar Endpoint API v1 — **41 endpoint** (termasuk 2 health)
+## 2. Daftar Endpoint API v1 — **43 endpoint** (termasuk 2 health)
 
 ### Auth
 | Method | Path | Auth | Fungsi |
@@ -173,6 +173,12 @@ bagian + `needs_review[]` (confidence < 0,6). **Gate matching (M3+): hanya CV de
 | DELETE | /me/candidate-skills/{id} | candidate | Hapus skill accepted + nama display dari profil JSONB |
 
 `GET /hr/jobs/{id}` kini memuat `skills_normalized[]` (canonical + raw_name + required + confidence + needs_review) — proyeksi kamus dari tabel `job_skills`.
+
+### Rekomendasi & Diagnosis (M6/M7 — Wave 4)
+| Method | Path | Auth | Fungsi |
+|---|---|---|---|
+| GET | /me/recommendations?limit=10 | candidate | Top-N lowongan aktif untuk CV utama terkonfirmasi: KNN vektor → re-rank score_pair (bobot & kalibrasi sama dgn M4) → kartu + alasan deterministik; tanpa persistensi; 400 `MATCH_UNAVAILABLE` |
+| GET | /cvs/{id}/diagnosis | candidate | Diagnosis kualitas CV — 8 aturan deterministik (tanpa LLM): skor 0–100 (100 − 12×penting − 6×saran), label Baik/Cukup/Perlu Perbaikan, strengths + improvements per rule_id; informatif pra-konfirmasi (409 bila ekstraksi belum done) |
 
 ### Matching (M4/M5 — Wave 3, ADR 0008)
 | Method | Path | Auth | Fungsi |

@@ -157,6 +157,7 @@ test("Candidate flow: register → profile → browse → detail → upload CV �
   await expect(reviewLink).toBeVisible({ timeout: 20_000 });
   await reviewLink.click();
   await expect(page).toHaveURL(/\/app\/cv\/[^/]+\/review/);
+  const reviewUrl = page.url(); // dipakai ulang pada langkah M7 (diagnosis)
   await expect(page.getByRole("heading", { name: "Kontak" })).toBeVisible();
 
   // Parser heuristik belum tentu mengekstrak nama — nama wajib sebelum konfirmasi.
@@ -212,4 +213,24 @@ test("Candidate flow: register → profile → browse → detail → upload CV �
 
   // Minimal satu rekomendasi belajar untuk gap yang ditemukan
   await expect(page.locator("[data-learning-item]").first()).toBeVisible({ timeout: 30_000 });
+
+  // M6 — Rekomendasi lowongan: buka via menu navigasi
+  await page.getByRole("link", { name: "Rekomendasi", exact: true }).click();
+  await expect(page).toHaveURL(/\/app\/recommendations/);
+  await expect(page.getByRole("heading", { name: "Rekomendasi Lowongan" })).toBeVisible();
+
+  // Komputasi embedding saat pertama bisa lambat — timeout longgar.
+  const firstRecLink = page.locator("[data-recommendation-link]").first();
+  await expect(firstRecLink).toBeVisible({ timeout: 30_000 });
+  const recTitle = (await firstRecLink.innerText()).trim();
+  await firstRecLink.click();
+  await expect(page).toHaveURL(/\/app\/jobs\/[^/]+$/);
+  await expect(page.getByRole("heading", { name: recTitle })).toBeVisible();
+
+  // M7 — Diagnosis CV: buka ulang halaman review CV yang dipakai di alur ini
+  await page.goto(reviewUrl);
+  await expect(page.getByRole("heading", { name: "Diagnosis CV (otomatis)" })).toBeVisible();
+  const diagnosisScore = page.getByTestId("diagnosis-score");
+  await expect(diagnosisScore).toBeVisible();
+  await expect(diagnosisScore).not.toHaveText("");
 });

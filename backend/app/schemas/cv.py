@@ -41,3 +41,29 @@ class ExtractionConfirmIn(BaseModel):
     kandidat saat review (tanpa body → konfirmasi apa adanya)."""
 
     payload: dict | None = None
+
+
+class DiagnosisStrengthOut(BaseModel):
+    """Satu aturan diagnosis yang LOLOS (M7) — teks positif tampilan."""
+
+    rule_id: str
+    text: str
+
+
+class DiagnosisImprovementOut(BaseModel):
+    """Satu aturan diagnosis yang GAGAL (M7) — teks perbaikan + severity."""
+
+    rule_id: str
+    text: str
+    severity: str  # "penting" (−12) | "saran" (−6)
+
+
+class DiagnosisOut(BaseModel):
+    """Hasil diagnosis deterministik CV (M7, tanpa LLM) — panel review kandidat."""
+
+    cv_id: uuid.UUID
+    quality_score: int
+    label: str  # "Baik" (≥80) | "Cukup" (≥60) | "Perlu Perbaikan" (<60)
+    strengths: list[DiagnosisStrengthOut]
+    improvements: list[DiagnosisImprovementOut]
+    computed_at: datetime

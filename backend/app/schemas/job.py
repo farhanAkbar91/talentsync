@@ -221,3 +221,33 @@ class JobGapOut(BaseModel):
     items: list[GapItemOut]
     learning_suggestions: list[LearningSuggestionOut]
     explanation: str
+
+
+# --- Rekomendasi lowongan (M6, kandidat) ---
+
+
+class RecommendationItemOut(BaseModel):
+    """Satu lowongan pada daftar rekomendasi GET /me/recommendations."""
+
+    job_id: uuid.UUID
+    title: str
+    company: str | None
+    location: str | None
+    employment_type: str | None
+    overall: float
+    label: str
+    matched_required: int
+    total_required: int
+    matched_skills: list[str]  # nama tampilan: wajib dulu lalu diutamakan, maks 5
+    missing_critical: int
+    reason: str  # narasi dua bagian deterministik (tanpa LLM)
+
+
+class RecommendationOut(BaseModel):
+    """Respons GET /me/recommendations — dihitung on request, tanpa persist."""
+
+    cv_id: uuid.UUID
+    model_version: str
+    computed_at: datetime
+    total: int  # jumlah lowongan AKTIF yang berhasil dinilai
+    items: list[RecommendationItemOut]  # urut overall DESC, maks `limit`

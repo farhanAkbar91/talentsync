@@ -61,6 +61,9 @@ export function CandidateLayout() {
             <NavLink to="/app/jobs" className={link}>
               Cari Lowongan
             </NavLink>
+            <NavLink to="/app/recommendations" className={link}>
+              Rekomendasi
+            </NavLink>
             <NavLink to="/app/cv" className={link}>
               CV Saya
             </NavLink>

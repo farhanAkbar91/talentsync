@@ -9,11 +9,13 @@ import type {
   CompatibilityResult,
   CvExtraction,
   CvExtractionPayload,
+  DiagnosisResult,
   GapResult,
   Job,
   JobStats,
   MeSummary,
   Page,
+  RecommendationList,
   SkillAutocompleteItem,
   SkillTaxonomy,
 } from "./types";
@@ -248,5 +250,27 @@ export async function fetchCompatibility(jobId: string): Promise<CompatibilityRe
  */
 export async function fetchJobGap(jobId: string): Promise<GapResult> {
   const { data } = await api.get<GapResult>(`/jobs/${jobId}/gap`);
+  return data;
+}
+
+// --- Rekomendasi lowongan (M6) & diagnosis CV (M7) ---
+
+/**
+ * Rekomendasi lowongan untuk CV utama terkonfirmasi (diurutkan skor DESC).
+ * 400 MATCH_UNAVAILABLE bila belum ada CV utama terkonfirmasi.
+ */
+export async function fetchRecommendations(limit?: number): Promise<RecommendationList> {
+  const { data } = await api.get<RecommendationList>("/me/recommendations", {
+    params: limit === undefined ? undefined : { limit },
+  });
+  return data;
+}
+
+/**
+ * Diagnosis kualitas CV berdasarkan aturan tetap (tanpa LLM).
+ * 404 bila bukan pemilik / belum ada ekstraksi; 409 bila ekstraksi belum selesai.
+ */
+export async function fetchDiagnosis(cvId: string): Promise<DiagnosisResult> {
+  const { data } = await api.get<DiagnosisResult>(`/cvs/${cvId}/diagnosis`);
   return data;
 }

@@ -384,6 +384,60 @@ export interface CompatibilityResult {
   computed_at: string;
 }
 
+// --- Rekomendasi lowongan (M6) ---
+
+/** Satu baris rekomendasi lowongan untuk CV utama terkonfirmasi. */
+export interface RecommendationItem {
+  job_id: string;
+  title: string;
+  company: string | null;
+  location: string | null;
+  employment_type: string | null;
+  /** Skor kemiripan 0–100 (daftar diurutkan DESC). */
+  overall: number;
+  label: string;
+  matched_required: number;
+  total_required: number;
+  matched_skills: string[];
+  /** Jumlah skill wajib yang belum dimiliki (untuk badge merah). */
+  missing_critical: number;
+  /** Penjelasan singkat deterministik (aturan tetap, bukan LLM). */
+  reason: string;
+}
+
+/** Respons 200 GET /me/recommendations. 400 MATCH_UNAVAILABLE bila belum ada CV utama terkonfirmasi. */
+export interface RecommendationList {
+  cv_id: string;
+  model_version: string;
+  computed_at: string;
+  total: number;
+  items: RecommendationItem[];
+}
+
+// --- Diagnosis CV (M7) ---
+
+export type DiagnosisSeverity = "penting" | "saran";
+
+/** Satu temuan aturan tetap — strengths tanpa severity, improvements memakainya. */
+export interface DiagnosisRule {
+  rule_id: string;
+  text: string;
+  severity?: DiagnosisSeverity;
+}
+
+/**
+ * Respons 200 GET /cvs/{cv_id}/diagnosis.
+ * 404 bila bukan pemilik / belum ada ekstraksi; 409 bila ekstraksi belum selesai.
+ */
+export interface DiagnosisResult {
+  cv_id: string;
+  quality_score: number;
+  label: string;
+  strengths: DiagnosisRule[];
+  improvements: DiagnosisRule[];
+  computed_at: string;
+}
+
 export type GapStatus = "gap" | "met" | "surplus";
 
 export interface GapMatrixRow {

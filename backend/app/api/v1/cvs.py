@@ -11,14 +11,14 @@ from app.core.deps import require_roles
 from app.db.session import get_db, get_session_factory
 from app.models.cv import CvExtraction
 from app.models.user import User
-from app.schemas.cv import CVOut, ExtractionConfirmIn, ExtractionOut
+from app.schemas.cv import CVOut, DiagnosisOut, ExtractionConfirmIn, ExtractionOut
 from app.schemas.skill import (
     CandidateSkillItemOut,
     CandidateSkillListOut,
     SkillApplyIn,
     SkillApplyOut,
 )
-from app.services import cv_service, extraction_service, skill_service
+from app.services import cv_service, diagnosis_service, extraction_service, skill_service
 
 router = APIRouter(prefix="/cvs", tags=["cvs"])
 candidate_dependency = require_roles("candidate")
@@ -155,3 +155,17 @@ def delete_cv(
     db: Session = Depends(get_db),
 ) -> None:
     cv_service.soft_delete_cv(db, user, cv_id)
+
+
+# --- Diagnosis CV (M7 Wave 4, deterministik tanpa LLM) ---
+
+
+@router.get("/{cv_id}/diagnosis", response_model=DiagnosisOut)
+def get_cv_diagnosis(
+    cv_id: uuid.UUID,
+    user: User = Depends(candidate_dependency),
+    db: Session = Depends(get_db),
+) -> DiagnosisOut:
+    """Panduan kualitas CV (skor, label, kekuatan, perbaikan) dari aturan beku —
+    informatif pra-konfirmasi di halaman review; 409 bila ekstraksi belum done."""
+    return DiagnosisOut.model_validate(diagnosis_service.get_diagnosis(db, user, cv_id))

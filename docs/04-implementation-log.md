@@ -408,6 +408,45 @@ review independen + amandemen kontrak terkoordinasi.
    (race pre-warm vs request); fixture sample-cv diperkaya; E2E menambah skill
    Tableau (yang tak dimiliki kandidat) agar gap+saran belajar teruji nyata.
 
+### Catatan pasca-Wave 3 (CI & bug lama)
+- Commit + push disetujui pemilik proyek: `8d5f81f` (finalisasi M2 + M3–M5),
+  `4e4a61e` (fix CI), `3f31ad1` (fix DB) — **CI GitHub LULUS semua job**.
+- Bug CI #1: `tests.helpers` tak ter-resolve pada `pytest` polos →
+  `tests/__init__.py`.
+- Bug CI #2 (lama, era P2): FK self-reference `cvs.parent_cv_id` TIDAK
+  dipancarkan Alembic di PostgreSQL (use_alter dalam op.create_table) —
+  tertutupi SQLite → **migrasi 0011** + verifikasi langsung di Supabase.
+
+## WAVE 4 — M6 Rekomendasi + M7 Diagnosis CV (7 November 2026)
+
+**Status:** ✅ Selesai & lolos gate + E2E — eksekusi otonom diberdayakan
+pemilik proyek (tanpa persetujuan antar-wave; batasan lain tetap berlaku).
+
+### M6 — Job Recommendation (agent BE + FE paralel)
+- `recommendation_service.recommend_jobs`: reuse penuh internal match_service
+  (gating MATCH_UNAVAILABLE, slug resolution, model_version); vektor CV +
+  judul pengalaman dihitung SEKALI; job vektor via SATU batch query (tanpa
+  N+1), missing di-embed on-the-fly (guarded); KNN-ish prefilter → score_pair
+  re-rank → sort overall DESC → top-limit; **tanpa persistensi** (keputusan
+  terdokumentasi — M4 tetap jalur persist).
+- API `GET /me/recommendations?limit=10` (default 10, cap 25) + alasan
+  deterministik per item; frontend halaman Rekomendasi (kartu skor/chips/
+  alasan + catatan jujur "bukan jaminan diterima"), nav + teaser dashboard
+  (limit 3, hidden bila tidak tersedia), E2E lulus.
+
+### M7 — CV Diagnosis (deterministik, tanpa LLM)
+- 8 aturan beku (rule_id): contact_email/phone, summary_present, exp_metrics,
+  skills_breadth, education_present, bullet_length, certifications_present;
+  skor 100 − 12×penting − 6×saran (floor 0); label ≥80 Baik / ≥60 Cukup /
+  <60 Perlu Perbaikan. Informatif **pra-konfirmasi** (panduan di halaman
+  review); 409 bila ekstraksi belum done.
+- API `GET /cvs/{id}/diagnosis` (owner 404) + panel "Diagnosis CV (otomatis)"
+  di halaman review; kaption "Diatur aturan tetap — tanpa LLM".
+
+### Gate akhir Wave 4
+pytest **291/291** (249 + 42: 10 rekomendasi + 32 diagnosis) · ruff bersih
+(112 file) · frontend build hijau · **Playwright 2/2** (rantai termasuk
+rekomendasi + diagnosis) · Wave 4 di-commit bersama Wave 5 (buffer).
 ### Gate akhir Wave 3
 pytest **249/249** (196 + 53: 20 embedding + 33 matching) · ruff bersih
 (104 file) · frontend build hijau · **Playwright 2/2** (rantai penuh:

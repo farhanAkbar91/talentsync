@@ -12,6 +12,7 @@ import {
   type ExtractionFieldConfidence,
 } from "../../lib/api";
 import { formatDateTime } from "../../lib/format";
+import { DiagnosisPanel } from "../../components/DiagnosisPanel";
 import {
   Alert,
   Badge,
@@ -980,6 +981,9 @@ export default function ReviewExtractionPage() {
           Kembali
         </Link>
       </div>
+
+      {/* M7 — Diagnosis CV otomatis (aturan tetap, tanpa LLM) */}
+      <DiagnosisPanel cvId={id} />
     </div>
   );
 }
