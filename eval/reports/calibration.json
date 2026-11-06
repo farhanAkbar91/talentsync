@@ -1,0 +1,43 @@
+{
+  "corpus": "eval/golden (12 CV x 30 lowongan SINTETIS, 84 pasangan berlabel)",
+  "n_pos": 36,
+  "n_neg": 48,
+  "pos_median": 0.7327,
+  "neg_median": 0.4509,
+  "p25": {
+    "positive": 0.6919,
+    "negative": 0.3754,
+    "all": 0.4408
+  },
+  "p75": {
+    "positive": 0.7664,
+    "negative": 0.4955,
+    "all": 0.7216
+  },
+  "positive": {
+    "median": 0.7327,
+    "p25": 0.6919,
+    "p75": 0.7664,
+    "n": 36
+  },
+  "negative": {
+    "median": 0.4509,
+    "p25": 0.3754,
+    "p75": 0.4955,
+    "n": 48
+  },
+  "proposed_anchors": [
+    {
+      "score": 30,
+      "cosine": 0.4509,
+      "source": "neg_median"
+    },
+    {
+      "score": 85,
+      "cosine": 0.7327,
+      "source": "pos_median"
+    }
+  ],
+  "anchor_rule": "neg_median -> 30, pos_median -> 85",
+  "note": "Usulan anchor v1 (laporan saja, belum diterapkan ke config); korpus sintetis in-domain — bukan distribusi produksi."
+}

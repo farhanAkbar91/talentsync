@@ -1,0 +1,14 @@
+{
+  "version": "v1.1",
+  "anchors": [
+    {
+      "cos": 0.4509,
+      "score": 30
+    },
+    {
+      "cos": 0.7327,
+      "score": 85
+    }
+  ],
+  "note": "Anchor dibekukan dari distribusi cosine golden set sintetis (eval/reports/calibration.json, QA Wave 3)."
+}

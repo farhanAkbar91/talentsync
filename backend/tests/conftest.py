@@ -71,6 +71,7 @@ def _make_settings(**overrides) -> Settings:
         cors_origins=["http://test"],
         secret_key="test-secret-key-not-for-production-0123456789abcdef",
         uploads_dir="test_uploads",
+        embeddings_enabled=False,
     )
     base.update(overrides)
     return Settings(**base)

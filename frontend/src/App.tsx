@@ -7,6 +7,7 @@ import CandidateDashboard from "./pages/candidate/Dashboard";
 import CandidateProfilePage from "./pages/candidate/Profile";
 import JobDiscovery from "./pages/candidate/Jobs";
 import JobDetailPage from "./pages/candidate/JobDetail";
+import JobCompatibilityPage from "./pages/candidate/JobCompatibility";
 import MyCvPage from "./pages/candidate/MyCV";
 import ReviewExtractionPage from "./pages/candidate/ReviewExtraction";
 import CvSkillsPage from "./pages/candidate/CvSkills";
@@ -52,6 +53,7 @@ export default function App() {
           <Route path="profile" element={<CandidateProfilePage />} />
           <Route path="jobs" element={<JobDiscovery />} />
           <Route path="jobs/:id" element={<JobDetailPage />} />
+          <Route path="jobs/:id/compatibility" element={<JobCompatibilityPage />} />
           <Route path="cv" element={<MyCvPage />} />
           <Route path="cv/:id/review" element={<ReviewExtractionPage />} />
           <Route path="cv/:id/skills" element={<CvSkillsPage />} />

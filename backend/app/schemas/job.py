@@ -133,3 +133,91 @@ class JobHrOut(JobPublicOut):
     deleted_at: datetime | None
     # Hanya diisi pada endpoint DETAIL (GET /hr/jobs/{id}); endpoint list dibiarkan None.
     skills_normalized: list[NormalizedJobSkill] | None = None
+
+
+# --- Kompatibilitas & skill gap (M4/M5, kandidat) ---
+
+
+class MatchedSkillOut(BaseModel):
+    """Satu skill lowongan yang terpenuhi penuh oleh kandidat."""
+
+    name: str  # slug kanon
+    display: str  # nama kanon untuk tampilan
+    required: bool
+    match_type: Literal["exact", "alias", "related"]
+    evidence: str | None = None
+
+
+class MissingSkillOut(BaseModel):
+    """Satu skill lowongan yang belum terpenuhi penuh."""
+
+    name: str
+    display: str
+    required: bool
+    severity: Literal["kritis", "menengah", "minor"]
+
+
+class TopExperienceOut(BaseModel):
+    """Pengalaman CV dengan judul paling mirip posisi (cosine judul)."""
+
+    title: str | None
+    company: str | None
+    period: str | None
+    relevance: float
+
+
+class JobCompatibilityOut(BaseModel):
+    """Respons GET /jobs/{job_id}/compatibility (kandidat)."""
+
+    job_id: uuid.UUID
+    cv_id: uuid.UUID
+    model_version: str
+    overall: float
+    label: str
+    factors: dict[str, float]
+    weights: dict[str, float]
+    matched_skills: list[MatchedSkillOut]
+    missing_skills: list[MissingSkillOut]
+    top_experiences: list[TopExperienceOut]
+    explanation: str
+    computed_at: datetime
+
+
+class GapMatrixRowOut(BaseModel):
+    """Satu baris matriks kategori gap: met/gap (kategori lowongan) atau surplus."""
+
+    category: str
+    target: int
+    candidate: int
+    status: Literal["met", "gap", "surplus"]
+
+
+class GapItemOut(BaseModel):
+    """Item skill gap + alasan turunan severity."""
+
+    name: str
+    display: str
+    required: bool
+    severity: Literal["kritis", "menengah", "minor"]
+    reason: str
+
+
+class LearningSuggestionOut(BaseModel):
+    """Sumber belajar gratis untuk satu kategori gap."""
+
+    category: str
+    title: str
+    provider: str
+    url: str
+
+
+class JobGapOut(BaseModel):
+    """Respons GET /jobs/{job_id}/gap (kandidat)."""
+
+    job_id: uuid.UUID
+    model_version: str
+    overall: float
+    matrix: list[GapMatrixRowOut]
+    items: list[GapItemOut]
+    learning_suggestions: list[LearningSuggestionOut]
+    explanation: str

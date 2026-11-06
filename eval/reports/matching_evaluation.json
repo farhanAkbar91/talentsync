@@ -1,0 +1,192 @@
+{
+  "corpus": "eval/golden (12 CV + 30 lowongan SINTETIS, 84 pasangan berlabel)",
+  "dataset": "synthetic",
+  "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "calibration_version": "v1.1",
+  "weights_used": [
+    0.4,
+    0.3,
+    0.2,
+    0.1
+  ],
+  "ndcg10_macro": 0.9425,
+  "spearman": 0.8663,
+  "precision_at5": 0.6,
+  "per_cv": {
+    "CV-001": {
+      "n_pairs": 7,
+      "ndcg10": 1.0,
+      "precision_at5": 0.6
+    },
+    "CV-002": {
+      "n_pairs": 7,
+      "ndcg10": 1.0,
+      "precision_at5": 0.6
+    },
+    "CV-003": {
+      "n_pairs": 7,
+      "ndcg10": 0.963,
+      "precision_at5": 0.6
+    },
+    "CV-004": {
+      "n_pairs": 7,
+      "ndcg10": 0.8152,
+      "precision_at5": 0.6
+    },
+    "CV-005": {
+      "n_pairs": 7,
+      "ndcg10": 1.0,
+      "precision_at5": 0.6
+    },
+    "CV-006": {
+      "n_pairs": 7,
+      "ndcg10": 0.8083,
+      "precision_at5": 0.6
+    },
+    "CV-007": {
+      "n_pairs": 7,
+      "ndcg10": 1.0,
+      "precision_at5": 0.6
+    },
+    "CV-008": {
+      "n_pairs": 7,
+      "ndcg10": 1.0,
+      "precision_at5": 0.6
+    },
+    "CV-009": {
+      "n_pairs": 7,
+      "ndcg10": 0.996,
+      "precision_at5": 0.6
+    },
+    "CV-010": {
+      "n_pairs": 7,
+      "ndcg10": 1.0,
+      "precision_at5": 0.6
+    },
+    "CV-011": {
+      "n_pairs": 7,
+      "ndcg10": 0.8636,
+      "precision_at5": 0.6
+    },
+    "CV-012": {
+      "n_pairs": 7,
+      "ndcg10": 0.8636,
+      "precision_at5": 0.6
+    }
+  },
+  "cosine_distribution": {
+    "pos_median": 0.7327,
+    "neg_median": 0.4509,
+    "positive": {
+      "median": 0.7327,
+      "p25": 0.6919,
+      "p75": 0.7664,
+      "n": 36
+    },
+    "negative": {
+      "median": 0.4509,
+      "p25": 0.3754,
+      "p75": 0.4955,
+      "n": 48
+    },
+    "proposed_anchors": [
+      {
+        "score": 30,
+        "cosine": 0.4509,
+        "source": "neg_median"
+      },
+      {
+        "score": 85,
+        "cosine": 0.7327,
+        "source": "pos_median"
+      }
+    ]
+  },
+  "grid_search_tahap2": {
+    "n_combinations": 439,
+    "split": "70% kalibrasi / 30% validasi, deterministik per hash pasangan (md5)",
+    "n_pairs_calibration": 61,
+    "n_pairs_validation": 23,
+    "best_weights_pct": [
+      10,
+      30,
+      50,
+      10
+    ],
+    "best_ndcg10_calibration": 0.9802,
+    "best_ndcg10_validation": 0.9763,
+    "prior_weights_pct": [
+      40,
+      30,
+      20,
+      10
+    ],
+    "prior_ndcg10_calibration": 0.9687,
+    "prior_ndcg10_validation": 0.9763,
+    "top5": [
+      {
+        "weights_pct": [
+          10,
+          30,
+          50,
+          10
+        ],
+        "ndcg10_calibration": 0.9802,
+        "ndcg10_validation": 0.9763
+      },
+      {
+        "weights_pct": [
+          15,
+          25,
+          50,
+          10
+        ],
+        "ndcg10_calibration": 0.9802,
+        "ndcg10_validation": 0.9763
+      },
+      {
+        "weights_pct": [
+          20,
+          20,
+          50,
+          10
+        ],
+        "ndcg10_calibration": 0.9802,
+        "ndcg10_validation": 0.9763
+      },
+      {
+        "weights_pct": [
+          10,
+          25,
+          45,
+          20
+        ],
+        "ndcg10_calibration": 0.9802,
+        "ndcg10_validation": 0.9763
+      },
+      {
+        "weights_pct": [
+          10,
+          25,
+          50,
+          15
+        ],
+        "ndcg10_calibration": 0.9802,
+        "ndcg10_validation": 0.9763
+      }
+    ],
+    "applied_to_config": false,
+    "note": "LAPORAN SAJA — bobot di config (.env MATCH_WEIGHTS) tidak diubah."
+  },
+  "targets": {
+    "ndcg10": 0.75,
+    "spearman": 0.6
+  },
+  "precision_at5_ceiling": 0.6,
+  "targets_met": {
+    "ndcg10": true,
+    "spearman": true
+  },
+  "factors_combine_max_error": 7e-05,
+  "known_limitation": "korpus SINTETIS in-domain (template sama dgn generator golden) — angka bukan kinerja produksi; evaluasi CV/lowongan nyata menyusul"
+}

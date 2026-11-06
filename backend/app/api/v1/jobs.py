@@ -1,16 +1,23 @@
-"""Katalog publik lowongan (kandidat / tanpa auth untuk pencarian)."""
+"""Katalog publik lowongan (kandidat / tanpa auth untuk pencarian).
+
+M4/M5: endpoint kecocokan (compatibility) & skill gap untuk kandidat — RBAC
+peran candidate (pola sama dengan cvs.py); HR/roles lain → 403.
+"""
 
 import uuid
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Request
 from sqlalchemy.orm import Session
 
+from app.core.deps import require_roles
 from app.db.session import get_db
+from app.models.user import User
 from app.schemas.common import Page
-from app.schemas.job import JobPublicOut
-from app.services import job_service
+from app.schemas.job import JobCompatibilityOut, JobGapOut, JobPublicOut
+from app.services import job_service, match_service
 
 router = APIRouter(prefix="/jobs", tags=["jobs"])
+candidate_dependency = require_roles("candidate")
 
 
 def _to_public(job) -> JobPublicOut:
@@ -66,3 +73,30 @@ def list_jobs(
 @router.get("/{job_id}", response_model=JobPublicOut)
 def get_job(job_id: uuid.UUID, db: Session = Depends(get_db)) -> JobPublicOut:
     return _to_public(job_service.get_public_job(db, job_id))
+
+
+# --- Kompatibilitas & skill gap (M4/M5, kandidat) ---
+
+
+@router.get("/{job_id}/compatibility", response_model=JobCompatibilityOut)
+def get_job_compatibility(
+    job_id: uuid.UUID,
+    request: Request,
+    user: User = Depends(candidate_dependency),
+    db: Session = Depends(get_db),
+) -> JobCompatibilityOut:
+    """Skor kecocokan CV primer kandidat vs lowongan aktif (400 MATCH_UNAVAILABLE
+    bila CV utama belum terkonfirmasi; 404 bila lowongan nonaktif)."""
+    result = match_service.compute_match(db, user, job_id, request.app.state.settings)
+    return JobCompatibilityOut(**match_service.compatibility_payload(result))
+
+
+@router.get("/{job_id}/gap", response_model=JobGapOut)
+def get_job_gap(
+    job_id: uuid.UUID,
+    request: Request,
+    user: User = Depends(candidate_dependency),
+    db: Session = Depends(get_db),
+) -> JobGapOut:
+    """Matriks gap skill + item + saran belajar (reuse compute_match — persist)."""
+    return JobGapOut(**match_service.get_gap(db, user, job_id, request.app.state.settings))

@@ -11,7 +11,7 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   retries: 0,
-  timeout: 90_000,
+  timeout: 150_000,
   expect: { timeout: 10_000 },
   use: {
     baseURL: "http://localhost:5173",
@@ -26,19 +26,22 @@ export default defineConfig({
       url: "http://localhost:8000/api/v1/health",
       reuseExistingServer: false,
       cwd: "../backend",
-      timeout: 90_000,
+      timeout: 150_000,
       env: {
         DATABASE_URL: "sqlite:///e2e.db",
         APP_ENV: "dev",
         LOG_LEVEL: "WARNING",
         SECRET_KEY: "e2e-secret-key-0123456789abcdef0123456789abcdef",
+        // M3: muat model embedding SINKRON saat startup agar publish/konfirmasi
+        // pertama tidak menunggu cold-start torch di tengah test.
+        EMBEDDING_PREWARM_SYNC: "true",
       },
     },
     {
       command: "npm run dev -- --port 5173 --strictPort",
       url: "http://localhost:5173",
       reuseExistingServer: false,
-      timeout: 90_000,
+      timeout: 150_000,
     },
   ],
 });

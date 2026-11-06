@@ -329,3 +329,95 @@ export interface MeSummary {
   candidate_profile?: CandidateProfile;
   company?: Company | null;
 }
+
+// --- Kompatibilitas lowongan (M4) & skill gap (M5) ---
+
+/** Kunci faktor skor kecocokan (bobot tiap faktor 0–1, totalnya 1). */
+export type MatchFactorKey = "semantic" | "skill_coverage" | "experience" | "education";
+
+/** Nilai faktor (0–100) beserta bobotnya — dipakai untuk factors & weights. */
+export type MatchFactors = Record<MatchFactorKey, number>;
+
+export type MatchType = "exact" | "alias" | "related";
+
+export interface MatchedSkill {
+  name: string;
+  display: string;
+  required: boolean;
+  match_type: MatchType;
+  /** Kutipan dari CV yang membuktikan skill ini; null bila tidak ada. */
+  evidence: string | null;
+}
+
+export type SkillSeverity = "kritis" | "menengah" | "minor";
+
+export interface MissingSkill {
+  name: string;
+  display: string;
+  required: boolean;
+  severity: SkillSeverity;
+}
+
+export interface TopExperience {
+  title: string;
+  company: string;
+  period: string;
+  /** Relevansi 0–1 terhadap lowongan. */
+  relevance: number;
+}
+
+/** Respons 200 GET /jobs/{job_id}/compatibility. */
+export interface CompatibilityResult {
+  job_id: string;
+  cv_id: string;
+  model_version: string;
+  /** Skor keseluruhan 0–100. */
+  overall: number;
+  label: string;
+  factors: MatchFactors;
+  weights: MatchFactors;
+  matched_skills: MatchedSkill[];
+  missing_skills: MissingSkill[];
+  top_experiences: TopExperience[];
+  /** Narasi deterministik (aturan tetap, bukan LLM). */
+  explanation: string;
+  computed_at: string;
+}
+
+export type GapStatus = "gap" | "met" | "surplus";
+
+export interface GapMatrixRow {
+  category: string;
+  /** Target cakupan kategori (%) dari kebutuhan lowongan. */
+  target: number;
+  /** Cakupan kandidat (%). */
+  candidate: number;
+  delta: number;
+  status: GapStatus;
+}
+
+export interface GapItem {
+  name: string;
+  display: string;
+  required: boolean;
+  severity: SkillSeverity;
+  reason: string;
+}
+
+export interface LearningSuggestion {
+  category: string;
+  title: string;
+  provider: string;
+  url: string;
+}
+
+/** Respons 200 GET /jobs/{job_id}/gap. */
+export interface GapResult {
+  job_id: string;
+  model_version: string;
+  overall: number;
+  matrix: GapMatrixRow[];
+  items: GapItem[];
+  learning_suggestions: LearningSuggestion[];
+  explanation: string;
+}

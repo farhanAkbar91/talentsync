@@ -353,3 +353,64 @@ pytest **196/196** (103 + 93 baru: 50 taksonomi + 43 integrasi) · ruff bersih
 pemetaan skill; kandidat: upload→review→konfirmasi→skills→terapkan→profil) ·
 Supabase: migrasi 0010 + RLS 17/17 + integrasi LULUS · evaluasi 5/5 target ·
 Wave 2 belum di-commit (menunggu persetujuan).
+
+## WAVE 3 — M3 Embedding + M4 Compatibility + M5 Skill Gap (6–7 November 2026)
+
+**Status:** ✅ Selesai & lolos seluruh gate + security review — menunggu
+persetujuan Wave 4. **Multi-agent orchestration aktif** (kebijakan pemilik
+proyek): Lead orchestrator + 4 agent spesialis (AI/ML, FE, QA, Security) +
+review independen + amandemen kontrak terkoordinasi.
+
+### Implementasi (paralel per ownership)
+- **T1 Embedding (AI agent)**: `ai/matching/{embedder,similarity}.py` —
+  singleton lazy MiniLM (L2-norm, chunk ≤480 char mean-pool, batch),
+  `embedding_service.embed_cv/embed_job` (hanya CV terkonfirmasi — hard gate;
+  upsert per model, multi-versi dipertihara; SAVEPOINT agar gagal embed tak
+  merusak transaksi), hook confirm/publish/update, `scripts/reembed_embeddings.py`
+  (guard anti-Supabase tanpa --yes).
+- **T2+T3 Scoring (BE agent)**: `scorer.py` (F_skill 0.6/0.4 class-neutral +
+  exact/alias/related 1.0/0.5, F_exp regex→seniority fallback + title cosine,
+  F_edu ordinal 100/90/55/25, severity kritis/menengah/minor frozen),
+  `calibration.py`+JSON (piecewise-linear clamp), `explainer.py` narasi ID
+  deterministik, `gap.py`+`learning_resources.json` (12 kategori × 3 sumber),
+  `match_service` (gating MATCH_UNAVAILABLE, persist+invalidasi), endpoint
+  compatibility+gap.
+- **T4 Frontend (FE agent)**: halaman Kompatibilitas `/app/jobs/:id/
+  compatibility` (ScoreRing 4-band, FactorBar + bobot, chips matched/missing,
+  top experiences, panel "Mengapa skor ini?" — kaption "bukan LLM", GapMatrix
+  shared component + saran belajar), tombol di JobDetail, E2E extension.
+- **T5 QA (QA agent)**: `evaluate_matching.py` (nDCG@10/Spearman/P@5 + grid
+  search Tahap 2 report-only) + `benchmark_matching.py` (1 CV vs 500 job).
+
+### Evaluasi (real MiniLM, korpus sintetis 84 pasangan berlabel)
+- **nDCG@10: 0,9425** (target ≥ 0,75) · **Spearman: 0,8663** (target ≥ 0,60)
+- **P@5: 0,600 = plafon dataset** (3 relevan dari 7 per CV) — terdokumentasi
+- **Benchmark: 0,81 dtk / 500 pasangan (1,62 ms/pair)** — target < 5 dtk ✅
+- **Grid search Tahap 2**: bobot prior [40,30,20,10] terbukti optimal pada set
+  validasi (kandidat terbaik [40,25,10,25] tanpa gain) → bobot TIDAK diubah.
+- **Anchor kalibrasi dibekukan v1.1**: 0,4509→30, 0,7327→85 (dari distribusi
+  cosine golden set; QA usulkan, Lead yang membekukan).
+
+### Temuan & keputusan integrasi (Lead)
+1. **Amandemen kontrak cache judul**: benchmark awal 9,34 dtk (95% = re-embed
+   judul per pasangan) → `cv_title_vecs` dihitung sekali per CV → 0,81 dtk
+   (46×), hasil identik (teruji).
+2. **Security review (agent read-only)**: RBAC/ownership/RLS/injection PASS;
+   **HIGH ReDoS** regex years_req pada teks HR 20k+20k char (34,6 dtk) →
+   DIPERBAIKI (kuantifier bounded 1–4 + scan cap 4k → 3,1 ms); **MEDIUM** payload
+   tanpa batas → MAX_DOCUMENT_CHARS 20k di kedua build_text; LOW terdokumentasi
+   (negative cache, rate limiting → catatan M6+).
+3. **model_version 88-char vs kolom String(60)** (temuan agent) → kode map
+   `emb:minilm-l12-v2` (45 char; nama penuh tetap di kolom embedding).
+4. **E2E**: E2E SQLite kini seed taksonomi; cold-start torch ±30 dtk dipindah
+   dari request-pertama ke **pre-warm startup** (thread di produksi; SINKRON
+   di E2E via EMBEDDING_PREWARM_SYNC); `get_embedder` + double-checked locking
+   (race pre-warm vs request); fixture sample-cv diperkaya; E2E menambah skill
+   Tableau (yang tak dimiliki kandidat) agar gap+saran belajar teruji nyata.
+
+### Gate akhir Wave 3
+pytest **249/249** (196 + 53: 20 embedding + 33 matching) · ruff bersih
+(104 file) · frontend build hijau · **Playwright 2/2** (rantai penuh:
+upload→review→konfirmasi→skills→terapkan→kompatibilitas→gap+saran belajar) ·
+benchmark 0,81 dtk ✅ · security review: HIGH/MEDIUM selesai dipulihkan ·
+Wave 3 belum di-commit (menunggu persetujuan).

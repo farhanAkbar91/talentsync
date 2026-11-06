@@ -1,18 +1,22 @@
 """Service lowongan: CRUD HR, lifecycle status, dan katalog publik kandidat."""
 
+import logging
 import uuid
 from datetime import UTC, datetime
 
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
+from app.core.config import Settings
 from app.core.exceptions import BadRequestError, ConflictError, NotFoundError
 from app.models.company import Company, CompanyMember
 from app.models.job import Job
 from app.models.skill import JobSkill
 from app.models.user import User
 from app.schemas.job import JobIn
-from app.services import skill_service
+from app.services import embedding_service, skill_service
+
+logger = logging.getLogger(__name__)
 
 # Transisi lifecycle (blueprint §5.3, versi manual untuk P2 — sweep expired otomatis
 # menyusul di fase ingestion):
@@ -122,7 +126,14 @@ def list_company_jobs(
     return list(rows), int(total)
 
 
-def update_job(db: Session, user: User, job_id: uuid.UUID, data: JobIn) -> Job:
+def update_job(
+    db: Session,
+    user: User,
+    job_id: uuid.UUID,
+    data: JobIn,
+    *,
+    settings: Settings | None = None,
+) -> Job:
     job = _owned_job(db, user, job_id)
     if job.status not in ("draft", "active", "paused"):
         raise ConflictError(f"Lowongan berstatus '{job.status}' tidak dapat diubah.")
@@ -143,12 +154,33 @@ def update_job(db: Session, user: User, job_id: uuid.UUID, data: JobIn) -> Job:
     job.updated_at = datetime.now(UTC)
     # M2: baris job_skills diganti penuh mengikuti daftar skill terbaru.
     _replace_job_skills(db, job.id, [s.model_dump() for s in data.skills])
+
+    # M4: konten lowongan berubah — hasil match lama tidak valid lagi. Import
+    # lokal memutus siklus impor (match_service tidak mengimpor service ini).
+    from app.services import match_service  # noqa: PLC0415 — patah siklus impor
+
+    match_service.invalidate_job(db, job.id)
+
+    # M3: vektor lowongan menyusul konten terbaru (upsert per model aktif).
+    if settings is not None:
+        try:
+            embedding_service.embed_job(db, job.id, settings)
+        except Exception:
+            logger.warning("Embedding lowongan %s gagal — dilewati.", job_id, exc_info=True)
+
     db.commit()
     db.refresh(job)
     return job
 
 
-def transition_job(db: Session, user: User, job_id: uuid.UUID, action: str) -> Job:
+def transition_job(
+    db: Session,
+    user: User,
+    job_id: uuid.UUID,
+    action: str,
+    *,
+    settings: Settings | None = None,
+) -> Job:
     rule = _TRANSITIONS.get(action)
     if rule is None:
         raise BadRequestError("Aksi tidak dikenal.")
@@ -164,6 +196,16 @@ def transition_job(db: Session, user: User, job_id: uuid.UUID, action: str) -> J
         job.last_seen_at = now
     if action == "close":
         job.closed_reason = "manual"
+
+    # M3: saat publikasi, vektor lowongan disiapkan agar katalog/matching M4
+    # langsung memakai vektor terkini. Guarded — gagal embed tidak menunda
+    # publikasi (re-embed massal via scripts/reembed_embeddings.py).
+    if action == "publish" and settings is not None:
+        try:
+            embedding_service.embed_job(db, job.id, settings)
+        except Exception:
+            logger.warning("Embedding lowongan %s gagal — dilewati.", job_id, exc_info=True)
+
     db.commit()
     db.refresh(job)
     return job

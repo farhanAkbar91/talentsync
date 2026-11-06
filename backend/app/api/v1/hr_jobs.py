@@ -2,7 +2,7 @@
 
 import uuid
 
-from fastapi import APIRouter, Depends, Query, status
+from fastapi import APIRouter, Depends, Query, Request, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -121,17 +121,25 @@ def get_job(
 def update_job(
     job_id: uuid.UUID,
     payload: JobIn,
+    request: Request,
     user: User = Depends(hr_dependency),
     db: Session = Depends(get_db),
 ) -> JobHrOut:
-    return _to_hr_out(job_service.update_job(db, user, job_id, payload))
+    return _to_hr_out(
+        job_service.update_job(db, user, job_id, payload, settings=request.app.state.settings)
+    )
 
 
 @router.post("/{job_id}/publish", response_model=JobHrOut)
 def publish_job(
-    job_id: uuid.UUID, user: User = Depends(hr_dependency), db: Session = Depends(get_db)
+    job_id: uuid.UUID,
+    request: Request,
+    user: User = Depends(hr_dependency),
+    db: Session = Depends(get_db),
 ) -> JobHrOut:
-    return _to_hr_out(job_service.transition_job(db, user, job_id, "publish"))
+    return _to_hr_out(
+        job_service.transition_job(db, user, job_id, "publish", settings=request.app.state.settings)
+    )
 
 
 @router.post("/{job_id}/pause", response_model=JobHrOut)

@@ -6,8 +6,10 @@ import type {
   CandidateSkillList,
   CandidateSkillSuggestionList,
   Company,
+  CompatibilityResult,
   CvExtraction,
   CvExtractionPayload,
+  GapResult,
   Job,
   JobStats,
   MeSummary,
@@ -226,4 +228,25 @@ export async function fetchMySkills(): Promise<CandidateSkillList> {
 
 export async function deleteMySkill(skillId: string): Promise<void> {
   await api.delete(`/me/candidate-skills/${skillId}`);
+}
+
+// --- Kompatibilitas (M4) & skill gap (M5) ---
+
+/**
+ * Skor kompatibilitas kandidat terhadap satu lowongan aktif.
+ * 400 MATCH_UNAVAILABLE bila belum ada CV utama terkonfirmasi;
+ * 404 bila lowongan tidak aktif / bukan milik kandidat-view.
+ */
+export async function fetchCompatibility(jobId: string): Promise<CompatibilityResult> {
+  const { data } = await api.get<CompatibilityResult>(`/jobs/${jobId}/compatibility`);
+  return data;
+}
+
+/**
+ * Skill gap & rekomendasi belajar untuk satu lowongan aktif.
+ * Kode error sama dengan fetchCompatibility (400 MATCH_UNAVAILABLE / 404).
+ */
+export async function fetchJobGap(jobId: string): Promise<GapResult> {
+  const { data } = await api.get<GapResult>(`/jobs/${jobId}/gap`);
+  return data;
 }

@@ -81,6 +81,13 @@ class Settings(BaseSettings):
     # M2 — Taksonomi skill: ambang fuzzy normalize_skill (0.5-1.0).
     skill_fuzzy_threshold: float = 0.92
 
+    # M3 — Embedding: muat model & simpan vektor saat konfirmasi/publikasi.
+    # Nonaktif di unit test (hemat RAM/waktu); E2E & produksi tetap aktif.
+    embeddings_enabled: bool = True
+    # True = pre-warm model BLOKIR startup (dipakai E2E agar deterministic —
+    # model pasti siap sebelum test pertama); False = thread latar (produksi).
+    embedding_prewarm_sync: bool = False
+
     @field_validator("skill_fuzzy_threshold")
     @classmethod
     def _validate_skill_fuzzy_threshold(cls, value: float) -> float:

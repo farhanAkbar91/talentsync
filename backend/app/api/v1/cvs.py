@@ -77,12 +77,15 @@ def get_cv_extraction(
 @router.put("/{cv_id}/extraction/confirm", response_model=ExtractionOut)
 def confirm_cv_extraction(
     cv_id: uuid.UUID,
+    request: Request,
     body: ExtractionConfirmIn | None = None,
     user: User = Depends(candidate_dependency),
     db: Session = Depends(get_db),
 ) -> ExtractionOut:
     payload = body.payload if body is not None else None
-    extraction = extraction_service.confirm_extraction(db, user, cv_id, payload)
+    extraction = extraction_service.confirm_extraction(
+        db, user, cv_id, payload, settings=request.app.state.settings
+    )
     return _extraction_to_out(cv_id, extraction)
 
 

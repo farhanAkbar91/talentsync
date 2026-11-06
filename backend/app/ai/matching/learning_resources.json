@@ -1,0 +1,206 @@
+{
+  "Programming Languages": [
+    {
+      "title": "Scientific Computing with Python (sertifikat gratis)",
+      "provider": "freeCodeCamp",
+      "url": "https://www.freecodecamp.org/learn/scientific-computing-with-python/"
+    },
+    {
+      "title": "CS50x — Pengantar Ilmu Komputer (audit gratis)",
+      "provider": "Harvard CS50",
+      "url": "https://cs50.harvard.edu/x/"
+    },
+    {
+      "title": "Learn to Code — kurikulum dasar pemrograman",
+      "provider": "freeCodeCamp",
+      "url": "https://www.freecodecamp.org/learn/"
+    }
+  ],
+  "Web Development": [
+    {
+      "title": "Responsive Web Design (sertifikat gratis)",
+      "provider": "freeCodeCamp",
+      "url": "https://www.freecodecamp.org/learn/2022/responsive-web-design/"
+    },
+    {
+      "title": "Learn Web Development (panduan lengkap)",
+      "provider": "MDN Web Docs",
+      "url": "https://developer.mozilla.org/en-US/docs/Learn"
+    },
+    {
+      "title": "The Odin Project — full-stack open source",
+      "provider": "The Odin Project",
+      "url": "https://www.theodinproject.com/"
+    }
+  ],
+  "Data Analytics": [
+    {
+      "title": "Kaggle Learn — Pandas, SQL, dan Data Visualization",
+      "provider": "Kaggle",
+      "url": "https://www.kaggle.com/learn"
+    },
+    {
+      "title": "Data Analysis with Python (sertifikat gratis)",
+      "provider": "freeCodeCamp",
+      "url": "https://www.freecodecamp.org/learn/data-analysis-with-python/"
+    },
+    {
+      "title": "Google Data Analytics Certificate (audit gratis)",
+      "provider": "Coursera",
+      "url": "https://www.coursera.org/professional-certificates/google-data-analytics"
+    }
+  ],
+  "Machine Learning": [
+    {
+      "title": "Machine Learning Crash Course",
+      "provider": "Google Developers",
+      "url": "https://developers.google.com/machine-learning/crash-course"
+    },
+    {
+      "title": "Intro to Machine Learning",
+      "provider": "Kaggle Learn",
+      "url": "https://www.kaggle.com/learn/intro-to-machine-learning"
+    },
+    {
+      "title": "Machine Learning Specialization (audit gratis)",
+      "provider": "Coursera (Andrew Ng)",
+      "url": "https://www.coursera.org/specializations/machine-learning-introduction"
+    }
+  ],
+  "Database Management": [
+    {
+      "title": "SQLBolt — belajar SQL interaktif",
+      "provider": "SQLBolt",
+      "url": "https://sqlbolt.com/"
+    },
+    {
+      "title": "PostgreSQL Tutorial",
+      "provider": "PostgreSQL Tutorial",
+      "url": "https://www.postgresqltutorial.com/"
+    },
+    {
+      "title": "Relational Database (kursus gratis)",
+      "provider": "freeCodeCamp",
+      "url": "https://www.freecodecamp.org/learn/relational-database/"
+    }
+  ],
+  "Cloud Computing": [
+    {
+      "title": "Microsoft Learn — jalur sertifikasi Azure (gratis)",
+      "provider": "Microsoft Learn",
+      "url": "https://learn.microsoft.com/en-us/training/"
+    },
+    {
+      "title": "Google Cloud Skills Boost — lab tingkat dasar",
+      "provider": "Google Cloud",
+      "url": "https://www.cloudskillsboost.google/"
+    },
+    {
+      "title": "AWS Skill Builder — kursus digital dasar (free tier)",
+      "provider": "AWS",
+      "url": "https://skillbuilder.aws/"
+    }
+  ],
+  "DevOps": [
+    {
+      "title": "Docker Get Started (dokumentasi resmi)",
+      "provider": "Docker Docs",
+      "url": "https://docs.docker.com/get-started/"
+    },
+    {
+      "title": "GitHub Actions — dokumentasi & quickstart",
+      "provider": "GitHub Docs",
+      "url": "https://docs.github.com/en/actions"
+    },
+    {
+      "title": "DevOps Roadmap — peta belajar bertahap",
+      "provider": "roadmap.sh",
+      "url": "https://roadmap.sh/devops"
+    }
+  ],
+  "Software Engineering": [
+    {
+      "title": "Design Patterns & Refactoring (artikel mendalam)",
+      "provider": "Refactoring.Guru",
+      "url": "https://refactoring.guru/"
+    },
+    {
+      "title": "Software Design Roadmap",
+      "provider": "roadmap.sh",
+      "url": "https://roadmap.sh/software-design"
+    },
+    {
+      "title": "The Odin Project — praktik proyek nyata",
+      "provider": "The Odin Project",
+      "url": "https://www.theodinproject.com/paths"
+    }
+  ],
+  "Project Management": [
+    {
+      "title": "The Scrum Guide (resmi & gratis)",
+      "provider": "Scrum.org",
+      "url": "https://scrumguides.org/"
+    },
+    {
+      "title": "Google Project Management Certificate (audit gratis)",
+      "provider": "Coursera",
+      "url": "https://www.coursera.org/professional-certificates/google-project-management"
+    },
+    {
+      "title": "Agile with Atlassian Jira (audit gratis)",
+      "provider": "Coursera",
+      "url": "https://www.coursera.org/learn/agile-atlassian-jira"
+    }
+  ],
+  "Design & UI/UX": [
+    {
+      "title": "Figma Resource Library — dasar desain & prototyping",
+      "provider": "Figma",
+      "url": "https://www.figma.com/resource-library/"
+    },
+    {
+      "title": "Google UX Design Certificate (audit gratis)",
+      "provider": "Coursera",
+      "url": "https://www.coursera.org/professional-certificates/google-ux-design"
+    },
+    {
+      "title": "Laws of UX — prinsip psikologi desain",
+      "provider": "LawsofUX (Jon Yablonski)",
+      "url": "https://lawsofux.com/"
+    }
+  ],
+  "Cybersecurity": [
+    {
+      "title": "Web Security Academy (lab gratis)",
+      "provider": "PortSwigger",
+      "url": "https://portswigger.net/web-security"
+    },
+    {
+      "title": "OWASP Top Ten — ringkasan risiko keamanan",
+      "provider": "OWASP Foundation",
+      "url": "https://owasp.org/www-project-top-ten/"
+    },
+    {
+      "title": "TryHackMe — jalur belajar keamanan (room gratis)",
+      "provider": "TryHackMe",
+      "url": "https://tryhackme.com/"
+    }
+  ],
+  "Business Analysis": [
+    {
+      "title": "Business Analysis Fundamentals (audit gratis)",
+      "provider": "Coursera",
+      "url": "https://www.coursera.org/search?query=business%20analysis"
+    },
+    {
+      "title": "A Guide to the Business Analysis Body of Knowledge (BABOK) — ringkasan gratis",
+      "provider": "IIBA",
+      "url": "https://www.iiba.org/business-analysis-blogs-and-resources/"
+    },
+    {
+      "title": "Business Analysis — playlist tutorial",
+      "provider": "YouTube",
+      "url": "https://www.youtube.com/results?search_query=business+analysis+fundamentals"
+    }
+  ]
+}

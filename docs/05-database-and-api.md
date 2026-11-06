@@ -98,7 +98,7 @@ cvs (1) ──< cv_optimizations  (job_id CASCADE; applied_cv_id SET NULL)
   nullable · `applied_cv_id` FK cvs SET NULL · timestamps.
 - RLS: seluruh tabel `ENABLE ROW LEVEL SECURITY` tanpa policy (ADR 0005 §2.5).
 
-## 2. Daftar Endpoint API v1 — **39 endpoint** (termasuk 2 health)
+## 2. Daftar Endpoint API v1 — **41 endpoint** (termasuk 2 health)
 
 ### Auth
 | Method | Path | Auth | Fungsi |
@@ -174,7 +174,13 @@ bagian + `needs_review[]` (confidence < 0,6). **Gate matching (M3+): hanya CV de
 
 `GET /hr/jobs/{id}` kini memuat `skills_normalized[]` (canonical + raw_name + required + confidence + needs_review) — proyeksi kamus dari tabel `job_skills`.
 
-### Tabel M2 (migrasi 0010, ADR 0007)
+### Matching (M4/M5 — Wave 3, ADR 0008)
+| Method | Path | Auth | Fungsi |
+|---|---|---|---|
+| GET | /jobs/{id}/compatibility | candidate | Skor komposit 40/30/20/10 (semantic calibrated + skill coverage + experience + education) + label band + matched/missing + top experiences + narasi deterministik; persist `match_results` (model_version). Prasyarat: CV utama **terkonfirmasi** → 400 `MATCH_UNAVAILABLE`; lowongan non-aktif → 404 |
+| GET | /jobs/{id}/gap | candidate | Skill gap: matrix per kategori taksonomi (target/candidate/delta/status), items + severity (kritis/menengah/minor), saran belajar statis per kategori |
+
+**Mesin skor (deterministik, tanpa LLM):** embedding MiniLM-L12-v2 (384-dim, singleton + pre-warm startup, chunk ≤480 char mean-pool) disimpan di `cv_embeddings`/`job_embeddings` saat konfirmasi CV / publikasi-update lowongan; `model_version` = `m4v1|emb:minilm-l12-v2|w:40-30-20-10|cal:v1.1` (anchor cosine dibekukan dari distribusi golden set: 0,4509→30, 0,7327→85). Vektor judul pengalaman di-cache per CV (benchmark 500 pasangan = 0,81 dtk).
 - **canonical_skills**: slug UNIQUE, name, category (string, dikendalikan seed), skill_type CHECK hard/soft, related JSONB, is_active, taxonomy_version — 352 entri (v1.1.0, termasuk kategori Languages).
 - **skill_aliases**: canonical FK CASCADE, alias **UNIQUE global** (satu alias → satu canonical), source seed/manual — 610 alias.
 - **candidate_skills**: UNIQUE(kandidat, canonical), source_cv_id (traceability SET NULL), raw_name, confidence, evidence, source_section, extraction_method CHECK explicit/inferred/manual, status CHECK suggested/accepted/rejected.

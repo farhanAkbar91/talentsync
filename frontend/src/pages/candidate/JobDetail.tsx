@@ -114,10 +114,12 @@ export default function JobDetailPage() {
           <Card>
             <h2 className="text-sm font-semibold text-slate-700">Lamar Posisi Ini</h2>
             <p className="mt-2 text-xs text-slate-500">
-              Alur lamaran dan analisis kecocokan AI diaktifkan pada fase berikutnya. CV Anda
-              sudah siap di platform.
+              Lihat seberapa cocok profil Anda dengan lowongan ini sebelum melamar.
             </p>
-            <Button className="mt-3 w-full" disabled title="Fase berikutnya">
+            <Link to={`/app/jobs/${job.id}/compatibility`} state={{ jobTitle: job.title }}>
+              <Button className="mt-3 w-full">Cek Kompatibilitas</Button>
+            </Link>
+            <Button className="mt-2 w-full" variant="secondary" disabled title="Fase berikutnya">
               Lamar (segera hadir)
             </Button>
             <Link to="/app/cv">

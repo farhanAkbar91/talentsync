@@ -57,6 +57,16 @@ test("HR flow: register → company → create job → publish → edit → clos
   await dockerChip.getByRole("button", { name: "Wajib" }).click();
   await expect(dockerChip.getByRole("button", { name: "Disarankan" })).toBeVisible();
 
+  // M5 — skill yang TIDAK dimiliki kandidat E2E: memastikan skill gap + saran
+  // belajar benar-benar tampil di halaman kompatibilitas kandidat.
+  await skillInput.fill("Tableau");
+  const tableauOption = page.getByRole("option", { name: "Tableau" }).first();
+  await expect(tableauOption).toBeVisible();
+  await tableauOption.click();
+  const tableauChip = page.locator("li", { hasText: "Tableau" });
+  await tableauChip.getByRole("button", { name: "Wajib" }).click(); // toggle → Disarankan
+  await expect(tableauChip.getByRole("button", { name: "Disarankan" })).toBeVisible();
+
   await page.getByLabel("Lokasi").fill("Jakarta Selatan");
   await page.getByRole("button", { name: "Terbitkan Lowongan" }).click();
 
@@ -179,4 +189,27 @@ test("Candidate flow: register → profile → browse → detail → upload CV �
   await expect(page).toHaveURL(/\/app\/profile/);
   await expect(page.getByText("Skill terstandardisasi (dari CV)")).toBeVisible();
   await expect(page.getByText(skillName, { exact: true }).first()).toBeVisible();
+
+  // M4/M5 — Kompatibilitas & skill gap: kembali ke detail lowongan lalu cek kecocokan
+  await page.getByRole("link", { name: "Cari Lowongan" }).click();
+  const compatJobLink = page.getByRole("link", { name: "Lead Full-Stack Engineer E2E" });
+  await expect(compatJobLink).toBeVisible();
+  await compatJobLink.click();
+  await expect(page.getByRole("heading", { name: "Lead Full-Stack Engineer E2E" })).toBeVisible();
+
+  await page.getByRole("link", { name: "Cek Kompatibilitas" }).click();
+  await expect(page).toHaveURL(/\/app\/jobs\/[^/]+\/compatibility/);
+
+  // Komputasi embedding bisa lambat — timeout longgar hanya untuk langkah kompatibilitas.
+  const overall = page.getByTestId("compat-overall");
+  await expect(overall).toBeVisible({ timeout: 30_000 });
+  await expect(overall).not.toHaveText("");
+
+  // Faktor skor, panel penjelasan deterministik, dan bagian skill gap
+  await expect(page.getByRole("img", { name: /Skill Coverage:/ }).first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Mengapa skor ini?" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Analisis Skill Gap" })).toBeVisible();
+
+  // Minimal satu rekomendasi belajar untuk gap yang ditemukan
+  await expect(page.locator("[data-learning-item]").first()).toBeVisible({ timeout: 30_000 });
 });
