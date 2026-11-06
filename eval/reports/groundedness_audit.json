@@ -1,0 +1,37 @@
+[
+  {
+    "pair": "CV-001+JOB-001",
+    "edits": 4,
+    "grounded": 4,
+    "passed": true,
+    "violations": [],
+    "model": "openai/gpt-oss-120b"
+  },
+  {
+    "pair": "CV-005+JOB-013",
+    "edits": 8,
+    "grounded": 6,
+    "passed": false,
+    "violations": [
+      {
+        "suggestion_id": "S1",
+        "rule": "fabricated_entity",
+        "detail": "Entitas \"API RESTful\" tidak ada di CV maupun judul lowongan."
+      },
+      {
+        "suggestion_id": "S2",
+        "rule": "fabricated_entity",
+        "detail": "Entitas \"API RESTful\" tidak ada di CV maupun judul lowongan."
+      }
+    ],
+    "model": "openai/gpt-oss-120b"
+  },
+  {
+    "pair": "CV-003+JOB-007",
+    "edits": 4,
+    "grounded": 4,
+    "passed": true,
+    "violations": [],
+    "model": "openai/gpt-oss-20b"
+  }
+]

@@ -443,6 +443,50 @@ pemilik proyek (tanpa persetujuan antar-wave; batasan lain tetap berlaku).
 - API `GET /cvs/{id}/diagnosis` (owner 404) + panel "Diagnosis CV (otomatis)"
   di halaman review; kaption "Diatur aturan tetap — tanpa LLM".
 
+### CI GitHub
+- Commit + push disetujui: `0ff08a9` (Wave 4) — **CI LULUS semua job**.
+
+## WAVE 5 — M8 LLM Optimization + Applications Core + M9 Ranking (7 November 2026)
+
+**Status:** ✅ Selesai & lolos gate + security-focused fixes + E2E 3/3 +
+CI LULUS. **AI ENGINE (M1–M9) LENGKAP.**
+
+### M8 — LLM CV Optimization (Groq, gpt-oss-120b)
+- Adapter agnostik: strict json_schema → json_object → retry(429, Retry-After
+  ≤10s) → fallback gpt-oss-20b → LLMError(503 LLM_UNAVAILABLE); MockTransport
+  di semua test (nol network).
+- Grounding validator 4 aturan + pembersihan tanda baca entitas ("TypeScript."
+  false-positive diperbaiki); R1 ditingkatkan prefix → **verbatim substring**
+  (fragmen bullet sah; fabrikasi tetap tertolak).
+- Generasi async + cache kuota (completed + prompt_version sama → reuse);
+  apply → **versi CV n+1** (parent demoted, ReportLab PDF, ekstraksi
+  auto-confirmed `optimized-v1` — dijustifikasi di kode) + embed + invalidasi
+  kedua CV id; keputusan per-edit dipersist.
+- Live groundedness audit (3 pasangan × 3 run): first-pass LLM 91,7%
+  (fluktuatif 87,5–94,4); **applied = 100% by construction** (apply
+  me-revalidasi). Rinci: EVALUATION.md §4.
+
+### Applications Core + M9
+- Migrasi 0012 `applications` (UNIQUE job+kandidat; terminal hired/rejected
+  409) diterapkan ke Supabase + RLS; apply gating `APPLICATION_UNAVAILABLE`;
+  HR applicant list cross-company 404; **HR unduh CV pelamar** (endpoint baru,
+  company-scoped — gap yang saya temukan saat integrasi FE).
+- M9: ranking dari **CV yang dilamar** (bukan primary terkini), kandidat tanpa
+  CV terkonfirmasi diurut terakhir + alasan jujur; match_results persist per
+  pelamar (idempoten); compare sisi-per-sisi.
+
+### Bug nyata ditemukan agent & diperbaiki
+- **StrictMode race**: sesi restore ganda balapan dgn refresh token
+  one-time-use → logout acak tiap hard-reload → single-flight restore.
+- E2E: kandidat diberi Tableau (skill yg tak dimiliki) agar gap+saran belajar
+  teruji nyata; M8 sengaja tanpa E2E (butuh Groq live) — diverifikasi
+  mock-intercept (2 pass, bug param route ketemu & diperbaiki).
+
+### Gate akhir Wave 5 + Final AI Integration
+pytest **354/354** (+63) · ruff bersih · build hijau · **Playwright 3/3** ·
+migrasi 0012 + RLS di Supabase · **CI LULUS** (`d219867`) · live groundedness
+audit dilaporkan jujur · **EVALUATION.md** dibuat (seluruh metrik M1–M9) ·
+commit: `d219867` + follow-up fix validator/eval.
 ### Gate akhir Wave 4
 pytest **291/291** (249 + 42: 10 rekomendasi + 32 diagnosis) · ruff bersih
 (112 file) · frontend build hijau · **Playwright 2/2** (rantai termasuk

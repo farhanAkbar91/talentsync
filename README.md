@@ -5,6 +5,25 @@ Proyek akademik — Inovasi Sistem Informasi dan Teknologi (SI-I2), Kelompok 6, 
 
 **Status implementasi:** P0 (fondasi) ✅ · P1+P2 (identitas, profil, lowongan, CV) ✅ · Post-implementation audit ✅ (lihat log) · AI Engine & Ingestion = fase berikutnya.
 
+
+**Platform rekrutmen cerdas** — analisis CV, matching explainable, rekomendasi,
+skill gap, optimasi CV berbasis LLM (dengan validator anti-fabrikasi), alur
+lamaran, dan ranking kandidat untuk HR.
+
+**Status AI Engine (M1–M9): selesai & teruji** — 354 pytest · Playwright 3/3 ·
+CI GitHub lulus. Semua metrik evaluasi nyata (bukan klaim pemasaran):
+**[EVALUATION.md](EVALUATION.md)**.
+
+Fitur utama:
+- **M1** Parsing CV PDF → payload terstruktur + confidence + provenance
+- **M2** Normalisasi skill bilingual (352 canonical / 610 alias) + autocomplete HR
+- **M3–M4** Semantic matching explainable 40/30/20/10 (MiniLM + pgvector, kalibrasi v1.1)
+- **M5** Skill gap + saran belajar statis
+- **M6** Rekomendasi lowongan + alasan per item
+- **M7** Diagnosis CV deterministik (8 aturan)
+- **M8** Optimasi CV via LLM (Groq gpt-oss-120b) dengan grounding validator — CV asli immutable
+- **Applications + M9** Lamaran → status → ranking kandidat HR + compare
+
 ## Struktur Monorepo
 
 ```

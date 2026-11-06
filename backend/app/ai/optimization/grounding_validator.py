@@ -81,15 +81,20 @@ def _payload_lexicon(payload: dict) -> tuple[set[str], set[str]]:
 
 
 def _word_known(word: str, allowed: set[str]) -> bool:
-    """Kata dikenal bila utuh, atau seluruh sub-bagian pemisah /&+ dikenal.
+    """Kata dikenal bila utuh, seluruh sub-bagian pemisah /&+ dikenal, atau
+    versi yang dibersihkan tanda baca ujung dikenal.
 
-    Sub-pemecahan menjaga reword wajar seperti "SQL/Python" (di CV: "SQL" dan
-    "Python" terpisah) agar tidak dianggap entitas fabrikasi.
-    """
+    Pembersihan tanda baca menjaga kasus "TypeScript." (titik akhir kalimat
+    LLM) tidak salah dicap fabrikasi padahal TypeScript ada di CV. Sub-
+    pemecahan menjaga reword wajar seperti "SQL/Python" (di CV: "SQL" dan
+    "Python" terpisah)."""
     if word in allowed:
         return True
-    parts = [part for part in re.split(r"[/&+]", word) if part]
-    return bool(parts) and all(part in allowed for part in parts)
+    stripped = word.strip(".,;:!?()[]{}—–-")
+    if stripped in allowed:
+        return True
+    parts = [part for part in re.split(r"[/&+]", stripped) if part]
+    return bool(parts) and all(part.strip(".,;:!?") in allowed for part in parts)
 
 
 # --- Deteksi proper noun ---
@@ -159,13 +164,17 @@ def _date_tokens(text: str) -> list[str]:
 
 
 def _source_resolves(source_ref: str, lines: list[str]) -> bool:
-    """R1: source_ref (dinormalisasi) adalah awalan salah satu baris CV."""
+    """R1: source_ref (dinormalisasi) ada VERBATIM di salah satu baris CV.
+
+    Awalan ATAU kemunculan di tengah baris — kutipan fragmen bullet sah
+    (tetap ketat: teks yang tidak ada di CV tetap tertolak = fabrikasi
+    tetap terdeteksi)."""
     ref = _normalize(source_ref)
     if not ref:
         return False
     for line in lines:
         for candidate in (_normalize(line), _normalize(_strip_line_markers(line))):
-            if candidate and candidate.startswith(ref):
+            if candidate and ref in candidate:
                 return True
     return False
 
