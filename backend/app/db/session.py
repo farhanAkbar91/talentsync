@@ -12,7 +12,16 @@ def build_engine(database_url: str) -> Engine:
     # connect_timeout hanya berlaku untuk psycopg (PostgreSQL); sqlite (test/E2E)
     # akan menolak opsi asing. 10 dtk: koneksi cloud (Supabase pooler) bisa lebih
     # lambat dari localhost — lihat ADR 0005.
-    connect_args = {"connect_timeout": 10} if database_url.startswith("postgresql") else {}
+    #
+    # prepare_threshold=0 (psycopg3): nonaktifkan prepared statement — WAJIB
+    # saat memakai Supabase transaction pooler (:6543); prepared statement yang
+    # berpindah server pooler menyebabkan error "prepared statement does not
+    # exist" acak. Biaya: sedikit overhead re-planning (tak signifikan di MVP).
+    connect_args = (
+        {"connect_timeout": 10, "prepare_threshold": 0}
+        if database_url.startswith("postgresql")
+        else {}
+    )
     return create_engine(
         database_url,
         pool_pre_ping=True,

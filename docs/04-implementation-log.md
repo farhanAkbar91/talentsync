@@ -522,3 +522,18 @@ pytest **249/249** (196 + 53: 20 embedding + 33 matching) · ruff bersih
 upload→review→konfirmasi→skills→terapkan→kompatibilitas→gap+saran belajar) ·
 benchmark 0,81 dtk ✅ · security review: HIGH/MEDIUM selesai dipulihkan ·
 Wave 3 belum di-commit (menunggu persetujuan).
+
+## Bug Hunt — Register/Login Timeout (7 November 2026)
+
+**Gejala:** register/login pertama selalu "timeout of 20000ms exceeded" (axios),
+console 404; `/health` 0,2s tapi `/health/ready` hang >30 dtk.
+**Akar (bukan kode aplikasi):** session pooler Supabase **:5432 mati di sisi
+infrastruktur** (raw TCP pun timeout 24 dtk; transaction pooler :6543 OK 36 ms —
+status.supabase.com normal). Backend dengan DB tak terjangkau membuat semua
+request DB-touching menggantung.
+**Perbaikan:** `DATABASE_URL` pindah ke :6543 + `prepare_threshold=0` pada
+`build_engine` (wajib utk transaction pooler psycopg3); backend di-restart
+dengan **venv python** (sebelumnya system python tanpa deps proyek + `--reload`).
+**Verifikasi:** ready 1,7 dtk · register 201/2,6 dtk · login 200/1,3 dtk.
+**Catatan:** satu output log tidak sengaja memuat fragmen password — disarankan
+rotasi password database kembali via Dashboard.
