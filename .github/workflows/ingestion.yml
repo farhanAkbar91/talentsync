@@ -1,0 +1,33 @@
+# Data Engineering — ingestion terjadwal (dana 0 rupiah):
+# database 24/7 gratis di Supabase; scheduler gratis via GitHub Actions cron.
+# TANPA model embedding (torch tak di-install di runner) — vektor dibuat
+# on-the-fly oleh aplikasi saat kandidat melihat lowongan (ADR 0004/0008).
+name: Ingestion (daily job pull)
+
+on:
+  schedule:
+    - cron: "30 20 * * *" # 03:30 WIB harian
+  workflow_dispatch: {} # tombol jalankan manual di tab Actions
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DATABASE_URL: ${{ secrets.SUPABASE_DATABASE_URL }}
+      EMBEDDINGS_ENABLED: "false"
+      LOG_LEVEL: "WARNING"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies (tanpa torch)
+        run: pip install -e ".[dev]"
+
+      - name: Ingest lowongan eksternal + sweep expired
+        run: |
+          python -m scripts.ingest_jobs --source all --limit 50 --sweep-expired

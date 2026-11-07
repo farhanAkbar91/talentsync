@@ -47,6 +47,8 @@ export interface Job {
   salary_max: number | null;
   salary_currency: string;
   posted_at: string | null;
+  source_type?: string | null;
+  source_url?: string | null;
   closing_at: string | null;
   // khusus versi HR
   status?: string;

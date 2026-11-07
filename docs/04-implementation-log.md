@@ -537,3 +537,23 @@ dengan **venv python** (sebelumnya system python tanpa deps proyek + `--reload`)
 **Verifikasi:** ready 1,7 dtk · register 201/2,6 dtk · login 200/1,3 dtk.
 **Catatan:** satu output log tidak sengaja memuat fragmen password — disarankan
 rotasi password database kembali via Dashboard.
+
+## Fase Data Engineering — Otomatisasi 0 Rupiah (7 November 2026)
+
+Tiga penambalan menyusul instruksi pemilik proyek (dana 0 rupiah, tanpa
+host 24/7 — database saja yang online gratis di Supabase):
+
+1. **Sweep expired**: `ingest_service.sweep_expired_jobs()` — lowongan aktif
+   yang closing_at-nya lewat → status 'expired' (nilai valid CHECK 0003;
+   katalog otomatis menyingkirkannya). Flag CLI `--sweep-expired`, mendukung
+   `--dry-run`, idempoten. 4 test.
+2. **Atribusi frontend**: `JobPublicOut` +2 field (source_type/source_url) →
+   chip "Sumber: RemoteOK ↗" di detail lowongan (kepatuhan lisensi RemoteOK).
+3. **GitHub Actions cron**: `.github/workflows/ingestion.yml` — harian 03:30
+   WIB + workflow_dispatch (tombol manual); `EMBEDDINGS_ENABLED=false` di
+   runner (tanpa torch — vektor dibuat on-the-fly oleh aplikasi saat
+   dilihat kandidat); **butuh secret repo `SUPABASE_DATABASE_URL`** (satu
+   kali diatur pemilik proyek di Settings → Secrets → Actions).
+
+Gate: pytest **381/381** (+4 sweep) · ruff bersih · build hijau · Playwright
+3/3 (tidak berubah — fitur ini backend/CLI).

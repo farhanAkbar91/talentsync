@@ -3,6 +3,7 @@
 Pemakaian (dari backend/):
     .venv/Scripts/python -m scripts.ingest_jobs --source all --limit 50
     .venv/Scripts/python -m scripts.ingest_jobs --source remoteok --limit 10 --dry-run
+    .venv/Scripts/python -m scripts.ingest_jobs --sweep-expired   # arsipkan lowongan lewat batas
 
 Catatan:
 - Hanya API publik (tanpa kunci, tanpa scraping); koneksi jaringan HANYA terjadi
@@ -64,9 +65,26 @@ def main() -> int:
         action="store_true",
         help="hitung saja, tanpa menulis ke database",
     )
+    parser.add_argument(
+        "--sweep-expired",
+        action="store_true",
+        help="arsipkan lowongan aktif yang closing_at-nya sudah lewat (status expired)",
+    )
     args = parser.parse_args()
 
-    chosen = list(FETCHERS) if args.source == "all" else [args.source]
+    chosen = (
+        []
+        if args.sweep_expired and "--source" not in sys.argv
+        else (list(FETCHERS) if args.source == "all" else [args.source])
+    )
+    # --source all (default) tanpa --sweep-expired tetap masuk akal untuk tarik
+    # data saja; sweep hanya jalan bila flag diminta.
+    if (
+        args.source == "all"
+        and not args.sweep_expired
+        and not any(a == "--source" for a in __import__("sys").argv)
+    ):
+        pass  # default all + tanpa sweep: perilaku lama dipertahankan
     db = SessionLocal()
     try:
         for index, source in enumerate(chosen):
@@ -78,6 +96,10 @@ def main() -> int:
                 f"[{source}{mode}] inserted={result['inserted']} "
                 f"skipped={result['skipped']} seen={result['seen']}"
             )
+        if args.sweep_expired:
+            sweep = ingest_service.sweep_expired_jobs(db)
+            mode = " (dry-run)" if args.dry_run else ""
+            print(f"[sweep{mode}] expired={sweep['expired']}")
     finally:
         db.close()
     return 0

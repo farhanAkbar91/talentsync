@@ -562,3 +562,83 @@ class TestParitasMigrasi0013:
             'op.drop_column("jobs", "external_id")',
         ):
             assert expected in text, f"pola migrasi hilang: {expected}"
+
+
+class TestSweepExpiredJobs:
+    """Sweep lowongan aktif yang closing_at-nya lewat → status 'expired'."""
+
+    def _insert_active_job(self, db_session, *, closing_at, source="hr", external_id=None):
+        from datetime import UTC, datetime, timedelta
+
+        from app.models.job import Job
+
+        hr, _company = ingest_service.get_or_create_system_identity(db_session)
+        job = Job(
+            company_id=_company.id,
+            posted_by_user_id=hr.id,
+            title="Lowongan Uji Sweep",
+            description="uji",
+            skills=[{"name": "SQL", "required": True}],
+            employment_type="full_time",
+            work_mode="remote",
+            status="active",
+            posted_at=datetime.now(UTC) - timedelta(days=40),
+            closing_at=closing_at,
+            source_type=source,
+            external_id=external_id,
+        )
+        db_session.add(job)
+        db_session.commit()
+        db_session.refresh(job)
+        return job
+
+    def test_active_job_past_closing_becomes_expired(self, db_session, seeded_taxonomy):
+        from datetime import UTC, datetime, timedelta
+
+        from app.ingestion.ingest_service import sweep_expired_jobs
+
+        past = datetime.now(UTC) - timedelta(days=2)
+        job = self._insert_active_job(db_session, closing_at=past)
+        result = sweep_expired_jobs(db_session)
+        db_session.refresh(job)
+        assert result["expired"] == 1
+        assert job.status == "expired"
+
+    def test_future_closing_and_deleted_untouched(self, db_session, seeded_taxonomy):
+        from datetime import UTC, datetime, timedelta
+
+        from app.ingestion.ingest_service import sweep_expired_jobs
+
+        future = datetime.now(UTC) + timedelta(days=10)
+        job_future = self._insert_active_job(db_session, closing_at=future)
+        job_deleted = self._insert_active_job(db_session, closing_at=future)
+        job_deleted.deleted_at = datetime.now(UTC)
+        db_session.commit()
+
+        result = sweep_expired_jobs(db_session)
+        assert result["expired"] == 0
+        db_session.refresh(job_future)
+        assert job_future.status == "active"
+
+    def test_dry_run_counts_without_writing(self, db_session, seeded_taxonomy):
+        from datetime import UTC, datetime, timedelta
+
+        from app.ingestion.ingest_service import sweep_expired_jobs
+
+        past = datetime.now(UTC) - timedelta(days=1)
+        job = self._insert_active_job(db_session, closing_at=past)
+        result = sweep_expired_jobs(db_session, dry_run=True)
+        assert result["expired"] == 1 and result["dry_run"] is True
+        db_session.refresh(job)
+        assert job.status == "active"  # tidak berubah
+
+    def test_idempotent_second_run(self, db_session, seeded_taxonomy):
+        from datetime import UTC, datetime, timedelta
+
+        from app.ingestion.ingest_service import sweep_expired_jobs
+
+        past = datetime.now(UTC) - timedelta(days=1)
+        self._insert_active_job(db_session, closing_at=past, source="remoteok", external_id="swp-1")
+        first = sweep_expired_jobs(db_session)
+        second = sweep_expired_jobs(db_session)
+        assert first["expired"] == 1 and second["expired"] == 0

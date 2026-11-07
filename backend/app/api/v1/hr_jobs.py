@@ -50,6 +50,8 @@ def _to_hr_out(job) -> JobHrOut:
         salary_currency=job.salary_currency,
         posted_at=job.posted_at,
         closing_at=job.closing_at,
+        source_type=job.source_type,
+        source_url=job.source_url,
         status=job.status,
         closed_reason=job.closed_reason,
         created_at=job.created_at,

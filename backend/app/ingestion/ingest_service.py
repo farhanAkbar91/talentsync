@@ -28,7 +28,7 @@ import logging
 import secrets
 from datetime import UTC, datetime, timedelta
 
-from sqlalchemy import select
+from sqlalchemy import func, select, update
 from sqlalchemy.orm import Session
 
 from app.core.config import Settings
@@ -44,6 +44,8 @@ logger = logging.getLogger(__name__)
 # Batas akhir lamaran default lowongan ingestion: 30 hari sejak masuk. Konstanta
 # modul — sengaja TIDAK menambah Settings (keputusan scope fase ini).
 INGEST_CLOSING_DAYS = 30
+# Status 'expired' tersedia di CHECK constraint jobs (0003) — katalog publik
+# otomatis menyingkirkan job non-'active'.
 
 # Identitas sistem: jobs.posted_by_user_id & jobs.company_id NOT NULL (0003) —
 # lowongan hasil ingestion ditandatangani akun ini (role hr, tanpa perusahaan
@@ -222,3 +224,38 @@ def ingest(
 
 
 __all__ = ["INGEST_CLOSING_DAYS", "get_or_create_system_identity", "ingest"]
+
+
+def sweep_expired_jobs(db: Session, *, now: datetime | None = None, dry_run: bool = False) -> dict:
+    """Arsipkan status lowongan aktif yang closing_at-nya sudah lewat.
+
+    Blueprint P2 menunda sweep ke fase ingestion — ini implementasinya:
+    status 'active' + closing_at < now → status 'expired' (nilai valid di
+    CHECK constraint 0003; katalog publik otomatis menyingkirkan job
+    non-'active' karena filter status='active'). Soft-deleted tidak
+    disentuh. Idempoten: run kedua memproses 0 baris.
+
+    Operasi sistem (tanpa user) — dipanggil CLI/CI, bukan request user.
+    """
+    cutoff = now or datetime.now(UTC)
+    rows = (
+        db.execute(
+            select(Job.id).where(
+                Job.status == "active",
+                Job.deleted_at.is_(None),
+                Job.closing_at.is_not(None),
+                Job.closing_at < cutoff,
+            )
+        )
+        .scalars()
+        .all()
+    )
+    if dry_run:
+        return {"expired": len(rows), "checked_cutoff": cutoff.isoformat(), "dry_run": True}
+    if not rows:
+        db.commit()
+        return {"expired": 0, "checked_cutoff": cutoff.isoformat()}
+
+    db.execute(update(Job).where(Job.id.in_(rows)).values(status="expired", updated_at=func.now()))
+    db.commit()
+    return {"expired": len(rows), "checked_cutoff": cutoff.isoformat()}

@@ -182,6 +182,17 @@ export default function JobDetailPage() {
               <Badge value={job.employment_type} label={employmentTypeLabels[job.employment_type] ?? job.employment_type} />
               <Badge value={job.work_mode} label={workModeLabels[job.work_mode] ?? job.work_mode} />
               {job.seniority && <Badge value="draft" label={job.seniority} />}
+              {job.source_type && job.source_type !== "hr" && (
+                <a
+                  href={job.source_url ?? "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-xs text-slate-500 hover:border-slate-300 hover:text-slate-700"
+                  title="Lowongan diingest dari sumber eksternal — atribusi + tautan asli"
+                >
+                  Sumber: {{remoteok: "RemoteOK", remotive: "Remotive", arbeitnow: "Arbeitnow"}[job.source_type] ?? job.source_type} ↗
+                </a>
+              )}
             </div>
           </div>
           <div className="text-right text-sm">

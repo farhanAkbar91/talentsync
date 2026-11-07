@@ -101,6 +101,10 @@ class JobPublicOut(BaseModel):
     salary_currency: str
     posted_at: datetime | None
     closing_at: datetime | None
+    # Provenance (migrasi 0013): atribusi wajib untuk lowongan hasil ingestion
+    # (RemoteOK menuntut atribusi + follow-link). Null = lowongan HR internal.
+    source_type: str | None = None
+    source_url: str | None = None
 
 
 class NormalizedJobSkillCanonical(BaseModel):
