@@ -2,6 +2,9 @@
 # database 24/7 gratis di Supabase; scheduler gratis via GitHub Actions cron.
 # TANPA model embedding (torch tak di-install di runner) — vektor dibuat
 # on-the-fly oleh aplikasi saat kandidat melihat lowongan (ADR 0004/0008).
+#
+# PRASYARAT: secret repo `SUPABASE_DATABASE_URL` (Settings → Secrets and
+# variables → Actions) berisi baris DATABASE_URL lengkap dari backend/.env.
 name: Ingestion (daily job pull)
 
 on:
@@ -13,6 +16,9 @@ jobs:
   ingest:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: backend # pyproject.toml & scripts.ingest_jobs ada di sini
     env:
       DATABASE_URL: ${{ secrets.SUPABASE_DATABASE_URL }}
       EMBEDDINGS_ENABLED: "false"
@@ -24,6 +30,14 @@ jobs:
         with:
           python-version: "3.11"
           cache: pip
+          cache-dependency-path: backend/pyproject.toml
+
+      - name: Pastikan secret SUPABASE_DATABASE_URL sudah diatur
+        run: |
+          if [ -z "$DATABASE_URL" ]; then
+            echo "::error::Secret SUPABASE_DATABASE_URL belum diatur — isi di Settings → Secrets and variables → Actions (nilai = baris DATABASE_URL dari backend/.env)."
+            exit 1
+          fi
 
       - name: Install dependencies (tanpa torch)
         run: pip install -e ".[dev]"
