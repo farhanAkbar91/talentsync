@@ -13,12 +13,15 @@ def build_engine(database_url: str) -> Engine:
     # akan menolak opsi asing. 10 dtk: koneksi cloud (Supabase pooler) bisa lebih
     # lambat dari localhost — lihat ADR 0005.
     #
-    # prepare_threshold=0 (psycopg3): nonaktifkan prepared statement — WAJIB
-    # saat memakai Supabase transaction pooler (:6543); prepared statement yang
-    # berpindah server pooler menyebabkan error "prepared statement does not
-    # exist" acak. Biaya: sedikit overhead re-planning (tak signifikan di MVP).
+    # prepare_threshold=None (psycopg3): JANGAN pernah prepare statement —
+    # WAJIB saat memakai Supabase transaction pooler (:6543). Semantik psycopg3:
+    # 0 = prepare segera setiap statement (berbahaya di sini!), None = tidak
+    # pernah. Transaction pooler membagikan server backend antar klien sehingga
+    # nama prepared statement otomatis (_pg3_N) saling berbenturan →
+    # "prepared statement already exists" → 500 acak. Biaya: re-planning per
+    # query (tak signifikan di MVP).
     connect_args = (
-        {"connect_timeout": 10, "prepare_threshold": 0}
+        {"connect_timeout": 10, "prepare_threshold": None}
         if database_url.startswith("postgresql")
         else {}
     )
