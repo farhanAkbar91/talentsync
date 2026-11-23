@@ -1,8 +1,9 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { AuthProvider, homePathFor, useAuth } from "./lib/auth";
-import { CandidateLayout, HRLayout, RequireRole, Spinner } from "./components/layout";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./lib/auth";
+import { CandidateLayout, HRLayout, RequireRole } from "./components/layout";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import LandingPage from "./pages/Landing";
 import CandidateDashboard from "./pages/candidate/Dashboard";
 import CandidateProfilePage from "./pages/candidate/Profile";
 import JobDiscovery from "./pages/candidate/Jobs";
@@ -22,12 +23,6 @@ import HrJobDetailPage from "./pages/hr/JobDetail";
 import HrJobApplicationsPage from "./pages/hr/JobApplications";
 import HrJobRankingPage from "./pages/hr/JobRanking";
 
-function RootRedirect() {
-  const { user, initializing } = useAuth();
-  if (initializing) return <Spinner />;
-  return <Navigate to={user ? homePathFor(user.role) : "/login"} replace />;
-}
-
 function NotFound() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-3">
@@ -42,7 +37,7 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-        <Route path="/" element={<RootRedirect />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 

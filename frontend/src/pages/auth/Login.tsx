@@ -27,21 +27,26 @@ export default function Login() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4 py-10">
+    <div className="flex min-h-screen items-center justify-center bg-surface px-4 py-10">
       <div className="w-full max-w-md">
-        <div className="mb-4 flex flex-col items-center gap-1">
-          <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-600 text-lg font-bold text-white">
-            TS
-          </span>
-          <p className="font-semibold">
-            TalentSync<span className="text-primary-600">.AI</span>
-          </p>
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-400">
-            Semantic HR Intelligence
-          </p>
+        {/* Brand header aligned with Register */}
+        <div className="mb-6 flex flex-col items-center gap-2">
+          <img
+            src="/assets/talentsync-logo.png"
+            alt="TalentSync Logo"
+            className="h-12 w-auto object-contain"
+          />
+          <div className="text-center">
+            <p className="text-xl font-bold tracking-tight text-on-surface">
+              TalentSync<span className="text-primary-container">.AI</span>
+            </p>
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-secondary">
+              Semantic HR Intelligence
+            </p>
+          </div>
         </div>
 
-        <Card className="p-6">
+        <Card className="p-6 border border-slate-200 shadow-none">
           <h1 className="text-xl font-bold text-slate-800">Selamat Datang Kembali</h1>
           <p className="mt-1 text-sm text-slate-500">
             Akses portal rekrutmen cerdas sesuai peran Anda.
@@ -88,17 +93,9 @@ export default function Login() {
             </Button>
           </form>
 
-          <div className="mt-4 rounded-xl bg-primary-50 p-3 text-xs text-slate-600">
-            <p className="font-semibold text-primary-700">Demo Akses (seed data)</p>
-            <p>
-              Akun demo dibuat lewat <code>scripts/seed_demo_data.py</code> — lihat README untuk
-              kredensialnya.
-            </p>
-          </div>
-
-          <p className="mt-4 text-center text-sm text-slate-500">
+          <p className="mt-5 text-center text-sm text-slate-500">
             Belum memiliki akun?{" "}
-            <Link to="/register" className="font-semibold text-primary-700">
+            <Link to="/register" className="font-semibold text-primary-700 hover:underline">
               Daftar Sekarang
             </Link>
           </p>

@@ -11,7 +11,7 @@ import {
   type EducationItem,
   type ExperienceItem,
 } from "../../lib/api";
-import { Alert, Button, Card, Field, Input, Select, Spinner, TagInput, Textarea } from "../../components/ui";
+import { Alert, Button, Select, Spinner, TagInput } from "../../components/ui";
 
 export default function CandidateProfilePage() {
   const [profile, setProfile] = useState<CandidateProfile | null>(null);
@@ -22,6 +22,7 @@ export default function CandidateProfilePage() {
   const [links, setLinks] = useState<Record<string, string>>({});
   const [message, setMessage] = useState<{ kind: "success" | "error"; text: string } | null>(null);
   const [busy, setBusy] = useState(false);
+  const [summaryLen, setSummaryLen] = useState(0);
 
   // M2 — skill terstandardisasi yang diterapkan dari CV (read-only + hapus).
   const [cvSkills, setCvSkills] = useState<CandidateSkill[] | null>(null);
@@ -37,8 +38,11 @@ export default function CandidateProfilePage() {
         setExperience(p.experience);
         setCertifications(p.certifications);
         setLinks(p.links);
+        setSummaryLen(p.summary?.length ?? 0);
       })
-      .catch((err) => setMessage({ kind: "error", text: err instanceof Error ? err.message : "Gagal memuat." }));
+      .catch((err) =>
+        setMessage({ kind: "error", text: err instanceof Error ? err.message : "Gagal memuat." }),
+      );
   }, []);
 
   async function refreshCvSkills(): Promise<void> {
@@ -60,10 +64,12 @@ export default function CandidateProfilePage() {
     try {
       await deleteMySkill(item.id);
       await refreshCvSkills();
-      // Selaraskan juga editor keahlian teks-bebas di atas bila namanya ada.
       const name = item.canonical.name.toLowerCase();
       setSkills((prev) => prev.filter((s) => s.toLowerCase() !== name));
-      setMessage({ kind: "success", text: `Skill "${item.canonical.name}" dihapus dari profil.` });
+      setMessage({
+        kind: "success",
+        text: `Skill "${item.canonical.name}" dihapus dari profil.`,
+      });
     } catch (err) {
       setMessage({ kind: "error", text: extractErrorMessage(err) });
     } finally {
@@ -100,70 +106,285 @@ export default function CandidateProfilePage() {
   }
 
   return (
-    <form className="space-y-6" onSubmit={save}>
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-800">Profil Saya</h1>
-        <Button type="submit" disabled={busy}>
-          {busy ? "Menyimpan…" : "Simpan Profil"}
-        </Button>
+    <form className="flex flex-col gap-6 max-w-[1040px] mx-auto" onSubmit={save}>
+      {/* Top Header - directly starts with page title */}
+      <div className="flex flex-row items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-on-surface">
+            Profil Saya
+          </h1>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button type="submit" disabled={busy}>
+            <span className="material-symbols-outlined text-[18px]">check_circle</span>
+            <span>{busy ? "Menyimpan…" : "Simpan Profil"}</span>
+          </Button>
+        </div>
       </div>
+
       {message && <Alert kind={message.kind}>{message.text}</Alert>}
 
-      <Card className="space-y-4">
-        <h2 className="text-sm font-semibold text-slate-700">Data Diri</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Nama Lengkap" required>
-            <Input id="p-name" defaultValue={profile.full_name} required minLength={2} />
-          </Field>
-          <Field label="Email (akun)">
-            <Input value={profile.email} disabled className="opacity-60" />
-          </Field>
-          <Field label="Nomor Telepon">
-            <Input id="p-phone" defaultValue={profile.phone ?? ""} placeholder="+62 …" />
-          </Field>
-          <Field label="Lokasi">
-            <Input id="p-location" defaultValue={profile.location ?? ""} placeholder="Jakarta Selatan" />
-          </Field>
+      {/* Main Card: Data Diri Form */}
+      <div className="w-full bg-surface-container-lowest rounded-xl border border-slate-200 p-6 sm:p-8 flex flex-col gap-6">
+        {/* Card Header */}
+        <div className="flex items-center justify-between border-b border-surface-container pb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-primary-fixed flex items-center justify-center text-primary">
+              <span className="material-symbols-outlined text-[20px]">badge</span>
+            </div>
+            <div>
+              <h2 className="text-base font-semibold text-on-surface">Data Diri</h2>
+              <p className="text-xs text-on-surface-variant">
+                Lengkapi informasi dasar dan tautan profesional Anda agar mudah ditinjau oleh perekrut.
+              </p>
+            </div>
+          </div>
+          <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-low border border-slate-200 text-on-surface-variant text-xs">
+            <span className="w-2 h-2 rounded-full bg-tertiary" />
+            <span>Akun Terverifikasi</span>
+          </span>
         </div>
-        <Field label="Headline">
-          <Input id="p-headline" defaultValue={profile.headline ?? ""} placeholder="Senior UI/UX Designer" />
-        </Field>
-        <Field label="Ringkasan Profesional">
-          <Textarea
-            id="p-summary"
-            defaultValue={profile.summary ?? ""}
-            placeholder="Ringkasan singkat pengalaman dan keahlian utama Anda…"
-          />
-        </Field>
-        <Field label="Keahlian (Skills)">
-          <TagInput value={skills} onChange={setSkills} placeholder="mis. React, Python…" />
-        </Field>
-        <div className="grid gap-4 sm:grid-cols-3">
-          <Field label="LinkedIn">
-            <Input
-              defaultValue={profile.links["linkedin"] ?? ""}
-              onChange={(e) => setLinks({ ...links, linkedin: e.target.value })}
-            />
-          </Field>
-          <Field label="GitHub">
-            <Input
-              defaultValue={profile.links["github"] ?? ""}
-              onChange={(e) => setLinks({ ...links, github: e.target.value })}
-            />
-          </Field>
-          <Field label="Portofolio">
-            <Input
-              defaultValue={profile.links["portfolio"] ?? ""}
-              onChange={(e) => setLinks({ ...links, portfolio: e.target.value })}
-            />
-          </Field>
-        </div>
-      </Card>
 
-      <Card className="space-y-3">
+        <div className="flex flex-col gap-5">
+          {/* Row 1: Nama Lengkap & Email */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="flex flex-col gap-1.5">
+              <label
+                htmlFor="p-name"
+                className="text-sm font-medium text-on-surface flex items-center gap-1"
+              >
+                Nama Lengkap <span className="text-error font-bold">*</span>
+              </label>
+              <input
+                id="p-name"
+                name="namaLengkap"
+                type="text"
+                required
+                minLength={2}
+                defaultValue={profile.full_name}
+                className="w-full h-11 px-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container transition-all border border-slate-200"
+              />
+              <p className="text-[11px] text-on-surface-variant">
+                Nama resmi yang tercantum pada kartu identitas Anda.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label
+                htmlFor="p-email"
+                className="text-sm font-medium text-on-surface flex items-center justify-between"
+              >
+                <span>Email (akun)</span>
+                <span className="text-xs text-on-surface-variant flex items-center gap-1">
+                  <span className="material-symbols-outlined text-[13px]">lock</span>
+                  <span>Hanya Baca</span>
+                </span>
+              </label>
+              <div className="relative rounded-lg bg-surface-container-low border border-slate-200">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
+                  <span className="material-symbols-outlined text-[18px]">alternate_email</span>
+                </div>
+                <input
+                  id="p-email"
+                  type="email"
+                  readOnly
+                  tabIndex={-1}
+                  value={profile.email}
+                  className="w-full h-11 pl-10 pr-9 rounded-lg bg-surface-container-low text-secondary text-sm cursor-not-allowed select-none focus:outline-none"
+                />
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-on-surface-variant">
+                  <span className="material-symbols-outlined text-[16px]">lock</span>
+                </div>
+              </div>
+              <p className="text-[11px] text-on-surface-variant">
+                Alamat email terdaftar dan tidak dapat diubah secara langsung.
+              </p>
+            </div>
+          </div>
+
+          {/* Row 2: Nomor Telepon & Lokasi */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="p-phone" className="text-sm font-medium text-on-surface">
+                Nomor Telepon
+              </label>
+              <div className="relative rounded-lg bg-surface-container-low border border-slate-200">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
+                  <span className="material-symbols-outlined text-[18px]">call</span>
+                </div>
+                <input
+                  id="p-phone"
+                  type="tel"
+                  placeholder="+62 …"
+                  defaultValue={profile.phone ?? ""}
+                  className="w-full h-11 pl-10 pr-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container transition-all"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="p-location" className="text-sm font-medium text-on-surface">
+                Lokasi
+              </label>
+              <div className="relative rounded-lg bg-surface-container-low border border-slate-200">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
+                  <span className="material-symbols-outlined text-[18px]">pin_drop</span>
+                </div>
+                <input
+                  id="p-location"
+                  type="text"
+                  placeholder="Jakarta Selatan"
+                  defaultValue={profile.location ?? ""}
+                  className="w-full h-11 pl-10 pr-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container transition-all"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Row 3: Headline */}
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="p-headline" className="text-sm font-medium text-on-surface">
+              Headline
+            </label>
+            <div className="relative rounded-lg bg-surface-container-low border border-slate-200">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
+                <span className="material-symbols-outlined text-[18px]">work_outline</span>
+              </div>
+              <input
+                id="p-headline"
+                type="text"
+                placeholder="Senior UI/UX Designer"
+                defaultValue={profile.headline ?? ""}
+                className="w-full h-11 pl-10 pr-3.5 rounded-lg bg-surface-container-low text-on-surface text-sm focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container transition-all"
+              />
+            </div>
+          </div>
+
+          {/* Row 4: Ringkasan Profesional */}
+          <div className="flex flex-col gap-1.5">
+            <div className="flex items-center justify-between">
+              <label htmlFor="p-summary" className="text-sm font-medium text-on-surface">
+                Ringkasan Profesional
+              </label>
+              <span
+                className={
+                  "text-xs " +
+                  (summaryLen > 600 ? "text-error font-semibold" : "text-on-surface-variant")
+                }
+              >
+                {summaryLen} / 600
+              </span>
+            </div>
+            <textarea
+              id="p-summary"
+              rows={4}
+              placeholder="Ringkasan singkat pengalaman dan keahlian utama Anda…"
+              defaultValue={profile.summary ?? ""}
+              onChange={(e) => setSummaryLen(e.target.value.length)}
+              className="w-full p-3 rounded-lg bg-surface-container-low text-on-surface text-sm focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container transition-all resize-y min-h-[100px] border border-slate-200"
+            />
+          </div>
+
+          {/* Row 5: Keahlian (Skills) */}
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-medium text-on-surface">Keahlian (Skills)</label>
+            <TagInput
+              value={skills}
+              onChange={setSkills}
+              placeholder="mis. React, Python…"
+            />
+            <p className="text-[11px] text-on-surface-variant">
+              Ketik keahlian lalu tekan Enter atau koma untuk menambahkan.
+            </p>
+          </div>
+
+          {/* Row 6: Tautan Profesional */}
+          <div className="pt-2">
+            <p className="text-xs font-semibold uppercase tracking-wider text-secondary mb-3 flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-primary text-[18px]">share</span>
+              <span>Tautan Profesional & Portofolio</span>
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium text-on-surface" htmlFor="link-linkedin">
+                  LinkedIn
+                </label>
+                <div className="relative rounded-lg bg-surface-container-low border border-slate-200">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
+                    <span className="material-symbols-outlined text-[16px]">link</span>
+                  </div>
+                  <input
+                    id="link-linkedin"
+                    type="url"
+                    placeholder="https://linkedin.com/in/…"
+                    defaultValue={profile.links["linkedin"] ?? ""}
+                    onChange={(e) => setLinks({ ...links, linkedin: e.target.value })}
+                    className="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-container-low text-on-surface text-xs focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container transition-all"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium text-on-surface" htmlFor="link-github">
+                  GitHub
+                </label>
+                <div className="relative rounded-lg bg-surface-container-low border border-slate-200">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
+                    <span className="material-symbols-outlined text-[16px]">terminal</span>
+                  </div>
+                  <input
+                    id="link-github"
+                    type="url"
+                    placeholder="https://github.com/…"
+                    defaultValue={profile.links["github"] ?? ""}
+                    onChange={(e) => setLinks({ ...links, github: e.target.value })}
+                    className="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-container-low text-on-surface text-xs focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container transition-all"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium text-on-surface" htmlFor="link-portfolio">
+                  Portofolio
+                </label>
+                <div className="relative rounded-lg bg-surface-container-low border border-slate-200">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-on-surface-variant">
+                    <span className="material-symbols-outlined text-[16px]">language</span>
+                  </div>
+                  <input
+                    id="link-portfolio"
+                    type="url"
+                    placeholder="https://myportfolio.com"
+                    defaultValue={profile.links["portfolio"] ?? ""}
+                    onChange={(e) => setLinks({ ...links, portfolio: e.target.value })}
+                    className="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-container-low text-on-surface text-xs focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container transition-all"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Save Action */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-surface-container">
+          <div className="flex items-center gap-2 text-on-surface-variant text-xs">
+            <span className="material-symbols-outlined text-[16px] text-tertiary">info</span>
+            <span>Perubahan akan segera disinkronkan ke seluruh sistem lamaran Anda.</span>
+          </div>
+          <Button type="submit" disabled={busy}>
+            <span className="material-symbols-outlined text-[18px]">check_circle</span>
+            <span>{busy ? "Menyimpan…" : "Simpan Profil"}</span>
+          </Button>
+        </div>
+      </div>
+
+      {/* Card: Skill terstandardisasi (dari CV) */}
+      <div className="w-full bg-surface-container-lowest rounded-xl border border-slate-200 p-6 sm:p-8 flex flex-col gap-4">
         <div>
-          <h2 className="text-sm font-semibold text-slate-700">Skill terstandardisasi (dari CV)</h2>
-          <p className="mt-0.5 text-xs text-slate-400">
+          <h2 className="text-base font-semibold text-on-surface">
+            Skill terstandardisasi (dari CV)
+          </h2>
+          <p className="mt-0.5 text-xs text-on-surface-variant">
             Diterapkan dari hasil pemetaan skill CV ke kamus standar. Menghapus di sini juga
             menghapus nama yang sama dari daftar keahlian di atas.
           </p>
@@ -172,50 +393,58 @@ export default function CandidateProfilePage() {
         {cvSkills === null ? (
           <Spinner label="Memuat skill terstandardisasi…" />
         ) : cvSkills.length === 0 ? (
-          <p className="text-xs text-slate-400">Belum ada skill dari CV yang diterapkan.</p>
+          <p className="text-xs text-secondary italic">Belum ada skill dari CV yang diterapkan.</p>
         ) : (
           <ul className="space-y-2">
             {cvSkills.map((s) => (
               <li
                 key={s.id}
-                className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-slate-50 px-3 py-2"
+                className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-surface-container-low border border-slate-200 px-3 py-2"
               >
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-sm font-medium text-slate-700">{s.canonical.name}</span>
-                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-600">
+                  <span className="text-sm font-medium text-on-surface">{s.canonical.name}</span>
+                  <span className="inline-flex items-center rounded-full bg-surface-container px-2 py-0.5 text-[11px] font-medium text-secondary">
                     {s.canonical.category}
                   </span>
                 </div>
-                <Button
+                <button
                   type="button"
-                  variant="danger"
                   disabled={removingCvSkillId === s.id}
                   onClick={() => void handleRemoveCvSkill(s)}
+                  className="px-2.5 py-1 rounded text-xs font-semibold text-error hover:bg-error-container/40 transition-colors disabled:opacity-50"
                 >
                   {removingCvSkillId === s.id ? "Menghapus…" : "Hapus"}
-                </Button>
+                </button>
               </li>
             ))}
           </ul>
         )}
-      </Card>
+      </div>
 
-      <Card className="space-y-4">
+      {/* Card: Pendidikan */}
+      <div className="w-full bg-surface-container-lowest rounded-xl border border-slate-200 p-6 sm:p-8 flex flex-col gap-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-slate-700">Pendidikan</h2>
-          <Button
+          <div>
+            <h2 className="text-base font-semibold text-on-surface">Pendidikan</h2>
+            <p className="text-xs text-on-surface-variant">Riwayat pendidikan formal</p>
+          </div>
+          <button
             type="button"
-            variant="secondary"
             onClick={() => setEducation([...education, { school: "", degree: "S1" }])}
+            className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface-container-high hover:bg-primary-fixed text-primary transition-colors flex items-center gap-1 border border-slate-200"
           >
-            + Tambah
-          </Button>
+            <span className="material-symbols-outlined text-[16px]">add</span>
+            <span>Tambah</span>
+          </button>
         </div>
         {education.map((edu, i) => (
-          <div key={i} className="grid gap-3 rounded-xl bg-slate-50 p-3 sm:grid-cols-6">
-            <Input
-              className="sm:col-span-2"
-              placeholder="Institusi"
+          <div
+            key={i}
+            className="grid gap-3 rounded-lg bg-surface-container-low border border-slate-200 p-3.5 sm:grid-cols-6 items-center"
+          >
+            <input
+              className="sm:col-span-2 h-10 px-3 rounded-lg bg-surface-container-lowest border border-slate-200 text-xs text-on-surface focus:outline-none focus:ring-1 focus:ring-primary-container"
+              placeholder="Institusi / Universitas"
               value={edu.school}
               onChange={(e) => {
                 const next = [...education];
@@ -223,7 +452,8 @@ export default function CandidateProfilePage() {
                 setEducation(next);
               }}
             />
-            <Input
+            <input
+              className="h-10 px-3 rounded-lg bg-surface-container-lowest border border-slate-200 text-xs text-on-surface focus:outline-none focus:ring-1 focus:ring-primary-container"
               placeholder="Gelar (S1, SMA…)"
               value={edu.degree ?? ""}
               onChange={(e) => {
@@ -232,8 +462,9 @@ export default function CandidateProfilePage() {
                 setEducation(next);
               }}
             />
-            <Input
-              placeholder="Bidang"
+            <input
+              className="h-10 px-3 rounded-lg bg-surface-container-lowest border border-slate-200 text-xs text-on-surface focus:outline-none focus:ring-1 focus:ring-primary-container"
+              placeholder="Bidang Studi"
               value={edu.field_of_study ?? ""}
               onChange={(e) => {
                 const next = [...education];
@@ -241,9 +472,10 @@ export default function CandidateProfilePage() {
                 setEducation(next);
               }}
             />
-            <Input
+            <input
               type="number"
-              placeholder="Dari"
+              className="h-10 px-3 rounded-lg bg-surface-container-lowest border border-slate-200 text-xs text-on-surface focus:outline-none focus:ring-1 focus:ring-primary-container"
+              placeholder="Tahun Mulai"
               value={edu.start_year ?? ""}
               onChange={(e) => {
                 const next = [...education];
@@ -252,9 +484,10 @@ export default function CandidateProfilePage() {
               }}
             />
             <div className="flex gap-2">
-              <Input
+              <input
                 type="number"
-                placeholder="Sampai"
+                className="h-10 px-3 rounded-lg bg-surface-container-lowest border border-slate-200 text-xs text-on-surface flex-1 focus:outline-none focus:ring-1 focus:ring-primary-container"
+                placeholder="Tahun Selesai"
                 value={edu.end_year ?? ""}
                 onChange={(e) => {
                   const next = [...education];
@@ -262,28 +495,42 @@ export default function CandidateProfilePage() {
                   setEducation(next);
                 }}
               />
-              <Button type="button" variant="danger" onClick={() => setEducation(education.filter((_, j) => j !== i))}>
-                ×
-              </Button>
+              <button
+                type="button"
+                onClick={() => setEducation(education.filter((_, j) => j !== i))}
+                className="w-10 h-10 rounded-lg text-error hover:bg-error-container/40 flex items-center justify-center transition-colors shrink-0"
+                title="Hapus"
+              >
+                <span className="material-symbols-outlined text-[18px]">delete</span>
+              </button>
             </div>
           </div>
         ))}
-      </Card>
+      </div>
 
-      <Card className="space-y-4">
+      {/* Card: Pengalaman Kerja */}
+      <div className="w-full bg-surface-container-lowest rounded-xl border border-slate-200 p-6 sm:p-8 flex flex-col gap-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-slate-700">Pengalaman Kerja</h2>
-          <Button
+          <div>
+            <h2 className="text-base font-semibold text-on-surface">Pengalaman Kerja</h2>
+            <p className="text-xs text-on-surface-variant">Riwayat pekerjaan profesional</p>
+          </div>
+          <button
             type="button"
-            variant="secondary"
             onClick={() => setExperience([...experience, { company: "", title: "" }])}
+            className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface-container-high hover:bg-primary-fixed text-primary transition-colors flex items-center gap-1 border border-slate-200"
           >
-            + Tambah
-          </Button>
+            <span className="material-symbols-outlined text-[16px]">add</span>
+            <span>Tambah</span>
+          </button>
         </div>
         {experience.map((exp, i) => (
-          <div key={i} className="grid gap-3 rounded-xl bg-slate-50 p-3 sm:grid-cols-2">
-            <Input
+          <div
+            key={i}
+            className="grid gap-3 rounded-lg bg-surface-container-low border border-slate-200 p-3.5 sm:grid-cols-2"
+          >
+            <input
+              className="h-10 px-3 rounded-lg bg-surface-container-lowest border border-slate-200 text-xs text-on-surface focus:outline-none focus:ring-1 focus:ring-primary-container"
               placeholder="Perusahaan"
               value={exp.company}
               onChange={(e) => {
@@ -292,8 +539,9 @@ export default function CandidateProfilePage() {
                 setExperience(next);
               }}
             />
-            <Input
-              placeholder="Posisi"
+            <input
+              className="h-10 px-3 rounded-lg bg-surface-container-lowest border border-slate-200 text-xs text-on-surface focus:outline-none focus:ring-1 focus:ring-primary-container"
+              placeholder="Posisi / Jabatan"
               value={exp.title}
               onChange={(e) => {
                 const next = [...experience];
@@ -301,7 +549,8 @@ export default function CandidateProfilePage() {
                 setExperience(next);
               }}
             />
-            <Input
+            <input
+              className="h-10 px-3 rounded-lg bg-surface-container-lowest border border-slate-200 text-xs text-on-surface focus:outline-none focus:ring-1 focus:ring-primary-container"
               placeholder="Mulai (mis. 2023-01)"
               value={exp.start_period ?? ""}
               onChange={(e) => {
@@ -310,7 +559,8 @@ export default function CandidateProfilePage() {
                 setExperience(next);
               }}
             />
-            <Input
+            <input
+              className="h-10 px-3 rounded-lg bg-surface-container-lowest border border-slate-200 text-xs text-on-surface focus:outline-none focus:ring-1 focus:ring-primary-container"
               placeholder="Selesai (mis. 2025-06 / sekarang)"
               value={exp.end_period ?? ""}
               onChange={(e) => {
@@ -319,40 +569,53 @@ export default function CandidateProfilePage() {
                 setExperience(next);
               }}
             />
-            <Textarea
-              className="sm:col-span-2"
+            <textarea
+              className="sm:col-span-2 p-3 rounded-lg bg-surface-container-lowest border border-slate-200 text-xs text-on-surface focus:outline-none focus:ring-1 focus:ring-primary-container"
               placeholder="Deskripsi tanggung jawab & dampak…"
               value={exp.description ?? ""}
+              rows={2}
               onChange={(e) => {
                 const next = [...experience];
                 next[i] = { ...exp, description: e.target.value };
                 setExperience(next);
               }}
             />
-            <div>
-              <Button type="button" variant="danger" onClick={() => setExperience(experience.filter((_, j) => j !== i))}>
-                Hapus
-              </Button>
+            <div className="sm:col-span-2 flex justify-end">
+              <button
+                type="button"
+                onClick={() => setExperience(experience.filter((_, j) => j !== i))}
+                className="px-3 py-1 rounded text-xs font-semibold text-error hover:bg-error-container/40 transition-colors"
+              >
+                Hapus Pengalaman
+              </button>
             </div>
           </div>
         ))}
-      </Card>
+      </div>
 
-      <Card className="space-y-4">
+      {/* Card: Sertifikasi */}
+      <div className="w-full bg-surface-container-lowest rounded-xl border border-slate-200 p-6 sm:p-8 flex flex-col gap-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-slate-700">Sertifikasi</h2>
-          <Button
+          <div>
+            <h2 className="text-base font-semibold text-on-surface">Sertifikasi</h2>
+            <p className="text-xs text-on-surface-variant">Sertifikat keahlian profesional</p>
+          </div>
+          <button
             type="button"
-            variant="secondary"
             onClick={() => setCertifications([...certifications, { name: "" }])}
+            className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface-container-high hover:bg-primary-fixed text-primary transition-colors flex items-center gap-1 border border-slate-200"
           >
-            + Tambah
-          </Button>
+            <span className="material-symbols-outlined text-[16px]">add</span>
+            <span>Tambah</span>
+          </button>
         </div>
         {certifications.map((cert, i) => (
-          <div key={i} className="grid gap-3 rounded-xl bg-slate-50 p-3 sm:grid-cols-4">
-            <Input
-              className="sm:col-span-2"
+          <div
+            key={i}
+            className="grid gap-3 rounded-lg bg-surface-container-low border border-slate-200 p-3.5 sm:grid-cols-4 items-center"
+          >
+            <input
+              className="sm:col-span-2 h-10 px-3 rounded-lg bg-surface-container-lowest border border-slate-200 text-xs text-on-surface focus:outline-none focus:ring-1 focus:ring-primary-container"
               placeholder="Nama sertifikasi"
               value={cert.name}
               onChange={(e) => {
@@ -361,7 +624,8 @@ export default function CandidateProfilePage() {
                 setCertifications(next);
               }}
             />
-            <Input
+            <input
+              className="h-10 px-3 rounded-lg bg-surface-container-lowest border border-slate-200 text-xs text-on-surface focus:outline-none focus:ring-1 focus:ring-primary-container"
               placeholder="Penerbit"
               value={cert.issuer ?? ""}
               onChange={(e) => {
@@ -386,17 +650,18 @@ export default function CandidateProfilePage() {
                   </option>
                 ))}
               </Select>
-              <Button
+              <button
                 type="button"
-                variant="danger"
                 onClick={() => setCertifications(certifications.filter((_, j) => j !== i))}
+                className="w-10 h-10 rounded-lg text-error hover:bg-error-container/40 flex items-center justify-center transition-colors shrink-0"
+                title="Hapus"
               >
-                ×
-              </Button>
+                <span className="material-symbols-outlined text-[18px]">delete</span>
+              </button>
             </div>
           </div>
         ))}
-      </Card>
+      </div>
     </form>
   );
 }

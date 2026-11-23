@@ -1,5 +1,5 @@
-import { NavLink, Navigate, Outlet, useNavigate } from "react-router-dom";
-import type { ReactNode } from "react";
+import { NavLink, Navigate, Outlet, useNavigate, Link } from "react-router-dom";
+import { useState, type ReactNode } from "react";
 import { homePathFor, useAuth } from "../lib/auth";
 import { Spinner } from "./ui";
 
@@ -7,12 +7,14 @@ export { Spinner };
 
 export function Logo() {
   return (
-    <div className="flex items-center gap-2">
-      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-600 text-sm font-bold text-white">
-        TS
-      </span>
-      <span className="font-semibold text-slate-800">
-        TalentSync<span className="text-primary-600">.AI</span>
+    <div className="flex items-center gap-2.5">
+      <img
+        src="/assets/talentsync-logo.png"
+        alt="TalentSync Logo"
+        className="h-9 w-auto object-contain"
+      />
+      <span className="text-lg font-semibold tracking-tight text-on-surface">
+        TalentSync<span className="text-primary-container">.AI</span>
       </span>
     </div>
   );
@@ -44,17 +46,35 @@ function LogoutButton() {
 
 export function CandidateLayout() {
   const { user } = useAuth();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const link = ({ isActive }: { isActive: boolean }) =>
     cn0(
-      "rounded-lg px-3 py-1.5 text-sm font-medium",
-      isActive ? "bg-primary-600 text-white" : "text-slate-600 hover:bg-primary-50",
+      "px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-150",
+      isActive
+        ? "bg-primary-fixed text-primary font-semibold"
+        : "text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface",
     );
+
+  const mobileLink = ({ isActive }: { isActive: boolean }) =>
+    cn0(
+      "block px-3 py-2 rounded-lg text-sm font-medium transition-all",
+      isActive
+        ? "bg-primary-fixed text-primary font-semibold"
+        : "text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface",
+    );
+
   return (
-    <div className="min-h-screen">
-      <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
-          <Logo />
-          <nav className="flex items-center gap-1">
+    <div className="min-h-screen bg-surface flex flex-col justify-between font-sans text-on-surface antialiased">
+      {/* Stitch Candidate Header */}
+      <header className="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest border-b border-surface-container-high shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+        <div className="h-16 max-w-[1200px] mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
+          <Link to="/app" className="flex items-center gap-2">
+            <Logo />
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-1">
             <NavLink to="/app" end className={link}>
               Beranda
             </NavLink>
@@ -74,15 +94,124 @@ export function CandidateLayout() {
               Profil
             </NavLink>
           </nav>
+
+          {/* User info & Logout */}
           <div className="flex items-center gap-3">
-            <span className="hidden text-xs text-slate-500 sm:block">{user?.email}</span>
-            <LogoutButton />
+            <div className="hidden sm:flex items-center gap-2 pl-3 py-1">
+              <div className="text-right">
+                <p className="text-xs font-medium text-on-surface truncate max-w-[180px]">
+                  {user?.email}
+                </p>
+                <div className="flex justify-end">
+                  <LogoutButton />
+                </div>
+              </div>
+              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined text-white text-[18px]">person</span>
+              </div>
+            </div>
+
+            {/* Mobile Hamburger Toggle */}
+            <div className="flex md:hidden items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined text-white text-[18px]">person</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen((open) => !open)}
+                className="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors"
+                aria-label="Toggle navigation menu"
+              >
+                <span className="material-symbols-outlined text-[24px]">
+                  {mobileMenuOpen ? "close" : "menu"}
+                </span>
+              </button>
+            </div>
           </div>
         </div>
+
+        {/* Mobile Navigation Dropdown */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-b border-surface-container-high bg-surface-container-lowest px-4 py-3 flex flex-col gap-1">
+            <div className="pb-2 mb-2 border-b border-surface-container-high flex items-center justify-between">
+              <span className="text-xs text-on-surface-variant truncate">{user?.email}</span>
+              <LogoutButton />
+            </div>
+            <NavLink
+              to="/app"
+              end
+              className={mobileLink}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Beranda
+            </NavLink>
+            <NavLink
+              to="/app/jobs"
+              className={mobileLink}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Cari Lowongan
+            </NavLink>
+            <NavLink
+              to="/app/recommendations"
+              className={mobileLink}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Rekomendasi
+            </NavLink>
+            <NavLink
+              to="/app/applications"
+              className={mobileLink}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Lamaran
+            </NavLink>
+            <NavLink
+              to="/app/cv"
+              className={mobileLink}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              CV Saya
+            </NavLink>
+            <NavLink
+              to="/app/profile"
+              className={mobileLink}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Profil
+            </NavLink>
+          </div>
+        )}
       </header>
-      <main className="mx-auto max-w-5xl px-6 py-8">
-        <Outlet />
+
+      {/* Main Content Area */}
+      <main className="w-full pt-20 pb-12 bg-surface min-h-[calc(100vh-4rem-5rem)] flex-1">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+          <Outlet />
+        </div>
       </main>
+
+      {/* Stitch Candidate Footer */}
+      <footer className="w-full bg-surface-container-lowest border-t border-surface-container-high py-6">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-on-surface-variant text-xs sm:text-sm">
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-on-surface">TalentSync.AI</span>
+            <span>•</span>
+            <span>Portal Pencari Kerja & Karir Terpadu</span>
+          </div>
+          <div className="flex items-center gap-4 text-xs">
+            <span className="text-secondary hover:text-primary transition-colors cursor-pointer">
+              Bantuan
+            </span>
+            <span className="text-secondary hover:text-primary transition-colors cursor-pointer">
+              Privasi
+            </span>
+            <span className="text-secondary hover:text-primary transition-colors cursor-pointer">
+              Ketentuan Layanan
+            </span>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
